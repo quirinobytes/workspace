@@ -1,0 +1,15 @@
+{
+  "name": "api-RESTful",
+  "version": "1.0.0",
+  "description": "API RESTful Modelo Base para novos projetos",
+  "main": "app.js",
+  "scripts": {
+    "test": "testeapp.js"
+  },
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "express": "~4.14.0",
+    "body-parser": "~1.15.2"
+  }
+}
