@@ -1,11 +1,15 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require ('fs');
+//var jsonfile = require('jsonfile');
+var appendjson = require('appendjson');
 
-
+var file = 'carros.json';
+fs.appendFile('carros.json','['); 
 
 
 crawler = {
-	interval: 500,
+	interval: 200,
 	getSample: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?',
 	get: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?o=[numbers:1:823:1]',
 	preview: 0,
@@ -15,32 +19,46 @@ crawler = {
 		callback: function (err,html,url,response) {
 
 			if(!err){
-	
-			data = {};
-			var modelo =  html.find('h3').text().trim().split('-');
-			data.carro = modelo[0];
-			data.ano = modelo[1];
-			data.valor = html.find('div.col-3').text();
 
-				if ((data.carro == '') || (data.valor == '')) {
-           				delete data.carro;
-					delete data.valor;
+			item = {};
+			var modelo =  html.find('h3').text().trim().split('-');
+			item.carro = modelo[0];
+			item.ano = modelo[1];
+			item.valor = html.find('div.col-3').text().trim();
+
+				if ((item.carro == '') || (item.valor == '')) {
+           				delete item.carro;
+					delete item.valor;
 				}
 				else {
-					//console.log('Carro: ' + data.carro + ' \t| Ano: ' + data.ano + '\t| Valor: ' + data.valor + '\n');
-					fs.appendFile('carros.json','{ "Carro": "' + data.carro + '", "Ano": "' + data.ano + '", "Valor": "' + data.valor + '" }\n');
-			     	}
+					//console.log('Carro: ' + item.carro + ' \t| Ano: ' + item.ano + '\t| Valor: ' + item.valor + '\n');
+					//fs.appendFile('carros.json','{\n "Carro": "' + item.carro + '",\n "Ano": "' + item.ano + '",\n "Valor": "' + item.valor + '" \n }\n');		 
+//					
+//
+					//obj = {Carro: + item.carro +, Ano: + item.ano + , Valor: + item.valor + };
+					jsonObj = {Carro: item.carro, Ano: item.ano, Valor: item.valor}
+					//console.log (jsonObj);
+					//appendjson(jsonObj, file, function(){
+					//console.log('done')
+
+
+					fs.appendFile('carros.json',JSON.stringify(jsonObj)+','); 
+
 				}
-			else{
+			}else{
 			console.log(err);
 			}
 						}
 		}
-	
 
 	]
 
 }
 
-crawlerjs(crawler);
+var exe_after = function finaliza(){
+	 fs.appendFile('carros.json',']');
+};
+
+crawlerjs(crawler,exe_after);
+
 

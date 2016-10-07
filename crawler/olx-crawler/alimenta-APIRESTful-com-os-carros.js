@@ -1,8 +1,17 @@
 var http = require('http');
 var data = require('./carros.json');
 
+//console.log(JSON.stringify(data));
+
+//var jsonData = [{"Carro":"me","age":"30"},{"person":"you","age":"25"}];
+var jsonData = data;
+
+for(var key in jsonData) {
+  console.log("Carro:"+key+", Ano:"+ jsonData[key]);
+}
 
 
+/*
 var options = {
     host: '192.168.1.166',
     port: 3000,
@@ -28,3 +37,5 @@ req.write('data\n');
 req.write('data\n');
 req.end();
 // This chunk is
+
+*/
