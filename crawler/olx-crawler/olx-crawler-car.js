@@ -2,10 +2,12 @@ var crawlerjs = require('crawler-js');
 var fs = require ('fs');
 
 
+
+
 crawler = {
 	interval: 500,
 	getSample: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?',
-	get: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?o=[numbers:1:820:1]',
+	get: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?o=[numbers:1:823:1]',
 	preview: 0,
 	extractors: [
 		{
@@ -26,16 +28,19 @@ crawler = {
 				}
 				else {
 					//console.log('Carro: ' + data.carro + ' \t| Ano: ' + data.ano + '\t| Valor: ' + data.valor + '\n');
-					fs.appendFile('carros-do-olx.txt','Carro: ' + data.carro + ' \t| Ano: ' + data.ano + '\t| Valor: ' + data.valor + '\n');
+					fs.appendFile('carros.json','{ "Carro": "' + data.carro + '", "Ano": "' + data.ano + '", "Valor": "' + data.valor + '" }\n');
 			     	}
 				}
 			else{
 			console.log(err);
 			}
-			}
+						}
 		}
+	
+
 	]
+
 }
 
-
 crawlerjs(crawler);
+
