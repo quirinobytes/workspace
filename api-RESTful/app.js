@@ -2,37 +2,40 @@
 
 var app = require('./config/app_config');
 var db = require('./config/db_config.js');
+var product = require('./models/product');
+var productController = require('./controllers/productController');
 
 
+app.get ('/',function (req,res) {
+	res.end('Bem vindo a API RESTful - 1.0.0');
+});
 
-
-app.get ("/",function (req,res) {
-
-	var produto = {
-	nome : 'Sapato',
-	tamanho: 35,
-	cor : 'Preto',
-	valor: '50,00',
-	}
-
-	res.json(produto);
-	
+app.get ('/produtos' ,function (req,res) {
+	productController.list(function(resp){
+		res.json(resp);
+	});
 	console.log ("IP: " + req.connection.remoteAddress);
 });
 
 
+app.post ('/cadastrar', function (req,res) {
+	var nome = req.body.nome;
+	var tamanho = req.body.tamanho;
+	var cor = req.body.cor;
+	var valor = req.body.valor;
 
-app.get ("/cadastrar/",function (req,res) {
-
-	nome = req.params('nome').text();
-	tamanho = req.params('').text;
-	cor = req.params();
-	valor = req.params('valor').text();
+	productController.save(nome,tamanho,cor,valor,function(resp){
+		res.json(resp);
+	});
 
 });
 
 
+app.delete ('/apagar/:id', function(req,res){
+	var id = req.params.id;
 
-app.get ('/apagar/:id',function (req,res){
-	var id = req.params('id').text();
+	productController.delete(id, function(resp){
+		res.json(resp);
+	});
+	console.log('Produto excluido id: '+id);
 });
