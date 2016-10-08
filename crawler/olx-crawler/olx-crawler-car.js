@@ -1,9 +1,15 @@
 #!/usr/bin/env node
+
+// MEU Primeiro Crawler Descente.
+
+var bd = require('./config/bd.js');
 var crawlerjs = require('crawler-js');
 var fs = require ('fs');
 //var jsonfile = require('jsonfile');
 var appendjson = require('appendjson');
 
+
+//CONFIG
 var file = 'carros.json';
 fs.appendFile('carros.json','['); 
 
@@ -35,7 +41,6 @@ crawler = {
 					//fs.appendFile('carros.json','{\n "Carro": "' + item.carro + '",\n "Ano": "' + item.ano + '",\n "Valor": "' + item.valor + '" \n }\n');		 
 //					
 //
-					//obj = {Carro: + item.carro +, Ano: + item.ano + , Valor: + item.valor + };
 					jsonObj = {Carro: item.carro, Ano: item.ano, Valor: item.valor}
 					//console.log (jsonObj);
 					//appendjson(jsonObj, file, function(){
@@ -43,6 +48,7 @@ crawler = {
 
 
 					fs.appendFile('carros.json',JSON.stringify(jsonObj)+','); 
+					bd.insert(jsonObj);
 
 				}
 			}else{

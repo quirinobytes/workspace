@@ -1,14 +1,17 @@
+#!/usr/bin/env node
 var http = require('http');
 var data = require('./carros.json');
 
 //console.log(JSON.stringify(data));
 
 //var jsonData = [{"Carro":"me","age":"30"},{"person":"you","age":"25"}];
-var jsonData = data;
+var json = JSON.parse(data);
 
-for(var key in jsonData) {
-  console.log("Carro:"+key+", Ano:"+ jsonData[key]);
-}
+
+//for(var key in json) {
+//  console.log("Carro:"+key)
+//+", Ano:"+ json[key]);
+//}
 
 
 /*
