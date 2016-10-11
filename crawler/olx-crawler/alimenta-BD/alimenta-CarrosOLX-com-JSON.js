@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 
 var strDBConnect = 'mongodb://dev1/CarrosOLX';
 
+
+
 mongoose.connect(strDBConnect, function (err,res ){
  if (err)
          console.log('Não foi possivel conectar a: '+ strDBConnect);
