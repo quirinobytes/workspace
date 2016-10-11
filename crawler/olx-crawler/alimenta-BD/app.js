@@ -4,7 +4,9 @@ var app = require('./config/app_config');
 var db = require('./config/db_config.js');
 var carros = require('./models/carros');
 var CarController = require('./controllers/CarController');
-var data = require('./carros.json');
+//var data = require('./carros.json');
+
+
 
 app.get ('/',function (req,res) {
 	res.end('Bem vindo a API RESTful - 1.0.0');

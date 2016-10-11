@@ -4,7 +4,9 @@ var port = 3000;
 
 var app = module.exports = express();
 
-app.listen(port);
+var server = app.listen(port);
+console.log('Servidor CarrosOLX-RESTful iniciado na porta %s', server.address().port);
+
 
 //Configurar o uso do body-parser para receber URL encoded
 app.use(bodyParser.urlencoded({extended:true}));
