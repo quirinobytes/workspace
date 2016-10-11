@@ -35,8 +35,7 @@ CarrosBD.collection.insert(data,function(err, records){
 	if (err) console.log(err);
 	else
 	{
-           console.log("Inserted : "+records.insertedCount);
-	   //console.info("Total de Itens inseridos com sucesso: "+result);
+           console.log("Inseridos com sucesso : "+records.insertedCount);
 	   mongoose.disconnect();
 	}
 });
