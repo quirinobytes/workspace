@@ -2,7 +2,7 @@
 //
 
 var mongoose = require('mongoose');
-var strDBConnect = 'mongodb://localhost/CarrosOLX';
+var strDBConnect = 'mongodb://192.168.200.128/CarrosOLX';
 
 
 
