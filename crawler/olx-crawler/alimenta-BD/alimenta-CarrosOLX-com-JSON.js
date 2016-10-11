@@ -2,11 +2,14 @@
 var http = require('http');
 var data = require('./carros.json');
 
+//console.log('Lendo arquivo carros.json');
+//var json = JSON.parse(data);
+//console.log('Arquivo carros.json OK');
+
 
 var mongoose = require('mongoose');
-var assert = require('assert');
 
-var strDBConnect = 'mongodb://localhost/CarrosOLX';
+var strDBConnect = 'mongodb://dev1/CarrosOLX';
 
 mongoose.connect(strDBConnect, function (err,res ){
  if (err)
@@ -26,15 +29,16 @@ var carrosSchema = new Schema({
 
 var CarrosBD = mongoose.model('CarrosOLX',carrosSchema);
 
-Carros.collection.insert(data,function (err,result){
-	
+CarrosBD.collection.insert(data,function (err,result){
+
 	if (err)
 	{
 		console.info (err);
 	}
 	else
 	{
-	   console.info("Total de Itens inseridos com sucesso: "+result.count());
+	   console.info("Total de Itens inseridos com sucesso: "+result);
+	   mongoose.disconnect();
 	}
 });
 
