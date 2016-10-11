@@ -22,22 +22,19 @@ mongoose.connect(strDBConnect, function (err,res ){
 var Schema = mongoose.Schema;
 
 var carrosSchema = new Schema({
-	carro: String,
-	ano: String,
-	valor: String,
+	Carro: String,
+	Ano: Number,
+	Valor: Number,
 });
 
 var CarrosBD = mongoose.model('CarrosOLX',carrosSchema);
 
-CarrosBD.collection.insert(data,function (err,result){
-
-	if (err)
-	{
-		console.info (err);
-	}
+CarrosBD.collection.insert(data,function(err, records){
+	if (err) console.log(err);
 	else
 	{
-	   console.info("Total de Itens inseridos com sucesso: "+result);
+           console.log("Inserted : "+records.insertedCount);
+	   //console.info("Total de Itens inseridos com sucesso: "+result);
 	   mongoose.disconnect();
 	}
 });
