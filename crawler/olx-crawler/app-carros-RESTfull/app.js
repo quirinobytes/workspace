@@ -9,7 +9,10 @@ var CarController = require('./controllers/CarController');
 
 
 app.get ('/',function (req,res) {
-	res.end('Bem vindo a API RESTful - 1.0.0<h1> Aeee Marcos, essa foi fera!!! ');
+	res.write('<html>');
+	res.write('Bem vindo a Carros OLX - v1.0.0');
+	res.write('<br> Servidor: '+os.hostname());
+	res.end('</html>');
 });
 
 app.get ('/carros' ,function (req,res) {
