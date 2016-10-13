@@ -2,7 +2,7 @@
 //
 
 var mongoose = require('mongoose');
-var strDBConnect = 'mongodb://localhost/API';
+var strDBConnect = 'mongodb://dev1/API';
 
 
 

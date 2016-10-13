@@ -4,10 +4,13 @@ var app = require('./config/app_config');
 var db = require('./config/db_config.js');
 var product = require('./models/product');
 var productController = require('./controllers/productController');
-
+var os = require("os");
 
 app.get ('/',function (req,res) {
-	res.end('Bem vindo a API RESTful - 1.0.0');
+	res.write('<html>');
+	res.write('Bem vindo a Carros OLX - v1.0.0');
+	res.write('<br> Servidor: '+os.hostname());
+	res.end('</html>');
 });
 
 app.get ('/produtos' ,function (req,res) {
