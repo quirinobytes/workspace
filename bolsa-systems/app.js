@@ -14,15 +14,13 @@ console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid
 ativos = {}
 
 
-ativos[1] = {'cod':'VALE5', 'valor':'10,00'};
-ativos[2] = {'cod':"USIM5", 'valor':'4,00'};
-ativos[3] = {'cod':"CSNA3", 'valor':'11,00'};
-ativos[4] = {'cod':"PETR4", 'valor':'18,00'};
-ativos[5] = {'cod':"GOLL4", 'valor':'7,00'};
-ativos[6] = {'cod':"GGBR4", 'valor':'11,00'};
-ativos[7] = {'cod':"GOUA4", 'valor':'5,00'};
-
-
+ativos['VALE5'] = {'nome':'VALE5', 'valor':10};
+ativos['USIM5'] = {'nome':"USIM5", 'valor':4};
+ativos['CSNA3'] = {'nome':"CSNA3", 'valor':11};
+ativos['PETR4'] = {'nome':"PETR4", 'valor':18};
+ativos['GOLL4'] = {'nome':"GOLL4", 'valor':7};
+ativos['GGBR4'] = {'nome':"GGBR4", 'valor':11};
+ativos['GOAU4'] = {'nome':"GOAU4", 'valor':5};
 
 
 app.get ('/',function (req,res) {
@@ -40,80 +38,127 @@ app.get ('/' ,function (req,res) {
 });
 
 
-app.post ('/confirmarpagamento', function (req,res) {
-	var id_wearable  = req.body.id_wearable;
-        var temperatura = req.body.temperatura;
+app.post ('/comprar', function (req,res) {
+	var id_corretora  = req.body.id_corretora;
+	var id_cliente = req.body.id_cliente;
+        var ativo = req.body.ativo;
+	var quantidade = req.body.quantidade;
+	var valor = parseInt(req.body.valor);
 	var token = req.body.token;
-	var codigocliente = req.body.codigocliente;
-	var valor = req.body.valor;
-	var id_credenciado = req.body.id_credenciado;
+	var tipo = "Compra";
 
 	console.log ("IP: " + req.connection.remoteAddress);
 
 	//productController.save(nome,tamanho,cor,valor,function(resp){
 	//	res.json(resp);
-	console.log("id_wearable= "+id_wearable);
-	console.log("id_credenciado= "+id_credenciado);
-	console.log("temperatura= "+temperatura);
+	console.log("id_corretora= "+id_corretora);
+	console.log("id_cliente= "+id_cliente);
+	console.log("ativo= "+ativo);
+	console.log("quantidade= "+quantidade);
+	console.log("valor= "+valor);
 	console.log("token= "+token);
-	console.log("codigocliente= "+codigocliente);
-	console.log("ativos[1]= "+ativos[1].cod+" \t = "+ativos[1].valor);
-	console.log("ativos[1]= "+ativos[2].cod+" \t = "+ativos[2].valor);
-	console.log("ativos[1]= "+ativos[3].cod+" \t = "+ativos[3].valor);
-	console.log("ativos[1]= "+ativos[4].cod+" \t = "+ativos[4].valor);
-	console.log("ativos[1]= "+ativos[5].cod+" \t = "+ativos[5].valor);
-	console.log("ativos[1]= "+ativos[6].cod+" \t = "+ativos[6].valor);
-	console.log("ativos[1]= "+ativos[7].cod+" \t = "+ativos[7].valor);
+	console.log("tipo= "+tipo);
 
+mostra_painel();
 
-	var id_wearable_checked=false;
-	var id_credenciado_checked=false;
-	var temperatura_checked=false;
+	var id_corretora_checked=false;
+	var id_cliente_checked=false;
+	var ativo_checked=false;
+	var quantidade_checked=false;
 	var token_checked=false;
-	var codigocliente_checked=false;
 
 
 
-	if ( id_wearable == '00:01')
-		id_wearable_checked=true;
-	if (temperatura > 25 )
-		temperatura_checked = true;
-	if (token == '8797RFDE344DS') 
+	if ( id_corretora > 0 && id_corretora < 1000)
+		id_corretora_checked=true;
+	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "GOLL4" )
+		ativo_checked = true;
+	if (quantidade >= 100 )
+		quantidade_checked = true;
+	if (token == '1234abcd')
 		token_checked = true;
-	if (codigocliente == 'cli1900')
-		codigocliente_checked = true;
-	if (id_credenciado = 'X211435')
-		id_credenciado_checked = true;
- 
-	if (id_wearable_checked == true && temperatura_checked == true && token_checked == true && codigocliente_checked == true && id_credenciado_checked == true) {
-		
-		if ( valor - saldo <= 0){
-			saldo = saldo - valor;
-			console.log(('\nCompra efetuada='+valor+'\n').red);
-			res.json({pagamento:1});
-			console.log("Carteira (cli1900) => "+saldo);
+	if (id_cliente > 0 )
+		id_cliente_checked = true;
+
+	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
+
+		 if ( valor - ativos[ativo].valor > 0){
+		 console.log("@@@ ativos[ativo].valor="+ativos[ativo].valor);
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000) ;
+
+			console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
+			res.json({'Compra':true,'valor':ativos[ativo].valor});
+			console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
 		else
-			console.log("Cliente POBRE sem saldo, kkkkk!" );
-			res.end("Sem chance. Venda não efetuada!")
+			console.log("Cliente POBRE, abaixo do valor de mercado !" );
+			res.end("COMPRA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
 	}
 	else{
-		res.json({pagamento:0});
+		res.json({'Compra':false,'valor':ativos[ativo].valor});
 	}
 
 	//});
 
 });
 
+app.post ('/vender',function(req,res){
+	mostra_painel();
 
-app.post ('/depositar/:codigocliente/:valor', function(req,res){
-	var codigocliente = req.params.codigocliente;
+	var id_corretora  = req.body.id_corretora;
+	var id_cliente = req.body.id_cliente;
+        var ativo = req.body.ativo;
+	var quantidade = req.body.quantidade;
+	var valor = parseInt(req.body.valor);
+	var token = req.body.token;
+	var tipo = "Venda";
+	var id_corretora_checked=false;
+	var id_cliente_checked=false;
+	var ativo_checked=false;
+	var quantidade_checked=false;
+	var token_checked=false;
+
+	if ( id_corretora > 0 && id_corretora < 1000)
+		id_corretora_checked=true;
+	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "GOLL4" )
+		ativo_checked = true;
+	if (quantidade >= 100 )
+		quantidade_checked = true;
+	if (token == '1234abcd')
+		token_checked = true;
+	if (id_cliente > 0 )
+		id_cliente_checked = true;
+
+	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
+		 if ( valor - ativos[ativo].valor < 0){
+		 console.log("@@@ ativos[ativo].valor="+ativos[ativo].valor);
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000) ;
+
+			console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').red);
+			res.json({'Venda':true,'valor':ativos[ativo].valor});
+			console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
+		}
+		else
+			console.log("Ordem Acima do valor de mercado, vc tem que vender por menos que o valor dela, kkkkk!" );
+			res.end("Valor muito alto. Venda não efetuada!")
+	}
+	else{
+			res.json({'Venda':false,'valor':ativos[ativo].valor});
+
+	}
+
+
+});
+
+
+app.post ('/exibir/:ativo/:token', function(req,res){
+	var token = req.params.token;
 	var valor = req.params.valor;
 
-	console.log(("Recarga cliente: "+codigocliente).yellow);
+	console.log(("Recarga cliente: "+token).yellow);
 	console.log(("\nRecarga: "+valor).green);
 
-	if (codigocliente == 'cli1900'){
+	if (token == 'cli1900'){
 		saldo = saldo + parseInt(valor);
 		console.log((('Deposito ciente (cli1900) => ').yellow+saldo).blue);
 		res.json({Deposito:'sucesso'});
@@ -122,3 +167,17 @@ app.post ('/depositar/:codigocliente/:valor', function(req,res){
 
 });
 
+function mostra_painel(){
+
+
+	console.log("\n\n### \t Posicao das ACOES\t ###\n"); 
+	console.log(ativos['VALE5'].nome+" \t = "+ativos['VALE5'].valor);
+	console.log(ativos['USIM5'].nome+" \t = "+ativos['USIM5'].valor);
+	console.log(ativos['CSNA3'].nome+" \t = "+ativos['CSNA3'].valor);
+	console.log(ativos['PETR4'].nome+" \t = "+ativos['PETR4'].valor);
+	console.log(ativos['GOLL4'].nome+" \t = "+ativos['GOLL4'].valor);
+	console.log(ativos['GGBR4'].nome+" \t = "+ativos['GGBR4'].valor);
+	console.log(ativos['GOAU4'].nome+" \t = "+ativos['GOAU4'].valor);
+
+
+};
