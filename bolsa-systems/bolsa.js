@@ -9,6 +9,7 @@ var saldo=1500;
 
 var debug=false;
 var start = new Date();
+var total = 0.0;
 
 console.log("\n\n ### Bolsa Systems - Cognitive Information Model v.0.37 ### \n\n\n");
 
@@ -83,7 +84,7 @@ app.post ('/comprar', function (req,res) {
 	var id_cliente = req.body.id_cliente;
         var ativo = req.body.ativo;
 	var quantidade = req.body.quantidade;
-	var valor = parseInt(req.body.valor);
+	var valor = parseFloat(req.body.valor);
 	var token = req.body.token;
 	var tipo = "Compra";
 
@@ -272,12 +273,17 @@ function mostra_painel(){
 		if (porcentagem['GOAU4'] < 0 )
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).red;
 
+
+	total = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000 ;
+	total = total.toFixed(2);
+	str_total = total.toString().green;
+
 	//limpar a tela
 	console.log ("\033[2J");
 	//voltar la no começo da tela
 	console.log ("\033[0;0f");
 	tempo = (new Date() - start)/1000;
-	console.log("\t\t###   Mesa de Operações    ###\t tempo:".yellow + tempo.toFixed(0)+"s" ); 
+	console.log("\t\t###   Mesa de Operações    ###\t tempo:".yellow + tempo.toFixed(0)+ "s Total: "+str_total+"M"); 
 	console.log("\t\t      =================       ".yellow); 
 
 	console.log("  ATIVO   |   VALOR     |    VAR %      | ABERT |  MIN\t| MAX\t|    VOLUME");
