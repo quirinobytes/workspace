@@ -7,12 +7,15 @@ var productController = require('./controllers/productController');
 var os = require("os");
 var saldo=1500;
 
+var debug=false;
+
+
 console.log("\n\n ### Bolsa Systems - Cognitive Information Model v.0.37 ### \n\n\n");
 
 console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid:cli2370\tvalor: R$  950,00\n\n ");
 
-ativos = {}
-
+ativos = {};
+abertura = {};
 
 ativos['VALE5'] = {'nome':'VALE5', 'valor':10};
 ativos['USIM5'] = {'nome':"USIM5", 'valor':4};
@@ -21,6 +24,16 @@ ativos['PETR4'] = {'nome':"PETR4", 'valor':18};
 ativos['GOLL4'] = {'nome':"GOLL4", 'valor':7};
 ativos['GGBR4'] = {'nome':"GGBR4", 'valor':11};
 ativos['GOAU4'] = {'nome':"GOAU4", 'valor':5};
+abertura['VALE5'] = {'nome':'VALE5', 'valor':10};
+abertura['USIM5'] = {'nome':"USIM5", 'valor':4};
+abertura['CSNA3'] = {'nome':"CSNA3", 'valor':11};
+abertura['PETR4'] = {'nome':"PETR4", 'valor':18};
+abertura['GOLL4'] = {'nome':"GOLL4", 'valor':7};
+abertura['GGBR4'] = {'nome':"GGBR4", 'valor':11};
+abertura['GOAU4'] = {'nome':"GOAU4", 'valor':5};
+
+
+
 
 
 app.get ('/',function (req,res) {
@@ -47,10 +60,12 @@ app.post ('/comprar', function (req,res) {
 	var token = req.body.token;
 	var tipo = "Compra";
 
+if (debug)
 	console.log ("IP: " + req.connection.remoteAddress);
 
 	//productController.save(nome,tamanho,cor,valor,function(resp){
 	//	res.json(resp);
+if (debug){
 	console.log("id_corretora= "+id_corretora);
 	console.log("id_cliente= "+id_cliente);
 	console.log("ativo= "+ativo);
@@ -58,6 +73,7 @@ app.post ('/comprar', function (req,res) {
 	console.log("valor= "+valor);
 	console.log("token= "+token);
 	console.log("tipo= "+tipo);
+}
 
 mostra_painel();
 
@@ -83,15 +99,15 @@ mostra_painel();
 	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
 
 		 if ( valor - ativos[ativo].valor > 0){
-		 console.log("@@@ ativos[ativo].valor="+ativos[ativo].valor);
+		 if (debug) console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
-			console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
+			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Compra':true,'valor':ativos[ativo].valor});
-			console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
+			if (debug) console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
 		else
-			console.log("Cliente POBRE, abaixo do valor de mercado !" );
+			if (debug) console.log("Cliente POBRE, abaixo do valor de mercado !" );
 			res.end("COMPRA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
 	}
 	else{
@@ -131,15 +147,15 @@ app.post ('/vender',function(req,res){
 
 	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
 		 if ( valor - ativos[ativo].valor < 0){
-		 console.log("@@@ ativos[ativo].valor="+ativos[ativo].valor);
+	if (debug)	 console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
-			console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').red);
+		if (debug)	console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').red);
 			res.json({'Venda':true,'valor':ativos[ativo].valor});
-			console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
+		if (debug)	console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
 		else
-			console.log("Ordem Acima do valor de mercado, vc tem que vender por menos que o valor dela, kkkkk!" );
+		 if(debug)	console.log("Ordem Acima do valor de mercado, vc tem que vender por menos que o valor dela, kkkkk!" );
 			res.end("Valor muito alto. Venda não efetuada!")
 	}
 	else{
@@ -171,13 +187,21 @@ function mostra_painel(){
 
 
 	console.log("\n\n### \t Posicao das ACOES\t ###\n"); 
-	console.log(ativos['VALE5'].nome+" \t = "+ativos['VALE5'].valor);
-	console.log(ativos['USIM5'].nome+" \t = "+ativos['USIM5'].valor);
-	console.log(ativos['CSNA3'].nome+" \t = "+ativos['CSNA3'].valor);
-	console.log(ativos['PETR4'].nome+" \t = "+ativos['PETR4'].valor);
-	console.log(ativos['GOLL4'].nome+" \t = "+ativos['GOLL4'].valor);
-	console.log(ativos['GGBR4'].nome+" \t = "+ativos['GGBR4'].valor);
-	console.log(ativos['GOAU4'].nome+" \t = "+ativos['GOAU4'].valor);
+	porcentagem = [];
+	porcentagem['VALE5'] = ativos['VALE5'].valor - abertura['VALE5' ].valor;
+	porcentagem['USIM%'] = ativos['USIM5'].valor - abertura['USIM5' ].valor;
+	porcentagem['CSNA3'] = ativos['CSNA3'].valor - abertura['CSNA3' ].valor;
+	porcentagem['PETR4'] = ativos['PETR4'].valor - abertura['PETR4' ].valor;
+	porcentagem['GGBR4'] = ativos['GGBR4'].valor - abertura['GGBR4' ].valor;
+	porcentagem['GOAU4'] = ativos['GOAU4'].valor - abertura['GOAU4' ].valor;
+	
+	console.log(ativos['VALE5'].nome+" \t = "+ativos['VALE5'].valor.toFixed(2)+ " => " +porcentagem['VALE5'].toFixed(2)+"%");
+	console.log(ativos['USIM5'].nome+" \t = "+ativos['USIM5'].valor.toFixed(2)+ " => " +porcentagem['USIM5'].toFixed(2)+"%");
+	console.log(ativos['CSNA3'].nome+" \t = "+ativos['CSNA3'].valor.toFixed(2)+ " => " +porcentagem['CSNA3'].toFixed(2)+"%");
+	console.log(ativos['PETR4'].nome+" \t = "+ativos['PETR4'].valor.toFixed(2)+ " => " +porcentagem['PETR4'].toFixed(2)+"%");
+	console.log(ativos['GOLL4'].nome+" \t = "+ativos['GOLL4'].valor.toFixed(2)+ " => " +porcentagem['GOLL4'].toFixed(2)+"%");
+	console.log(ativos['GGBR4'].nome+" \t = "+ativos['GGBR4'].valor.toFixed(2)+ " => " +porcentagem['GGBR4'].toFixed(2)+"%");
+	console.log(ativos['GOAU4'].nome+" \t = "+ativos['GOAU4'].valor.toFixed(2)+ " => " +porcentagem['GOAU4'].toFixed(2)+"%");
 
 
 };
