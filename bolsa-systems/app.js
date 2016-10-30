@@ -16,21 +16,41 @@ console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid
 
 ativos = {};
 abertura = {};
+max=[];
+min=[];
 
 ativos['VALE5'] = {'nome':'VALE5', 'valor':21};
-ativos['USIM5'] = {'nome':"USIM5", 'valor':4.6};
+ativos['USIM5'] = {'nome':"USIM5", 'valor':4.60};
 ativos['CSNA3'] = {'nome':"CSNA3", 'valor':10};
 ativos['PETR4'] = {'nome':"PETR4", 'valor':18};
 ativos['GOLL4'] = {'nome':"GOLL4", 'valor':8};
 ativos['GGBR4'] = {'nome':"GGBR4", 'valor':11};
-ativos['GOAU4'] = {'nome':"GOAU4", 'valor':4.8};
+ativos['GOAU4'] = {'nome':"GOAU4", 'valor':4.80};
 abertura['VALE5'] = {'nome':'VALE5', 'valor':21};
-abertura['USIM5'] = {'nome':"USIM5", 'valor':4.6};
+abertura['USIM5'] = {'nome':"USIM5", 'valor':4.60};
 abertura['CSNA3'] = {'nome':"CSNA3", 'valor':10};
 abertura['PETR4'] = {'nome':"PETR4", 'valor':18};
 abertura['GOLL4'] = {'nome':"GOLL4", 'valor':8};
 abertura['GGBR4'] = {'nome':"GGBR4", 'valor':11};
-abertura['GOAU4'] = {'nome':"GOAU4", 'valor':4.8};
+abertura['GOAU4'] = {'nome':"GOAU4", 'valor':4.80};
+min['VALE5']= 99999;
+max['VALE5']= 0;
+min['USIM5']= 99999;
+max['USIM5']= 0;
+min['CSNA3']= 99999;
+max['CSNA3']= 0;
+min['PETR4']= 99999;
+max['PETR4']= 0;
+min['GOLL4']= 99999;
+max['GOLL4']= 0;
+min['GGBR4']= 99999;
+max['GGBR4']= 0;
+min['GOAU4']= 99999;
+max['GOAU4']= 0;
+
+
+
+
 
 
 
@@ -101,9 +121,11 @@ mostra_painel();
 		 if ( valor - ativos[ativo].valor > 0){
 		 if (debug) console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
+			//aqui a compra esta efetuada.
+			if (valor > max[ativo]) max[ativo] = valor.toFixed(2);
 
 			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
-			res.json({'Compra':true,'valor':ativos[ativo].valor});
+			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 			if (debug) console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
 		else
@@ -147,11 +169,13 @@ app.post ('/vender',function(req,res){
 
 	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
 		 if ( valor - ativos[ativo].valor < 0){
-	if (debug)	 console.log("ativos[ativo].valor="+ativos[ativo].valor);
+				//aqui a compra esta efetuada.
+			if (valor < min[ativo]) min[ativo] = valor.toFixed(2);
+			if (debug)	 console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
 		if (debug)	console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').red);
-			res.json({'Venda':true,'valor':ativos[ativo].valor});
+			res.json({'Venda':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 		if (debug)	console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
 		else
@@ -239,15 +263,17 @@ function mostra_painel(){
 	//voltar la no começo da tela
 	console.log ("\033[0;0f");
 
-	console.log("ATIVO |  VALOR    |    VAR %");
-	console.log("==============================");
-	console.log(ativos['VALE5'].nome+" |\t "+ativos['VALE5'].valor.toFixed(2)+ " \t  |   " + porcentagem['VALE5']+ "%");
-	console.log(ativos['USIM5'].nome+" |\t "+ativos['USIM5'].valor.toFixed(2)+ " \t  |   " +porcentagem['USIM5']+"%");
-	console.log(ativos['CSNA3'].nome+" |\t "+ativos['CSNA3'].valor.toFixed(2)+ " \t  |   " +porcentagem['CSNA3']+"%");
-	console.log(ativos['PETR4'].nome+" |\t "+ativos['PETR4'].valor.toFixed(2)+ " \t  |   " +porcentagem['PETR4']+"%");
-	console.log(ativos['GOLL4'].nome+" |\t "+ativos['GOLL4'].valor.toFixed(2)+ " \t  |   " +porcentagem['GOLL4']+"%");
-	console.log(ativos['GGBR4'].nome+" |\t "+ativos['GGBR4'].valor.toFixed(2)+ " \t  |   " +porcentagem['GGBR4']+"%");
-	console.log(ativos['GOAU4'].nome+" |\t "+ativos['GOAU4'].valor.toFixed(2)+ " \t  |   " +porcentagem['GOAU4']+"%");
+	console.log("ATIVO | VALOR   | VAR %\t| ABERT |  MIN  |  MAX  | VOLUME");
+	console.log("======|=========|=======|=======|=======|=======|=======");
+	console.log(ativos['VALE5'].nome+" | "+ativos['VALE5'].valor.toFixed(2)+ "\t|" + porcentagem['VALE5']+ "%\t|  "+ abertura['VALE5'].valor + "\t| " + min['VALE5']+"\t|  " + max['VALE5']);
+	console.log(ativos['USIM5'].nome+" |\t"+ativos['USIM5'].valor.toFixed(2)+ " \t|" +porcentagem['USIM5']+"%\t|  "+ abertura['USIM5'].valor + "\t| " + min['USIM5']+" |  " + max['USIM5']);
+	console.log(ativos['CSNA3'].nome+" |\t"+ativos['CSNA3'].valor.toFixed(2)+ " \t|" +porcentagem['CSNA3']+"%\t|  "+ abertura['CSNA3'].valor + "\t| " + min['CSNA3']+" |  " + max['CSNA3']);
+	console.log(ativos['PETR4'].nome+" |\t"+ativos['PETR4'].valor.toFixed(2)+ " \t|" +porcentagem['PETR4']+"%\t|  "+ abertura['PETR4'].valor + "\t| " + min['PETR4']+" |  " + max['PETR4']);
+	console.log(ativos['GOLL4'].nome+" |\t"+ativos['GOLL4'].valor.toFixed(2)+ " \t|" +porcentagem['GOLL4']+"%\t|  "+ abertura['GOLL4'].valor + "\t| " + min['GOLL4']+" |  " + max['GOLL4']);
+	console.log(ativos['GGBR4'].nome+" |\t"+ativos['GGBR4'].valor.toFixed(2)+ " \t|" +porcentagem['GGBR4']+"%\t|  "+ abertura['GGBR4'].valor + "\t| " + min['GGBR4']+" |  " + max['GGBR4']);
+	console.log(ativos['GOAU4'].nome+" |\t"+ativos['GOAU4'].valor.toFixed(2)+ " \t|" +porcentagem['GOAU4']+"%\t|  "+ abertura['GOAU4'].valor + "\t| " + min['GOAU4']+" |  " + max['GOAU4']);
+
+
 
 
 };
