@@ -270,7 +270,7 @@ function mostra_painel(){
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).red;
 
 
-	total = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000 ;
+	total = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
 	total = total.toFixed(2);
 	str_total = total.toString().green;
 
