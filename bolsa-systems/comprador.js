@@ -4,7 +4,11 @@ var Chance = require('chance');
 var chance = new Chance();
 var fs = require('fs');
 var valores = require("./acoes.json");
-var content = JSON.parse(valores);
+//var content = JSON.parse(valores);
+
+// ### CONFIG ###
+var debug=false;
+
 
 var totalUrl = 1;
 array_valores=[];
@@ -12,7 +16,7 @@ array_valores=[];
 array_ativos = ['VALE5','CSNA3','PETR4','USIM5','GOLL4','GGBR4','GOAU4'];
 
 
-//array_valores['VALE5'] = content['VALE'] ;
+array_valores['VALE5'] = 18 ;
 array_valores['USIM5'] = 4.60;
 array_valores['CSNA3'] = 10;
 array_valores['PETR4'] = 18;
@@ -23,22 +27,24 @@ array_valores['GOAU4'] = 4.80;
 
 
 
-
+// -d para executar no modo daemon
 if (process.argv[2] == '-d')
 //	while (true) {
-	for (c=0;c<200;c++){
-		
+	for (c=0;c<500;c++){
+
 		getUrl();
 		stop = new Date().getTime();
     	while(new Date().getTime() < stop + 1) {
 		}
 }
+
 else
+
 getUrl();
 
 function mostrar(array) {
  //limpar a tela
- console.log ("\033[2J");
+// console.log ("\033[2J");
  //voltar la no começo da tela
  console.log ("\033[0;0f");
 
