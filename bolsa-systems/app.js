@@ -188,52 +188,56 @@ function mostra_painel(){
 
 	console.log("\n\n###   Mesa de Operações    ###\n".yellow); 
 	porcentagem = [];
-	porcentagem['VALE5'] = (ativos['VALE5'].valor - abertura['VALE5' ].valor) *10;
+	porcentagem['VALE5'] = ( 100 * ativos['VALE5'].valor / abertura['VALE5' ].valor  ) - 100;
 		if (porcentagem['VALE5'] > 0 )
 			porcentagem['VALE5'] = porcentagem['VALE5'].toFixed(2).green;
 		if (porcentagem['VALE5'] < 0 )
 			porcentagem['VALE5'] = porcentagem['VALE5'].toFixed(2).red;
 
-	porcentagem['USIM5'] = (ativos['USIM5'].valor - abertura['USIM5' ].valor) *10;
+	porcentagem['USIM5'] = (100 * ativos['USIM5'].valor / abertura['USIM5' ].valor ) - 100;
 		if (porcentagem['USIM5'] > 0 )
 			porcentagem['USIM5'] = porcentagem['USIM5'].toFixed(2).green;
 		if (porcentagem['USIM5'] < 0 )
 			porcentagem['USIM5'] = porcentagem['USIM5'].toFixed(2).red;
 
-	porcentagem['CSNA3'] = (ativos['CSNA3'].valor - abertura['CSNA3' ].valor) *10  ;
+	porcentagem['CSNA3'] = (100 * ativos['CSNA3'].valor / abertura['CSNA3' ].valor) - 100  ;
 		if (porcentagem['CSNA3'] > 0 )
 			porcentagem['CSNA3'] = porcentagem['CSNA3'].toFixed(2).green;
 		if (porcentagem['CSNA3'] < 0 )
 			porcentagem['CSNA3'] = porcentagem['CSNA3'].toFixed(2).red;
 
 
-	porcentagem['PETR4'] = (ativos['PETR4'].valor - abertura['PETR4' ].valor)/ 10;
+	porcentagem['PETR4'] = (100 * ativos['PETR4'].valor / abertura['PETR4' ].valor) - 100;
 		if (porcentagem['PETR4'] > 0 )
 			porcentagem['PETR4'] = porcentagem['PETR4'].toFixed(2).green;
 		if (porcentagem['PETR4'] < 0 )
 			porcentagem['PETR4'] = porcentagem['PETR4'].toFixed(2).red;
 
 
-	porcentagem['GOLL4'] = (ativos['GOLL4'].valor - abertura['GOLL4' ].valor) * 10 ;
+	porcentagem['GOLL4'] = (100 * ativos['GOLL4'].valor / abertura['GOLL4' ].valor) - 100 ;
 		if (porcentagem['GOLL4'] > 0 )
 			porcentagem['GOLL4'] = porcentagem['GOLL4'].toFixed(2).green;
 		if (porcentagem['GOLL4'] < 0 )
 			porcentagem['GOLL4'] = porcentagem['GOLL4'].toFixed(2).red;
 
 
-	porcentagem['GGBR4'] = (ativos['GGBR4'].valor - abertura['GGBR4' ].valor) * 10;
+	porcentagem['GGBR4'] = (100 * ativos['GGBR4'].valor / abertura['GGBR4' ].valor) - 100 ;
 		if (porcentagem['GGBR4'] > 0 )
 			porcentagem['GGBR4'] = porcentagem['GGBR4'].toFixed(2).green;
 		if (porcentagem['GGBR4'] < 0 )
 			porcentagem['GGBR4'] = porcentagem['GGBR4'].toFixed(2).red;
 
 
-	porcentagem['GOAU4'] = (ativos['GOAU4'].valor - abertura['GOAU4' ].valor) * 10 ;
+	porcentagem['GOAU4'] = (100 * ativos['GOAU4'].valor / abertura['GOAU4' ].valor) - 100 ;
 			if (porcentagem['GOAU4'] > 0 )
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).green;
 		if (porcentagem['GOAU4'] < 0 )
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).red;
 
+	//limpar a tela
+	console.log ("\033[2J");
+	//voltar la no começo da tela
+	console.log ("\033[0;0f");
 
 	console.log("ATIVO |  VALOR    |    VAR %");
 	console.log("==============================");
