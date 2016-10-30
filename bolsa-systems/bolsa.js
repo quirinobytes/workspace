@@ -75,6 +75,14 @@ app.get ('/' ,function (req,res) {
 	console.log ("IP: " + req.connection.remoteAddress);
 });
 
+app.get ('/listar',function(req,res){
+	var cliente = JSON.stringify({
+		ativo : ativos['VALE5'].nome ,
+		valor : ativos['VALE5'].valor,
+	});
+	//localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
+	res.json(cliente);
+};
 
 app.post ('/comprar', function (req,res) {
 	var id_corretora  = req.body.id_corretora;

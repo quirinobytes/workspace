@@ -2,13 +2,17 @@
 var request = require('request');
 var Chance = require('chance');
 var chance = new Chance();
+var fs = require('fs');
+var valores = require("./acoes.json");
+var content = JSON.parse(valores);
 
 var totalUrl = 1;
 array_valores=[];
 
 array_ativos = ['VALE5','CSNA3','PETR4','USIM5','GOLL4','GGBR4','GOAU4'];
 
-array_valores['VALE5'] = 21;
+
+//array_valores['VALE5'] = content['VALE'] ;
 array_valores['USIM5'] = 4.60;
 array_valores['CSNA3'] = 10;
 array_valores['PETR4'] = 18;
@@ -20,10 +24,29 @@ array_valores['GOAU4'] = 4.80;
 
 
 
-getUrl('VALE5');
+if (process.argv[2] == '-d')
+//	while (true) {
+	for (c=0;c<200;c++){
+		
+		getUrl();
+		stop = new Date().getTime();
+    	while(new Date().getTime() < stop + 1) {
+		}
+}
+else
+getUrl();
 
+function mostrar(array) {
+ //limpar a tela
+ console.log ("\033[2J");
+ //voltar la no começo da tela
+ console.log ("\033[0;0f");
 
-function getUrl(ativo){
+ console.log( array );
+}
+
+function getUrl(){
+
 
 papel =  array_ativos[chance.integer({min: 0, max: 6})];
 
@@ -52,15 +75,24 @@ var options = { method: 'POST',
      quantidade: qtde,
      valor: preco, 
      token: '1234abcd' } };
-console.log();
-  request(options, function (error, response, body) {
+
+   console.log();
+   request(options, function (error, response, body) {
     if (error) throw new Error(error);
     console.log(body);
-	
+
 	obj = JSON.parse(body)
-	if (obj.Compra)
-		console.log (obj.valor);
-	
+	if (obj.Compra){
+		console.log (obj.ativo);
+		array_valores[obj.ativo] = obj.valor;
+		array_valores['VALE5'] = obj.valor;
+		console.log('#####################');
+	}
+	else
+		array_valores['VALE5'] = obj.valor;
+
+		mostrar(array_valores);
+//  response.end;
   });
 
 };

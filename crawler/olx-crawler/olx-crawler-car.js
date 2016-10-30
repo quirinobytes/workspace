@@ -16,7 +16,7 @@ fs.appendFile('carros.json','[');
 
 
 crawler = {
-	interval: 1200,
+	interval: 200,
 	getSample: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?',
 	get: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?o=[numbers:1:823:1]',
 	preview: 0,
@@ -63,10 +63,12 @@ crawler = {
 
 }
 
-var exe_after = function finaliza(){
+
+function finaliza(){
 	 fs.appendFile('carros.json',']');
 };
 
-crawlerjs(crawler,exe_after);
+process.nextTick(finaliza);
+crawlerjs(crawler);
 
 
