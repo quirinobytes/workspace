@@ -19,13 +19,24 @@ array_valores['GOAU4'] = 4.80;
 
 
 
+
 getUrl('VALE5');
 
 
 function getUrl(ativo){
 
 papel =  array_ativos[chance.integer({min: 0, max: 6})];
+
+//se passar o PRIMEIRO paramentro na linha de entrada +1 +2 ou +3 ele aumenta a força
+if (process.argv[2] == '+1') 
+	qtde = chance.integer({min: 1, max: 40})*100;
+if (process.argv[2] == '+2') 
+	qtde = chance.integer({min: 1, max: 50})*100;
+if (process.argv[2] == '+3') 
+	qtde = chance.integer({min: 1, max: 100})*100;
+else
 qtde = chance.integer({min: 1, max: 20})*100;
+
 preco = chance.floating({min: 75, max: 125}) * array_valores[papel] /100;
 
 var options = { method: 'POST',
