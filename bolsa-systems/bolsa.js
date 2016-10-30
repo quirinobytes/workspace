@@ -82,7 +82,7 @@ app.get ('/listar',function(req,res){
 	});
 	//localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
 	res.json(cliente);
-};
+});
 
 app.post ('/comprar', function (req,res) {
 	var id_corretora  = req.body.id_corretora;
