@@ -135,10 +135,11 @@ if (debug){
 			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 			if (debug) console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
-		else
+		else{
 			if (debug) console.log("Cliente POBRE, abaixo do valor de mercado !" );
 			//res.end("COMPRA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
 			res.json({'Compra':false,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
+		}
 	}
 	else{
 		res.json({'Compra':false,'valor':ativos[ativo].valor});
@@ -191,7 +192,7 @@ app.post ('/vender',function(req,res){
 		}
 		else
 		 if(debug)	console.log("Ordem Acima do valor de mercado, vc tem que vender por menos que o valor dela, kkkkk!" );
-			res.end("Valor muito alto. Venda não efetuada!")
+		//	res.end("Valor muito alto. Venda não efetuada!")
 	}
 	else{
 			res.json({'Venda':false,'valor':ativos[ativo].valor});
