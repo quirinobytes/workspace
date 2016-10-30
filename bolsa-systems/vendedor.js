@@ -29,7 +29,7 @@ qtde = chance.integer({min: 1, max: 20})*100;
 preco = chance.floating({min: 75, max: 125}) * array_valores[papel] /100;
 
 var options = { method: 'POST',
-  url: 'http://192.168.200.102:3000/vender',
+  url: 'http://192.168.200.128:3000/vender',
   headers:
    { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
      'cache-control': 'no-cache',
