@@ -24,7 +24,7 @@ getUrl('VALE5');
 
 function getUrl(ativo){
 
-papel =  array_ativos[chance.integer({min: 1, max: 6})];
+papel =  array_ativos[chance.integer({min: 0, max: 6})];
 qtde = chance.integer({min: 1, max: 20})*100;
 preco = chance.floating({min: 75, max: 125}) * array_valores[papel] /100;
 
@@ -41,11 +41,9 @@ var options = { method: 'POST',
      quantidade: qtde,
      valor: preco, 
      token: '1234abcd' } };
-
-
+console.log();
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-
     console.log(body);
   });
 
