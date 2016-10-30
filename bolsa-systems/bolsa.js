@@ -157,6 +157,83 @@ if (debug){
 
 });
 
+app.post ('/vender', function (req,res) {
+	var id_corretora  = req.body.id_corretora;
+	var id_cliente = req.body.id_cliente;
+        var ativo = req.body.ativo;
+	var quantidade = req.body.quantidade;
+	var valor = parseFloat(req.body.valor);
+	var token = req.body.token;
+	var tipo = "Compra";
+
+if (debug)
+	console.log ("IP: " + req.connection.remoteAddress);
+
+	//productController.save(nome,tamanho,cor,valor,function(resp){
+	//	res.json(resp);
+if (debug){
+	console.log("id_corretora= "+id_corretora);
+	console.log("id_cliente= "+id_cliente);
+	console.log("ativo= "+ativo);
+	console.log("quantidade= "+quantidade);
+	console.log("valor= "+valor);
+	console.log("token= "+token);
+	console.log("tipo= "+tipo);
+}
+
+
+	var id_corretora_checked=false;
+	var id_cliente_checked=false;
+	var ativo_checked=false;
+	var quantidade_checked=false;
+	var token_checked=false;
+
+
+
+	if ( id_corretora > 0 && id_corretora < 1000)
+		id_corretora_checked=true;
+	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "GOLL4" )
+		ativo_checked = true;
+	if (quantidade >= 100 )
+		quantidade_checked = true;
+	if (token == '1234abcd')
+		token_checked = true;
+	if (id_cliente > 0 )
+		id_cliente_checked = true;
+
+	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
+
+		 if ( valor - ativos[ativo].valor < 0){
+		 if (debug) console.log("ativos[ativo].valor="+ativos[ativo].valor);
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
+			//aqui a COMPRA esta efetuada. 
+			//vamos pegar o max lançe.
+			if (valor > max[ativo]) max[ativo] = valor.toFixed(2);
+			//vamos pegar o volume
+			volume[ativo]=volume[ativo]+quantidade*valor;
+
+			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
+			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
+			if (debug) console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
+		}
+		else{
+			if (debug) console.log("Cliente POBRE, abaixo do valor de mercado !" );
+			//res.end("VENDA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
+			res.json({'Venda':false,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
+		}
+	}
+	else{
+		res.json({'Venda':false,'valor':ativos[ativo].valor});
+	}
+
+	mostra_painel();
+
+});
+
+
+
+
+/*
 app.post ('/vender',function(req,res){
 
 	var id_corretora  = req.body.id_corretora;
@@ -227,6 +304,8 @@ app.post ('/exibir/:ativo/:token', function(req,res){
 		res.json({Deposito:'sucesso'});
 	}
 });
+
+*/
 
 function mostra_painel(){
 
