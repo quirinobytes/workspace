@@ -26,7 +26,7 @@ function getUrl(ativo){
 
 papel =  array_ativos[chance.integer({min: 1, max: 6})];
 qtde = chance.floating({min: 100, max: 10000});
-preco = chance.floating({min: 75, max: 225}) * array_valores[papel] /100;
+preco = chance.floating({min: 75, max: 125}) * array_valores[papel] /100;
 
 var options = { method: 'POST',
   url: 'http://189.55.194.115:3000/comprar',
