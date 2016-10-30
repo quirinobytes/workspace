@@ -17,20 +17,20 @@ console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid
 ativos = {};
 abertura = {};
 
-ativos['VALE5'] = {'nome':'VALE5', 'valor':10};
-ativos['USIM5'] = {'nome':"USIM5", 'valor':4};
-ativos['CSNA3'] = {'nome':"CSNA3", 'valor':11};
+ativos['VALE5'] = {'nome':'VALE5', 'valor':21};
+ativos['USIM5'] = {'nome':"USIM5", 'valor':4.6};
+ativos['CSNA3'] = {'nome':"CSNA3", 'valor':10};
 ativos['PETR4'] = {'nome':"PETR4", 'valor':18};
-ativos['GOLL4'] = {'nome':"GOLL4", 'valor':7};
+ativos['GOLL4'] = {'nome':"GOLL4", 'valor':8};
 ativos['GGBR4'] = {'nome':"GGBR4", 'valor':11};
-ativos['GOAU4'] = {'nome':"GOAU4", 'valor':5};
-abertura['VALE5'] = {'nome':'VALE5', 'valor':10};
-abertura['USIM5'] = {'nome':"USIM5", 'valor':4};
-abertura['CSNA3'] = {'nome':"CSNA3", 'valor':11};
+ativos['GOAU4'] = {'nome':"GOAU4", 'valor':4.8};
+abertura['VALE5'] = {'nome':'VALE5', 'valor':21};
+abertura['USIM5'] = {'nome':"USIM5", 'valor':4.6};
+abertura['CSNA3'] = {'nome':"CSNA3", 'valor':10};
 abertura['PETR4'] = {'nome':"PETR4", 'valor':18};
-abertura['GOLL4'] = {'nome':"GOLL4", 'valor':7};
+abertura['GOLL4'] = {'nome':"GOLL4", 'valor':8};
 abertura['GGBR4'] = {'nome':"GGBR4", 'valor':11};
-abertura['GOAU4'] = {'nome':"GOAU4", 'valor':5};
+abertura['GOAU4'] = {'nome':"GOAU4", 'valor':4.8};
 
 
 
@@ -186,22 +186,64 @@ app.post ('/exibir/:ativo/:token', function(req,res){
 function mostra_painel(){
 
 
-	console.log("\n\n### \t Posicao das ACOES\t ###\n"); 
+	console.log("\n\n###   Mesa de Operações    ###\n".yellow); 
 	porcentagem = [];
-	porcentagem['VALE5'] = ativos['VALE5'].valor - abertura['VALE5' ].valor;
-	porcentagem['USIM%'] = ativos['USIM5'].valor - abertura['USIM5' ].valor;
-	porcentagem['CSNA3'] = ativos['CSNA3'].valor - abertura['CSNA3' ].valor;
-	porcentagem['PETR4'] = ativos['PETR4'].valor - abertura['PETR4' ].valor;
-	porcentagem['GGBR4'] = ativos['GGBR4'].valor - abertura['GGBR4' ].valor;
-	porcentagem['GOAU4'] = ativos['GOAU4'].valor - abertura['GOAU4' ].valor;
-	
-	console.log(ativos['VALE5'].nome+" \t = "+ativos['VALE5'].valor.toFixed(2)+ " => " +porcentagem['VALE5'].toFixed(2)+"%");
-	console.log(ativos['USIM5'].nome+" \t = "+ativos['USIM5'].valor.toFixed(2)+ " => " +porcentagem['USIM5'].toFixed(2)+"%");
-	console.log(ativos['CSNA3'].nome+" \t = "+ativos['CSNA3'].valor.toFixed(2)+ " => " +porcentagem['CSNA3'].toFixed(2)+"%");
-	console.log(ativos['PETR4'].nome+" \t = "+ativos['PETR4'].valor.toFixed(2)+ " => " +porcentagem['PETR4'].toFixed(2)+"%");
-	console.log(ativos['GOLL4'].nome+" \t = "+ativos['GOLL4'].valor.toFixed(2)+ " => " +porcentagem['GOLL4'].toFixed(2)+"%");
-	console.log(ativos['GGBR4'].nome+" \t = "+ativos['GGBR4'].valor.toFixed(2)+ " => " +porcentagem['GGBR4'].toFixed(2)+"%");
-	console.log(ativos['GOAU4'].nome+" \t = "+ativos['GOAU4'].valor.toFixed(2)+ " => " +porcentagem['GOAU4'].toFixed(2)+"%");
+	porcentagem['VALE5'] = (ativos['VALE5'].valor - abertura['VALE5' ].valor) *10;
+		if (porcentagem['VALE5'] > 0 )
+			porcentagem['VALE5'] = porcentagem['VALE5'].toFixed(2).green;
+		if (porcentagem['VALE5'] < 0 )
+			porcentagem['VALE5'] = porcentagem['VALE5'].toFixed(2).red;
+
+	porcentagem['USIM5'] = (ativos['USIM5'].valor - abertura['USIM5' ].valor) *10;
+		if (porcentagem['USIM5'] > 0 )
+			porcentagem['USIM5'] = porcentagem['USIM5'].toFixed(2).green;
+		if (porcentagem['USIM5'] < 0 )
+			porcentagem['USIM5'] = porcentagem['USIM5'].toFixed(2).red;
+
+	porcentagem['CSNA3'] = (ativos['CSNA3'].valor - abertura['CSNA3' ].valor) *10  ;
+		if (porcentagem['CSNA3'] > 0 )
+			porcentagem['CSNA3'] = porcentagem['CSNA3'].toFixed(2).green;
+		if (porcentagem['CSNA3'] < 0 )
+			porcentagem['CSNA3'] = porcentagem['CSNA3'].toFixed(2).red;
+
+
+	porcentagem['PETR4'] = (ativos['PETR4'].valor - abertura['PETR4' ].valor)/ 10;
+		if (porcentagem['PETR4'] > 0 )
+			porcentagem['PETR4'] = porcentagem['PETR4'].toFixed(2).green;
+		if (porcentagem['PETR4'] < 0 )
+			porcentagem['PETR4'] = porcentagem['PETR4'].toFixed(2).red;
+
+
+	porcentagem['GOLL4'] = (ativos['GOLL4'].valor - abertura['GOLL4' ].valor) * 10 ;
+		if (porcentagem['GOLL4'] > 0 )
+			porcentagem['GOLL4'] = porcentagem['GOLL4'].toFixed(2).green;
+		if (porcentagem['GOLL4'] < 0 )
+			porcentagem['GOLL4'] = porcentagem['GOLL4'].toFixed(2).red;
+
+
+	porcentagem['GGBR4'] = (ativos['GGBR4'].valor - abertura['GGBR4' ].valor) * 10;
+		if (porcentagem['GGBR4'] > 0 )
+			porcentagem['GGBR4'] = porcentagem['GGBR4'].toFixed(2).green;
+		if (porcentagem['GGBR4'] < 0 )
+			porcentagem['GGBR4'] = porcentagem['GGBR4'].toFixed(2).red;
+
+
+	porcentagem['GOAU4'] = (ativos['GOAU4'].valor - abertura['GOAU4' ].valor) * 10 ;
+			if (porcentagem['GOAU4'] > 0 )
+			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).green;
+		if (porcentagem['GOAU4'] < 0 )
+			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).red;
+
+
+	console.log("ATIVO |  VALOR    |    VAR %");
+	console.log("==============================");
+	console.log(ativos['VALE5'].nome+" |\t "+ativos['VALE5'].valor.toFixed(2)+ " \t  |   " + porcentagem['VALE5']+ "%");
+	console.log(ativos['USIM5'].nome+" |\t "+ativos['USIM5'].valor.toFixed(2)+ " \t  |   " +porcentagem['USIM5']+"%");
+	console.log(ativos['CSNA3'].nome+" |\t "+ativos['CSNA3'].valor.toFixed(2)+ " \t  |   " +porcentagem['CSNA3']+"%");
+	console.log(ativos['PETR4'].nome+" |\t "+ativos['PETR4'].valor.toFixed(2)+ " \t  |   " +porcentagem['PETR4']+"%");
+	console.log(ativos['GOLL4'].nome+" |\t "+ativos['GOLL4'].valor.toFixed(2)+ " \t  |   " +porcentagem['GOLL4']+"%");
+	console.log(ativos['GGBR4'].nome+" |\t "+ativos['GGBR4'].valor.toFixed(2)+ " \t  |   " +porcentagem['GGBR4']+"%");
+	console.log(ativos['GOAU4'].nome+" |\t "+ativos['GOAU4'].valor.toFixed(2)+ " \t  |   " +porcentagem['GOAU4']+"%");
 
 
 };
