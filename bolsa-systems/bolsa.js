@@ -185,29 +185,31 @@ app.post ('/vender',function(req,res){
 
 	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
 		 if ( valor - ativos[ativo].valor < 0){
+	     if (debug) console.log("ativos[ativo].valor="+ativos[ativo].valor);
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 			//aqui a VENDA esta efetuada.
 			//pegar o minino lançe.
 			if (valor < min[ativo]) min[ativo] = valor.toFixed(2);
 			//vamos pegar o volume
 			volume[ativo]=volume[ativo]+quantidade*valor;
 
-			if (debug)	 console.log("ativos[ativo].valor="+ativos[ativo].valor);
-			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
 		if (debug)	console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').red);
 			res.json({'Venda':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 		if (debug)	console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
-		else
-		 if(debug)	console.log("Ordem Acima do valor de mercado, vc tem que vender por menos que o valor dela, kkkkk!" );
+		else{
+		    if(debug  console.log("Ordem Acima do valor de mercado, vc tem que vender por menos que o valor dela, kkkkk!" );
 		//	res.end("Valor muito alto. Venda não efetuada!")
+			res.json({'Venda':false,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
+		}
 	}
 	else{
 			res.json({'Venda':false,'valor':ativos[ativo].valor});
 
 	}
 
-mostra_painel();
+	mostra_painel();
 
 });
 
@@ -224,8 +226,6 @@ app.post ('/exibir/:ativo/:token', function(req,res){
 		console.log((('Deposito ciente (cli1900) => ').yellow+saldo).blue);
 		res.json({Deposito:'sucesso'});
 	}
-
-
 });
 
 function mostra_painel(){
