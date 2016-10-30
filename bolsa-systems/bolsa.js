@@ -61,9 +61,6 @@ volume['GOAU4']=0;
 
 
 
-
-
-
 app.get ('/',function (req,res) {
 	res.write('<html>');
 	res.write('RingBank @ Gateway Pagamento - v1.0.0');
@@ -103,7 +100,6 @@ if (debug){
 	console.log("tipo= "+tipo);
 }
 
-mostra_painel();
 
 	var id_corretora_checked=false;
 	var id_cliente_checked=false;
@@ -147,12 +143,11 @@ mostra_painel();
 		res.json({'Compra':false,'valor':ativos[ativo].valor});
 	}
 
-	//});
+	mostra_painel();
 
 });
 
 app.post ('/vender',function(req,res){
-	mostra_painel();
 
 	var id_corretora  = req.body.id_corretora;
 	var id_cliente = req.body.id_cliente;
@@ -202,6 +197,7 @@ app.post ('/vender',function(req,res){
 
 	}
 
+mostra_painel();
 
 });
 
