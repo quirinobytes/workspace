@@ -3,14 +3,20 @@ var request = require('request');
 var Chance = require('chance');
 var chance = new Chance();
 var fs = require('fs');
-var conteudojson = fs.readFileSync('./cotacoes.json');
-var content = JSON.parse(conteudojson);
-
+content= {};
 
 // ### CONFIG ###
 var debug=false;
 var REQUESTS=500;
+var filename = './cotacoes-c.json';
+var urlserver = 'http://192.168.200.128:3000/comprar' ;
 
+fs.exists(filename, function(exists) {
+ if (exists) {
+	var conteudojson = fs.readFileSync(filename);
+	var content = JSON.parse(conteudojson);
+ }
+});
 var totalUrl = 1;
 array_valores=[];
 
@@ -72,7 +78,7 @@ function getUrl(){
     preco = chance.floating({min: 75, max: 125}) * array_valores[papel] /100;
 
     var options = { method: 'POST',
-	 url: 'http://192.168.200.128:3000/comprar',
+	 url: urlserver, 
 	 headers:
 	  { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
 		'cache-control': 'no-cache',
@@ -87,16 +93,15 @@ function getUrl(){
 	  }
     };
 
-	console.log();
+	if (debug) console.log();
 	request(options, function (error, response, body) {
 	if (error) throw new Error(error);
-	console.log(body);
+		if (debug) console.log(body);
 	obj = JSON.parse(body)
 	if (obj.Compra){
-	   console.log (obj.ativo);
+	   if (debug) console.log (obj.ativo);
 	   array_valores[obj.ativo] = obj.valor;
 	   array_valores[papel] = obj.valor;
-	   console.log('#####################');
 	}
 	else{
 	   array_valores[papel] = obj.valor;
@@ -125,7 +130,7 @@ var jsonstring = JSON.stringify(data);
 var jsonobject = JSON.parse(jsonstring);
 
 //console.log("STRINGFY"+jsonstring );
-fs.writeFileSync('./cotacoes.json', jsonstring);
+fs.writeFileSync(filename, jsonstring);
 };
 
 function mostrar(array) {
