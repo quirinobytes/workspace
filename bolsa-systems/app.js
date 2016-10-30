@@ -84,7 +84,7 @@ mostra_painel();
 
 		 if ( valor - ativos[ativo].valor > 0){
 		 console.log("@@@ ativos[ativo].valor="+ativos[ativo].valor);
-			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000) ;
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
 			console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Compra':true,'valor':ativos[ativo].valor});
@@ -109,7 +109,7 @@ app.post ('/vender',function(req,res){
 	var id_cliente = req.body.id_cliente;
         var ativo = req.body.ativo;
 	var quantidade = req.body.quantidade;
-	var valor = parseInt(req.body.valor);
+	var valor = parseFloat(req.body.valor);
 	var token = req.body.token;
 	var tipo = "Venda";
 	var id_corretora_checked=false;
@@ -132,7 +132,7 @@ app.post ('/vender',function(req,res){
 	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
 		 if ( valor - ativos[ativo].valor < 0){
 		 console.log("@@@ ativos[ativo].valor="+ativos[ativo].valor);
-			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000) ;
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
 			console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').red);
 			res.json({'Venda':true,'valor':ativos[ativo].valor});
