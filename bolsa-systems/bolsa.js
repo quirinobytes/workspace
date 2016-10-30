@@ -8,7 +8,7 @@ var os = require("os");
 var saldo=1500;
 
 var debug=false;
-
+var start = new Date();
 
 console.log("\n\n ### Bolsa Systems - Cognitive Information Model v.0.37 ### \n\n\n");
 
@@ -18,6 +18,7 @@ ativos = {};
 abertura = {};
 max=[];
 min=[];
+volume=[];
 
 ativos['VALE5'] = {'nome':'VALE5', 'valor':21};
 ativos['USIM5'] = {'nome':"USIM5", 'valor':4.60};
@@ -47,7 +48,13 @@ min['GGBR4']= 99999;
 max['GGBR4']= 0;
 min['GOAU4']= 99999;
 max['GOAU4']= 0;
-
+volume['VALE5']=0;
+volume['USIM5']=0;
+volume['PETR4']=0;
+volume['CSNA3']=0;
+volume['GOLL4']=0;
+volume['GGBR4']=0;
+volume['GOAU4']=0;
 
 
 
@@ -121,8 +128,11 @@ mostra_painel();
 		 if ( valor - ativos[ativo].valor > 0){
 		 if (debug) console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
-			//aqui a compra esta efetuada.
+			//aqui a COMPRA esta efetuada. 
+			//vamos pegar o max lançe.
 			if (valor > max[ativo]) max[ativo] = valor.toFixed(2);
+			//vamos pegar o volume
+			volume[ativo]=volume[ativo]+quantidade*valor;
 
 			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
@@ -145,7 +155,7 @@ app.post ('/vender',function(req,res){
 
 	var id_corretora  = req.body.id_corretora;
 	var id_cliente = req.body.id_cliente;
-        var ativo = req.body.ativo;
+    var ativo = req.body.ativo;
 	var quantidade = req.body.quantidade;
 	var valor = parseFloat(req.body.valor);
 	var token = req.body.token;
@@ -169,8 +179,12 @@ app.post ('/vender',function(req,res){
 
 	if (id_corretora_checked == true && ativo_checked == true && quantidade_checked == true && token_checked == true && id_cliente_checked == true) {
 		 if ( valor - ativos[ativo].valor < 0){
-				//aqui a compra esta efetuada.
+			//aqui a VENDA esta efetuada.
+			//pegar o minino lançe.
 			if (valor < min[ativo]) min[ativo] = valor.toFixed(2);
+			//vamos pegar o volume
+			volume[ativo]=volume[ativo]+quantidade*valor;
+
 			if (debug)	 console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
 
@@ -262,16 +276,20 @@ function mostra_painel(){
 	console.log ("\033[2J");
 	//voltar la no começo da tela
 	console.log ("\033[0;0f");
+	tempo = (new Date() - start)/1000;
+	console.log("\t\t###   Mesa de Operações    ###\t tempo:".yellow + tempo.toFixed(0)+"s" ); 
+	console.log("\t\t      =================       ".yellow); 
 
-	console.log("ATIVO | VALOR   | VAR %\t| ABERT |  MIN  |  MAX  | VOLUME");
-	console.log("======|=========|=======|=======|=======|=======|=======");
-	console.log(ativos['VALE5'].nome+" | "+ativos['VALE5'].valor.toFixed(2)+ "\t|" + porcentagem['VALE5']+ "%\t|  "+ abertura['VALE5'].valor + "\t| " + min['VALE5']+"\t|  " + max['VALE5']);
-	console.log(ativos['USIM5'].nome+" |\t"+ativos['USIM5'].valor.toFixed(2)+ " \t|" +porcentagem['USIM5']+"%\t|  "+ abertura['USIM5'].valor + "\t| " + min['USIM5']+" |  " + max['USIM5']);
-	console.log(ativos['CSNA3'].nome+" |\t"+ativos['CSNA3'].valor.toFixed(2)+ " \t|" +porcentagem['CSNA3']+"%\t|  "+ abertura['CSNA3'].valor + "\t| " + min['CSNA3']+" |  " + max['CSNA3']);
-	console.log(ativos['PETR4'].nome+" |\t"+ativos['PETR4'].valor.toFixed(2)+ " \t|" +porcentagem['PETR4']+"%\t|  "+ abertura['PETR4'].valor + "\t| " + min['PETR4']+" |  " + max['PETR4']);
-	console.log(ativos['GOLL4'].nome+" |\t"+ativos['GOLL4'].valor.toFixed(2)+ " \t|" +porcentagem['GOLL4']+"%\t|  "+ abertura['GOLL4'].valor + "\t| " + min['GOLL4']+" |  " + max['GOLL4']);
-	console.log(ativos['GGBR4'].nome+" |\t"+ativos['GGBR4'].valor.toFixed(2)+ " \t|" +porcentagem['GGBR4']+"%\t|  "+ abertura['GGBR4'].valor + "\t| " + min['GGBR4']+" |  " + max['GGBR4']);
-	console.log(ativos['GOAU4'].nome+" |\t"+ativos['GOAU4'].valor.toFixed(2)+ " \t|" +porcentagem['GOAU4']+"%\t|  "+ abertura['GOAU4'].valor + "\t| " + min['GOAU4']+" |  " + max['GOAU4']);
+	console.log("  ATIVO   |   VALOR     |    VAR %      | ABERT |  MIN\t| MAX\t|    VOLUME");
+	console.log("==========|=============|===============|=======|=======|=======|==============");
+	console.log("  "+ ativos['VALE5'].nome+"   |   "+ativos['VALE5'].valor.toFixed(2)+ "\t|     " + porcentagem['VALE5']+ "%\t|  "+ abertura['VALE5'].valor + "\t| " + min['VALE5']+"\t| " + max['VALE5'] + "\t|  " + (volume['VALE5']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['USIM5'].nome+"   |   "+ativos['USIM5'].valor.toFixed(2)+ "\t|     " + porcentagem['USIM5']+ "%\t|  "+ abertura['USIM5'].valor + "\t| " + min['USIM5']+"\t| " + max['USIM5'] + "\t|  " + (volume['USIM5']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['CSNA3'].nome+"   |   "+ativos['CSNA3'].valor.toFixed(2)+ "\t|     " + porcentagem['CSNA3']+ "%\t|  "+ abertura['CSNA3'].valor + "\t| " + min['CSNA3']+"\t| " + max['CSNA3'] + "\t|  " + (volume['CSNA3']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['PETR4'].nome+"   |   "+ativos['PETR4'].valor.toFixed(2)+ "\t|     " + porcentagem['PETR4']+ "%\t|  "+ abertura['PETR4'].valor + "\t| " + min['PETR4']+"\t| " + max['PETR4'] + "\t|  " + (volume['PETR4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['GOLL4'].nome+"   |   "+ativos['GOLL4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOLL4']+ "%\t|  "+ abertura['GOLL4'].valor + "\t| " + min['GOLL4']+"\t| " + max['GOLL4'] + "\t|  " + (volume['GOLL4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['GGBR4'].nome+"   |   "+ativos['GGBR4'].valor.toFixed(2)+ "\t|     " + porcentagem['GGBR4']+ "%\t|  "+ abertura['GGBR4'].valor + "\t| " + min['GGBR4']+"\t| " + max['GGBR4'] + "\t|  " + (volume['GGBR4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['GOAU4'].nome+"   |   "+ativos['GOAU4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOAU4']+ "%\t|  "+ abertura['GOAU4'].valor + "\t| " + min['GOAU4']+"\t| " + max['GOAU4'] + "\t|  " + (volume['GOAU4']/1000).toFixed(2)+"K");
+
 
 
 
