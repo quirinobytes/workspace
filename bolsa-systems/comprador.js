@@ -56,6 +56,11 @@ console.log();
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
     console.log(body);
+	
+	obj = JSON.parse(body)
+	if (obj.Compra)
+		console.log (obj.valor);
+	
   });
 
 };

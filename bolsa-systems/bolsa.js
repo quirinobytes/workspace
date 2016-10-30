@@ -137,7 +137,8 @@ if (debug){
 		}
 		else
 			if (debug) console.log("Cliente POBRE, abaixo do valor de mercado !" );
-			res.end("COMPRA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
+			//res.end("COMPRA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
+			res.json({'Compra':false,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 	}
 	else{
 		res.json({'Compra':false,'valor':ativos[ativo].valor});
