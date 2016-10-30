@@ -2,7 +2,7 @@
   "name": "api-RESTful",
   "version": "1.0.0",
   "description": "API RESTful Modelo Base para novos projetos",
-  "main": "app.js",
+  "main": "bolsa.js",
   "scripts": {
     "test": "testeapp.js"
   },
