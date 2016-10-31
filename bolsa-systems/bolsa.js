@@ -13,7 +13,7 @@ var start = new Date();
 var total = 0.0;
 
 console.log('============================================================================='.blue);
-console.log("|".blue + "#".yellow +"|".blue + "\tibSYM - Bolsa Cognitive ".green + " ® ".red + " Stock Financial S/A".white+  "       Versão 1.2".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
+console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Stock Financial S/A".white+  "       Versão 1.2".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
 console.log('============================================================================='.blue);
 
 //console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid:cli2370\tvalor: R$  950,00\n\n ");
