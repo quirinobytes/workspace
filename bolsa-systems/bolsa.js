@@ -4,7 +4,8 @@ var app = require('./config/app_config');
 var db = require('./config/db_config.js');
 var product = require('./models/product');
 var productController = require('./controllers/productController');
-var os = require("os");
+//var os = require("os");
+var fs = require("fs");
 var saldo=1500;
 
 var debug=false;
@@ -62,10 +63,25 @@ volume['GOAU4']=0;
 
 
 app.get ('/',function (req,res) {
+
+	fs.readFile('./index.html', function (err, html) {
+    	if (err) {
+        	throw err;
+	    }
+		//do something
+		res.writeHeader(200, {"Content-Type": "text/html"});  
+        res.write(html);  
+        res.end();  
+	});
+
+
+/*
 	res.write('<html>');
 	res.write('RingBank @ Gateway Pagamento - v1.0.0');
 	res.write('<br> Servidor: '+os.hostname());
+	res.write('<br> Total Negociado pela ibSYM: '+total);
 	res.end('</html>');
+*/
 });
 
 app.get ('/' ,function (req,res) {
@@ -83,6 +99,15 @@ app.get ('/listar',function(req,res){
 	//localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
 	res.json(cliente);
 });
+app.get ('/total',function(req,res){
+	res.writeHead(200, {"Content-Type" : "text/html"}); 
+	if ( total) res.write(total);
+	else
+		res.write('Waiting...');
+	res.end();
+
+});
+
 
 app.post ('/comprar', function (req,res) {
 	var id_corretora  = req.body.id_corretora;
