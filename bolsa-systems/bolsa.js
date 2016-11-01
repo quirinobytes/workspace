@@ -275,18 +275,18 @@ if (debug){
 		 if ( valor - ativos[ativo].valor < 0){
 		 if (debug) console.log("ativos[ativo].valor="+ativos[ativo].valor);
 			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
-			//aqui a COMPRA esta efetuada. 
-			//vamos pegar o max lançe.
-			if (valor > max[ativo]) max[ativo] = valor.toFixed(2);
+			//aqui a VENDA esta efetuada. 
+			//vamos pegar o minimo lançe.
+			if (valor < min[ativo]) min[ativo] = valor.toFixed(2);
 			//vamos pegar o volume
 			volume[ativo]=volume[ativo]+quantidade*valor;
 
-			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
-			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
+			if (debug) console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
+			res.json({'Venda':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 			if (debug) console.log("ACAO => "+ ativos[ativo].nome + " => " + ativos[ativo].valor);
 		}
 		else{
-			if (debug) console.log("Cliente POBRE, abaixo do valor de mercado !" );
+			if (debug) console.log("NAO EXECUTADO => valor acima de mercado !" );
 			//res.end("VENDA não efetuada!\n Valor Atua: "+ativos[ativo].valor)
 			res.json({'Venda':false,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
 		}

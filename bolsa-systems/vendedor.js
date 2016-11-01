@@ -9,7 +9,7 @@ content= {};
 var debug=false;
 var REQUESTS=500;
 var filename = './cotacoes-v.json';
-var urlserver = 'http://192.168.200.128:3000/comprar';
+var urlserver = 'http://192.168.200.128:3000/vender';
 
 fs.exists(filename, function(exists) {
  if (exists) {
