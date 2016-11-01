@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+var express = require("express");
 var colors = require('colors');
 var app = require('./config/app_config');
 var db = require('./config/db_config.js');
@@ -74,20 +75,45 @@ app.get ('/',function (req,res) {
         	throw err;
 	    }
 		//do something
-		res.writeHeader(200, {"Content-Type": "text/html"});  
-        res.write(html);  
-        res.end();  
+		res.writeHeader(200, {"Content-Type": "text/html"});
+        res.write(html);
+        res.end();
+	});
+});
+
+var path = require('path');
+
+app.use('/website', express.static(path.join(__dirname, './website')));
+app.get ('/operar/',function (req,res) {
+
+	fs.readFile('./website/index.html', function (err, html) {
+    	if (err) {
+        	throw err;
+	    }
+		//do something
+		res.writeHeader(200, {"Content-Type": "text/html"});
+        res.write(html);
+        res.end();
 	});
 
-
-/*
-	res.write('<html>');
-	res.write('RingBank @ Gateway Pagamento - v1.0.0');
-	res.write('<br> Servidor: '+os.hostname());
-	res.write('<br> Total Negociado pela ibSYM: '+total);
-	res.end('</html>');
-*/
 });
+
+app.get ('/website/css/bootstrap.css',function (req,res) {
+
+	fs.readFile('./website/index.html', function (err, html) {
+    	if (err) {
+        	throw err;
+	    }
+		//do something
+		res.writeHeader(200, {"Content-Type": "css"});
+        res.write(html);
+        res.end();
+	});
+
+});
+
+
+
 
 app.get ('/' ,function (req,res) {
 	productController.list(function(resp){
