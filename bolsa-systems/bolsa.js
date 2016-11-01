@@ -147,7 +147,7 @@ app.get ('/total',function(req,res){
 	res.writeHead(200, {"Content-Type" : "text/html"}); 
 	if ( total) res.write(total+  " Milhões");
 	else
-		res.write('Aguardando o primeiro negócio ...<br><a href="./listar/"> <button type="button" onclick="loadDoc()">Cotações</button> </a>');
+		res.write('0,00 (Aguardando o primeiro negócio...)');
 	res.end();
 
 });

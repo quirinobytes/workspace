@@ -1,4 +1,4 @@
-<html ng-app=quantidadesOLX>
+<html ng-app=ibSYM>
 <head>
 
 
@@ -29,8 +29,8 @@
 	</style>
 	<script src="http://code.angularjs.org/1.0.1/angular-1.0.1.min.js"> </script>
 	<script> 
-		angular.module("quantidadesOLX", []);
-		angular.module("quantidadesOLX").controller("exibir-titulo",function($scope){
+		angular.module("ibSYM", []);
+		angular.module("ibSYM").controller("exibir-titulo",function($scope){
 			
 			// TITULO E VERSAO DO PROGRAMA #############
 			$scope.titulo = "ibSYM - Cognitive Stock Model API ® 1.3"
@@ -83,11 +83,10 @@
 
 
    <script>
-   var app = angular.module('myApp', []);
-   app.controller('myCtrl', function($scope, $http) {
-	   $http.get("index.html")
+   angular.module('ibSYM').controller('exibir-total', function($scope, $http) {
+	   $http.get("http://189.55.194.115:3000/total")
 	   .then(function(response) {
-		   $scope.myWelcome = response.data;
+		   $scope.totalnegociado = response.data;
 	   });
    });
    </script>
@@ -99,20 +98,19 @@
 
 
 <body ng-controller="exibir-titulo">
-	<div class="jumbotron" > 
-		<h3> {{titulo}} </h3>
+	<div class="jumbotron jumbotron-fluid" >
+				<h3> {{titulo}} </h3>
+		<div class='container'> 
+		<table class='table' ng-controller="exibir-total">
+ 			<tr>
+				<td>Total negociado:</td>
+				<td>{{totalnegociado}}</td>
+			</tr>
+		</table>
+		</div>
 
-<!--// DEBUG HEHEHEH 
-{{veiculos_array}} -->
-
-
-
-<p>Today's welcome message is:</p>
-<h1>{{myWelcome}}</h1>
-
-	
 	<table class='table'>
-		<tr> 
+		<tr>
 			<th> </th>
 			<th> Ação </th>
 			<th> Abertura </th>
@@ -120,8 +118,6 @@
 			<th> Max </th>
 			<th> Volume </th>
 		</tr>
-	 
-
 
 
 	 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
