@@ -12,6 +12,9 @@ var debug=false;
 var start = new Date();
 var total = 0.0;
 
+//########################################################################################
+//								ibSYM - Bolsa Cognitive 
+//########################################################################################
 console.log('============================================================================='.blue);
 console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Stock Financial S/A".white+  "       Versão 1.2".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
 console.log('============================================================================='.blue);
@@ -95,17 +98,30 @@ app.get ('/' ,function (req,res) {
 
 app.get ('/listar',function(req,res){
 	var cliente = JSON.stringify({
-		ativo : ativos['VALE5'].nome ,
-		valor : ativos['VALE5'].valor,
+		"ativo" : ativos['VALE5'].nome ,
+		"valor" : ativos['VALE5'].valor,
+		"ativo" : ativos['USIM5'].nome ,
+		"valor" : ativos['USIM5'].valor,
+	    "ativo" : ativos['PETR4'].nome ,
+		"valor" : ativos['PETR4'].valor,
+        "ativo" : ativos['CSNA3'].nome ,
+		"valor" : ativos['CSNA3'].valor,
+        "ativo" : ativos['GOLL4'].nome ,
+		"valor" : ativos['GOLL4'].valor,
+        "ativo" : ativos['GGBR4'].nome ,
+		"valor" : ativos['GGBR4'].valor,
+        "ativo" : ativos['GOAU4'].nome ,
+		"valor" : ativos['GOAU4'].valor
 	});
-	//localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
 	res.json(cliente);
 });
+
+
 app.get ('/total',function(req,res){
 	res.writeHead(200, {"Content-Type" : "text/html"}); 
-	if ( total) res.write(total);
+	if ( total) res.write(total+  " Milhões");
 	else
-		res.write('Waiting...');
+		res.write('Aguardando o primeiro negócio ...<br><a href="./listar/"> <button type="button" onclick="loadDoc()">Cotações</button> </a>');
 	res.end();
 
 });

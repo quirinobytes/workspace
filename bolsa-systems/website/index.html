@@ -1,0 +1,123 @@
+<html ng-app=carrosOLX>
+<head>
+	<title> Hello World </title>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+	<style type="text/css">
+		.jumbotron{
+			width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top:20px;
+			text-align: center;
+			padding: 10px;
+
+		}
+		.table{ 
+			margin-top:20px;
+			background-color: light-blue;
+		}
+		.form-control{
+			margin-bottom: 4px;
+
+		}
+		.selecionado{
+						background-color: #DDDDDD;
+		}
+
+	</style>
+	<script src="http://code.angularjs.org/1.0.1/angular-1.0.1.min.js"> </script>
+	<script> 
+		angular.module("carrosOLX", []);
+		angular.module("carrosOLX").controller("exibir-titulo",function($scope){
+			
+			// TITULO E VERSAO DO PROGRAMA #############
+			$scope.titulo = "Carros OLX - apportunity v.1.6"
+			
+			$scope.veiculos_array = [
+					{carro: "Vectra", ano: "2000", valor:"R$ 10.000,00"},
+					{carro:"Monza",ano:"1990",  valor:"R$ 6.000,00"},
+					{carro: "Uno", ano: "1985",  valor:"R$ 4.000,00"}
+			];
+
+			$scope.montadoras= [
+					{nome:"GM", pais: "USA", categoria:"veiculos"},
+					{nome:"Fiat", pais: "Italia", categoria:"veiculos"},
+					{nome:"Ford", pais: "USA", categoria:"veiculos"},
+			];
+
+			//funcao chamada dentro do ng-click do button CADASTRAR
+			$scope.adicionarVeiculo = function(veiculo){
+				//console.log($scope.carro+$scope.ano+$scope.valor);
+				$scope.veiculos_array.push(angular.copy(veiculo));
+				//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
+				delete $scope.veiculo;
+			};
+
+			//funcao chamada dentro do ng-click do button EXCLUIR
+			$scope.excluirVeiculo = function(veiculos){
+				//console.log(veiculos);
+				$scope.veiculos_array = veiculos.filter(function(veiculo){
+					if (!veiculo.selecionado) return veiculo;
+						console.log(veiculo);
+				});
+
+			};
+
+
+			$scope.classe = 'selecionado';
+
+		});
+
+	</script>
+</head>
+
+
+
+<body ng-controller="exibir-titulo">
+	<div class="jumbotron" > 
+		<h3> {{titulo}} </h3>
+
+<!--// DEBUG HEHEHEH 
+{{veiculos_array}} -->
+	
+	<table class='table'>
+		<tr> 
+			<th> </th>
+			<th> Carro </th>
+			<th> Ano </th>
+			<th> Valor </th>
+		</tr>
+	 
+
+
+
+	 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
+			<tr ng-class="{selecionado: veiculo.selecionado }" ng-repeat="veiculo in veiculos_array">
+				<!-- <td ng-repeat="(key,value) in veiculos">
+				{{ key + " - " + value}}
+			</td> -->
+			<td> <input type="checkbox" ng-model='veiculo.selecionado'/></td>
+			<td>{{veiculo.carro}} </td>
+			<td>{{veiculo.ano}} </td>
+			<td>{{veiculo.valor}}</td>
+			<td>{{veiculo.montadora.nome}}</td>
+			<td>{{veiculo.montadora.pais}}</td>
+
+		</tr>
+	</table>
+ 	<hr> 
+ 	{{veiculo}}
+	<input class="form-control" type="text" ng-model="veiculo.carro" placeholder="Carro">
+	<input class="form-control" type="text" ng-model="veiculo.ano" placeholder="Ano">
+	<input class="form-control" type="text" ng-model="veiculo.valor" placeholder="Valor">
+	<select class="form-control" ng-model='veiculo.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
+		<option value=''> Selecione um fabricante </option> 	
+	</select>
+	<button class="btn btn-primary btn-block" ng-click="adicionarVeiculo(veiculo)" ng-disabled="! veiculo.carro || ! veiculo.ano || ! veiculo.valor"> Adicionar Veiculo 
+	<button class="btn btn-danger btn-block" ng-click="excluirVeiculo(veiculos_array)"> Excluir Veiculo 
+	</button>
+	
+
+	</div>
+</body>
+</html>
