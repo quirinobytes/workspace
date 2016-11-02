@@ -9,13 +9,14 @@ var productController = require('./controllers/productController');
 var fs = require("fs");
 var saldo=1500;
 
+// ### CONFIG ###
 var debug=false;
-var start = new Date();
-var total = 0.0;
+var cfg_mostrapainel=1;
 
 //########################################################################################
 //								ibSYM - Bolsa Cognitive 
 //########################################################################################
+var start = new Date();
 console.log('============================================================================='.blue);
 console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Stock Financial S/A".white+  "       Versão 1.2".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
 console.log('============================================================================='.blue);
@@ -27,6 +28,10 @@ abertura = {};
 max=[];
 min=[];
 volume=[];
+
+var total = 0.0;
+var total_compra = 0.0;
+var total_venda = 0.0;
 
 ativos['VALE5'] = {'nome':'VALE5', 'valor':21};
 ativos['USIM5'] = {'nome':"USIM5", 'valor':4.60};
@@ -65,12 +70,16 @@ volume['GGBR4']=0;
 volume['GOAU4']=0;
 
 
-
-
+/*app.get ('/' ,function (req,res) {
+	productController.list(function(resp){
+		res.json(resp);
+	});
+	console.log ("IP: " + req.connection.remoteAddress);
+});*/
 
 app.get ('/',function (req,res) {
 
-	fs.readFile('./index.html', function (err, html) {
+	fs.readFile('./website/index.html', function (err, html) {
     	if (err) {
         	throw err;
 	    }
@@ -115,13 +124,6 @@ app.get ('/website/css/bootstrap.css',function (req,res) {
 
 
 
-app.get ('/' ,function (req,res) {
-	productController.list(function(resp){
-		res.json(resp);
-	});
-	console.log ("IP: " + req.connection.remoteAddress);
-});
-
 app.get ('/listar',function(req,res){
 	var cliente = JSON.stringify({
 		"ativo" : ativos['VALE5'].nome ,
@@ -144,8 +146,18 @@ app.get ('/listar',function(req,res){
 
 
 app.get ('/total',function(req,res){
+	total = total_compra + total_venda;
+	if (total > 1000){
+		total = total/1000;
+		unidade = " Bilhões"
+	}
+	else{
+		unidade = " Milhões";
+	}
+
+	total = total.toFixed(2);
 	res.writeHead(200, {"Content-Type" : "text/html"}); 
-	if ( total) res.write(total+  " Milhões");
+	if ( total) res.write(total + unidade);
 	else
 		res.write('0,00 (Aguardando o primeiro negócio...)');
 	res.end();
@@ -207,6 +219,8 @@ if (debug){
 			if (valor > max[ativo]) max[ativo] = valor.toFixed(2);
 			//vamos pegar o volume
 			volume[ativo]=volume[ativo]+quantidade*valor;
+		  //vamos atualizar o total do Volume da Bolsa ibSYM.
+		  total_compra = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
 
 			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
@@ -221,9 +235,8 @@ if (debug){
 	else{
 		res.json({'Compra':false,'valor':ativos[ativo].valor});
 	}
-
-	mostra_painel();
-
+	//CONFIG PAINEL
+	if (cfg_mostrapainel)  mostra_painel();
 });
 
 app.post ('/vender', function (req,res) {
@@ -280,6 +293,8 @@ if (debug){
 			if (valor < min[ativo]) min[ativo] = valor.toFixed(2);
 			//vamos pegar o volume
 			volume[ativo]=volume[ativo]+quantidade*valor;
+		  //vamos atualizar o total do Volume da Bolsa ibSYM.
+		  total_venda = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
 
 			if (debug) console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Venda':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
@@ -294,8 +309,8 @@ if (debug){
 	else{
 		res.json({'Venda':false,'valor':ativos[ativo].valor});
 	}
-
-	mostra_painel();
+	//CONFIG PAINEL
+	if (cfg_mostrapainel)  mostra_painel();
 
 });
 
@@ -426,9 +441,9 @@ function mostra_painel(){
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).green;
 		if (porcentagem['GOAU4'] < 0 )
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).red;
+//	(Usar sempre a somas das duas negociacoes para pegar total, pois deixando somente um variavel, ocorre risco de escrita junto pela comprar e vender.
 
-
-	total = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
+	total = total_compra + total_venda;
 	total = total.toFixed(2);
 	str_total = total.toString().green;
 

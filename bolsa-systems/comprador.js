@@ -94,26 +94,28 @@ function getUrl(){
     };
 
 	if (debug) console.log();
-	request(options, function (error, response, body) {
-	if (error) throw new Error(error);
-		if (debug) console.log(body);
-	obj = JSON.parse(body)
-	if (obj.Compra){
-	   if (debug) console.log (obj.ativo);
-	   array_valores[obj.ativo] = obj.valor;
-	   array_valores[papel] = obj.valor;
-	}
-	else{
-	   array_valores[papel] = obj.valor;
-	}
+	req = request(options, function (error, response, body) {
+		if(error) throw new Error(error)
 
-	gravar_cotacoes_no_arquivo(array_valores);
+		if (debug) console.log(body);
+			obj = JSON.parse(body)
+		if (obj.Compra){
+			 if (debug) console.log (obj.ativo);
+			 array_valores[obj.ativo] = obj.valor;
+			 array_valores[papel] = obj.valor;
+		}
+		else{
+			 array_valores[papel] = obj.valor;
+		}
+
+		gravar_cotacoes_no_arquivo(array_valores);
 
 	if (debug)   mostrar(array_valores); //EXIBIR AS COTACOES LOGO APOS FAZER O REQUEST.
-	
     //  response.end;
 	});
 
+
+	
   //mostrar(array_valores);
 };
 
