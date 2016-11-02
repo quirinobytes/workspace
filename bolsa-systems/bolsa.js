@@ -8,6 +8,8 @@ var productController = require('./controllers/productController');
 //var os = require("os");
 var fs = require("fs");
 var saldo=1500;
+//testar para remover
+var path = require('path');
 
 // ### CONFIG ###
 var debug=false;
@@ -17,14 +19,15 @@ else
 	var cfg_mostrapainel=0;
 
 //########################################################################################
-//								ibSYM - Bolsa Cognitive 
+//								ibSYM - Bolsa Cognitive (bolsa.js)
 //########################################################################################
 var start = new Date();
+cls();
+
 console.log('============================================================================='.blue);
 console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Cognitive Stock API ".white+  "       Versão 1.3".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
-console.log('============================================================================='.blue);
-
-//console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid:cli2370\tvalor: R$  950,00\n\n ");
+console.log('=============================================================================\n\n'.blue);
+console.log("° Horário de inicio: "+ String(start).grey+"...........".grey +"   OK\n".green);
 
 ativos = {};
 abertura = {};
@@ -80,6 +83,8 @@ volume['GOAU4']=0;
 	console.log ("IP: " + req.connection.remoteAddress);
 });*/
 
+
+//###############		/ 			###############################
 app.get ('/',function (req,res) {
 
 	fs.readFile('./website/index.html', function (err, html) {
@@ -93,9 +98,11 @@ app.get ('/',function (req,res) {
 	});
 });
 
-var path = require('path');
 
+//###############		/ 			###############################
 app.use('/website', express.static(path.join(__dirname, './website')));
+
+//###############		/operar		###############################
 app.get ('/operar/',function (req,res) {
 
 	fs.readFile('./website/index.html', function (err, html) {
@@ -110,23 +117,7 @@ app.get ('/operar/',function (req,res) {
 
 });
 
-app.get ('/website/css/bootstrap.css',function (req,res) {
-
-	fs.readFile('./website/index.html', function (err, html) {
-    	if (err) {
-        	throw err;
-	    }
-		//do something
-		res.writeHeader(200, {"Content-Type": "css"});
-        res.write(html);
-        res.end();
-	});
-
-});
-
-
-
-
+//###############		/listar		###############################
 app.get ('/listar',function(req,res){
 	var cliente = JSON.stringify({
 		"ativo" : ativos['VALE5'].nome ,
@@ -148,6 +139,7 @@ app.get ('/listar',function(req,res){
 });
 
 
+//###############		/total		###############################
 app.get ('/total',function(req,res){
 	total = total_compra + total_venda;
 	if (total > 1000){
@@ -168,6 +160,7 @@ app.get ('/total',function(req,res){
 });
 
 
+//###############		/comprar	###############################
 app.post ('/comprar', function (req,res) {
 	var id_corretora  = req.body.id_corretora;
 	var id_cliente = req.body.id_cliente;
@@ -242,39 +235,35 @@ if (debug){
 	if (cfg_mostrapainel)  mostra_painel();
 });
 
+//###############		/vender		###############################
 app.post ('/vender', function (req,res) {
 	var id_corretora  = req.body.id_corretora;
 	var id_cliente = req.body.id_cliente;
-        var ativo = req.body.ativo;
+    var ativo = req.body.ativo;
 	var quantidade = req.body.quantidade;
 	var valor = parseFloat(req.body.valor);
 	var token = req.body.token;
-	var tipo = "Compra";
-
-if (debug)
-	console.log ("IP: " + req.connection.remoteAddress);
-
-	//productController.save(nome,tamanho,cor,valor,function(resp){
-	//	res.json(resp);
-if (debug){
-	console.log("id_corretora= "+id_corretora);
-	console.log("id_cliente= "+id_cliente);
-	console.log("ativo= "+ativo);
-	console.log("quantidade= "+quantidade);
-	console.log("valor= "+valor);
-	console.log("token= "+token);
-	console.log("tipo= "+tipo);
-}
-
-
 	var id_corretora_checked=false;
 	var id_cliente_checked=false;
 	var ativo_checked=false;
 	var quantidade_checked=false;
 	var token_checked=false;
+	var tipo = "Compra";
 
+	if (debug)
+		console.log ("IP: " + req.connection.remoteAddress);
 
-
+	//productController.save(nome,tamanho,cor,valor,function(resp){
+	//	res.json(resp);
+	if (debug){
+	   console.log("id_corretora= "+id_corretora);
+	   console.log("id_cliente= "+id_cliente);
+	   console.log("ativo= "+ativo);
+	   console.log("quantidade= "+quantidade);
+	   console.log("valor= "+valor);
+	   console.log("token= "+token);
+	   console.log("tipo= "+tipo);
+	}
 	if ( id_corretora > 0 && id_corretora < 1000)
 		id_corretora_checked=true;
 	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "GOLL4" )
@@ -316,8 +305,6 @@ if (debug){
 	if (cfg_mostrapainel)  mostra_painel();
 
 });
-
-
 
 
 /*
@@ -396,7 +383,7 @@ app.post ('/exibir/:ativo/:token', function(req,res){
 
 function mostra_painel(){
 
-
+	cls();
 	console.log("\n\n###   Mesa de Operações    ###\n".yellow); 
 	porcentagem = [];
 	porcentagem['VALE5'] = ( 100 * ativos['VALE5'].valor / abertura['VALE5' ].valor  ) - 100;
@@ -450,10 +437,6 @@ function mostra_painel(){
 	total = total.toFixed(2);
 	str_total = total.toString().green;
 
-	//limpar a tela
-	console.log ("\033[2J");
-	//voltar la no começo da tela
-	console.log ("\033[0;0f");
 	tempo = (new Date() - start)/1000;
 	console.log("\t\t###   Mesa de Operações    ###\t tempo:".yellow + tempo.toFixed(0)+ "s Total: "+str_total+"M"); 
 	console.log("\t\t      =================       ".yellow); 
@@ -473,3 +456,13 @@ function mostra_painel(){
 
 
 };
+
+
+
+function cls(){
+
+	//limpar a tela
+	console.log ("\033[2J");
+	//voltar la no começo da tela
+	console.log ("\033[0;0f");
+}
