@@ -11,14 +11,17 @@ var saldo=1500;
 
 // ### CONFIG ###
 var debug=false;
-var cfg_mostrapainel=1;
+if (process.argv[2] == '-v')
+	var cfg_mostrapainel=1;
+else
+	var cfg_mostrapainel=0;
 
 //########################################################################################
 //								ibSYM - Bolsa Cognitive 
 //########################################################################################
 var start = new Date();
 console.log('============================================================================='.blue);
-console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Stock Financial S/A".white+  "       Versão 1.2".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
+console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Cognitive Stock API ".white+  "       Versão 1.3".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
 console.log('============================================================================='.blue);
 
 //console.log("Lista de saldo dos cliente\nid:cli1900\tvalor: R$ "+saldo+",00 \nid:cli2370\tvalor: R$  950,00\n\n ");
