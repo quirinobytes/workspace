@@ -27,7 +27,7 @@ cls();
 console.log('============================================================================='.blue);
 console.log("|".blue + "#".yellow +"|".blue + "\t" + "i".yellow +  "bSYM - Bolsa Cognitive ".green + " ® ".red + " Cognitive Stock API ".white+  "       Versão 1.3".cyan  + "  "+ "|".blue + "#".yellow + "|".blue);
 console.log('=============================================================================\n\n'.blue);
-console.log("° Horário de inicio: "+ String(start).grey+"...........".grey +"   OK\n".green);
+console.log("° Horário de inicio: "+ String(start).grey+"............. ".grey +"OK\n".green);
 
 ativos = {};
 abertura = {};
