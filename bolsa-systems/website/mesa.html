@@ -14,7 +14,7 @@
 			padding: 10px;
 
 		}
-			.table{ 
+		.table{ 
 			margin-top:20px;
 			background-color: light-blue;
 		}
@@ -34,42 +34,44 @@
 			
 			// TITULO E VERSAO DO PROGRAMA #############
 			$scope.titulo = "ibSYM Cognitive Stock API ® v.1.3"
-			
-			$scope.veiculos_array = [
+				
+			$scope.cotacoes_array = [];
+
+			$scope.carteira_array = [
 					{quantidade: "VALE5", vencimento: "19,12", valor:"18,00"},
 					{quantidade:"USIM5",vencimento:"4.80",  valor:"4,32"},
 					{quantidade: "PETR	4", vencimento: "18.82",  valor:"17.21"}
 			];
 
 			$scope.montadoras= [
-					{nome:"VALE5", pais: "ACOES", categoria:"veiculos"},
-					{nome:"PETR4", pais: "ACOES", categoria:"veiculos"},
-					{nome:"CSNA3", pais: "ACOES", categoria:"veiculos"},
-					{nome:"GOAU4", pais: "ACOES", categoria:"veiculos"},
-					{nome:"GGBR4", pais: "ACOES", categoria:"veiculos"},
-					{nome:"GOLL4", pais: "ACOES", categoria:"veiculos"},
-					{nome:"USIM5", pais: "ACOES", categoria:"veiculos"},
-					{nome:"VALEW46", pais: "OPCOES", categoria:"veiculos"},
-					{nome:"VALEW22", pais: "OPCOES", categoria:"veiculos"},
-					{nome:"Tesouro Direto", pais: "DERIVATIVOS", categoria:"veiculos"},
-					{nome:"Renda Fixa", pais: "DERIVATIVOS", categoria:"veiculos"},
-					{nome:"", pais: "DERIVATIVOS", categoria:"veiculos"},
+					{nome:"VALE5", pais: "ACOES", categoria:"investimentos"},
+					{nome:"PETR4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"CSNA3", pais: "ACOES", categoria:"investimentos"},
+					{nome:"GOAU4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"GGBR4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"GOLL4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"USIM5", pais: "ACOES", categoria:"investimentos"},
+					{nome:"VALEW46", pais: "OPCOES", categoria:"investimentos"},
+					{nome:"VALEW22", pais: "OPCOES", categoria:"investimentos"},
+					{nome:"Tesouro Direto", pais: "DERIVATIVOS", categoria:"investimentos"},
+					{nome:"Renda Fixa", pais: "DERIVATIVOS", categoria:"investimentos"},
+					{nome:"", pais: "DERIVATIVOS", categoria:"investimentos"},
 			];
 
 			//funcao chamada dentro do ng-click do button CADASTRAR
-			$scope.adicionarVeiculo = function(veiculo){
+			$scope.adicionarVeiculo = function(papel){
 				//console.log($scope.quantidade+$scope.vencimento+$scope.valor);
-				$scope.veiculos_array.push(angular.copy(veiculo));
+				$scope.carteira_array.push(angular.copy(papel));
 				//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
-				delete $scope.veiculo;
+				delete $scope.papel;
 			};
 
 			//funcao chamada dentro do ng-click do button EXCLUIR
 			$scope.excluirVeiculo = function(veiculos){
 				//console.log(veiculos);
-				$scope.veiculos_array = veiculos.filter(function(veiculo){
-					if (!veiculo.selecionado) return veiculo;
-						console.log(veiculo);
+				$scope.carteira_array = veiculos.filter(function(papel){
+					if (!papel.selecionado) return papel;
+						console.log(papel);
 				});
 
 			};
@@ -92,61 +94,81 @@
    </script>
 
 
-
+   <script>
+   angular.module('ibSYM').controller('exibir-cotacoes', function($scope, $http) {
+	   $http.get("http://189.55.194.115:3000/listar")
+	   .then(function(response) {
+		   $scope.cotacoes_array = response.data;
+	   });
+   });
+   </script>
 </head>
-
-
 
 <body ng-controller="exibir-titulo">
 	<div class="jumbotron jumbotron-fluid" >
-				<h3> {{titulo}} </h3>
-		<div class='container'> 
-		<table class='table' ng-controller="exibir-total">
- 			<tr>
-				<td>Total negociado:</td>
-				<td>{{totalnegociado}}</td>
-			</tr>
-		</table>
-		</div>
+			<h3> {{titulo}} </h3>
+			<div class='container'> 
+				<table magin-left='100px' class='table' ng-controller="exibir-total">
+						 <tr>
+					  	<td>Volume </td>
+					  	<td> </td>
+						<td text-align='right'>Total negociado: {{totalnegociado}}</td>
+					</tr>
+				</table>
+			</div>
 
-	<table class='table'>
-		<tr>
-			<th> </th>
-			<th> Ação </th>
-			<th> Abertura </th>
-			<th> Min </th>
-			<th> Max </th>
-			<th> Volume </th>
-		</tr>
+			<div class='container'>
+				<table class='table' ng-controller='exibir-cotacoes'>
+				<tr>
+					<th> Ativo</th>
+					<th> Valor</th>
 
 
-	 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
-			<tr ng-class="{selecionado: veiculo.selecionado }" ng-repeat="veiculo in veiculos_array">
-				<!-- <td ng-repeat="(key,value) in veiculos">
-				{{ key + " - " + value}}
-			</td> -->
-			<td> <input type="checkbox" ng-model='veiculo.selecionado'/></td>
-			<td>{{veiculo.quantidade}} </td>
-			<td>{{veiculo.vencimento}} </td>
-			<td>{{veiculo.valor}}</td>
-			<td>{{veiculo.montadora.nome}}</td>
-			<td>{{veiculo.montadora.pais}}</td>
+				</tr>
 
-		</tr>
-	</table>
- 	<hr> 
- 	{{veiculo}}
-	<input class="form-control" type="number" min="100" max="500000" step="100" ng-model="veiculo.quantidade" placeholder="Quantidade">
-	<input class="form-control" type="number" min="0.01" step=".01" ng-model="veiculo.valor" placeholder="Valor">
-	<input class="form-control" type="date" ng-model="veiculo.vencimento" placeholder="Vencimento">
-	<select class="form-control" ng-model='veiculo.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
-		<option value=''> Selecione um ativo </option> 	
-	</select>
-	<button class="btn btn-success btn-block" ng-click="adicionarVeiculo(veiculo)" ng-disabled="! veiculo.quantidade || ! veiculo.vencimento || ! veiculo.valor"> Comprar 
-	<button class="btn btn-danger btn-block" ng-click="excluirVeiculo(veiculos_array)"> VENDER 
-	</button>
-	
+				<tr nr-repeat='ativo in cotacoes_array'>
+					<td>	{{ativo.nome}}	</td>
+					<td>	{{ativo.valor}}	</td>
 
+				</tr>
+				</table>
+			</div>
+
+
+
+	   		<table class='table'>
+				<tr>
+				   <th> </th>
+				   <th> Ação </th>
+				   <th> Abertura </th>
+				   <th> Min </th>
+				   <th> Max </th>
+				   <th> Volume </th>
+			   </tr>
+			  <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
+			  <tr ng-class="{selecionado: papel.selecionado }" ng-repeat="papel in carteira_array">
+			  <!-- <td ng-repeat="(key,value) in veiculos">
+			  {{ key + " - " + value}}
+			  </td> -->
+				  <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
+				  <td>{{papel.quantidade}} </td>
+				  <td>{{papel.vencimento}} </td>
+				  <td>{{papel.valor}}</td>
+				  <td>{{papel.montadora.nome}}</td>
+				  <td>{{papel.montadora.pais}}</td>
+			  </tr>
+		    </table>
+	   		<hr>
+		   {{papel}}
+			<input class="form-control" type="number" min="100" max="500000" step="100" ng-model="papel.quantidade" placeholder="Quantidade">
+	   		<input class="form-control" type="number" min="0.01" step=".01" ng-model="papel.valor" placeholder="Valor">
+	   		<input class="form-control" type="date" ng-model="papel.vencimento" placeholder="Vencimento">
+	   		<select class="form-control" ng-model='papel.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
+		   		<option value=''> Selecione um ativo </option>
+			</select>
+			<button class="btn btn-success btn-block" ng-click="adicionarVeiculo(papel)" ng-disabled="! papel.quantidade || ! papel.vencimento || ! papel.valor"> Comprar
+		<button class="btn btn-danger btn-block" ng-click="excluirVeiculo(carteira_array)"> Vender
+			</button>
 	</div>
 </body>
 </html>

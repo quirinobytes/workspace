@@ -119,22 +119,15 @@ app.get ('/operar/',function (req,res) {
 
 //###############		/listar		###############################
 app.get ('/listar',function(req,res){
-	var cliente = JSON.stringify({
-		"ativo" : ativos['VALE5'].nome ,
-		"valor" : ativos['VALE5'].valor,
-		"ativo" : ativos['USIM5'].nome ,
-		"valor" : ativos['USIM5'].valor,
-	    "ativo" : ativos['PETR4'].nome ,
-		"valor" : ativos['PETR4'].valor,
-        "ativo" : ativos['CSNA3'].nome ,
-		"valor" : ativos['CSNA3'].valor,
-        "ativo" : ativos['GOLL4'].nome ,
-		"valor" : ativos['GOLL4'].valor,
-        "ativo" : ativos['GGBR4'].nome ,
-		"valor" : ativos['GGBR4'].valor,
-        "ativo" : ativos['GOAU4'].nome ,
-		"valor" : ativos['GOAU4'].valor
-	});
+	var cliente = JSON.stringify([
+		{ nome : ativos['VALE5'].nome ,valor : ativos['VALE5'].valor },
+		{ nome : ativos['PETR4'].nome ,valor : ativos['PETR4'].valor },
+		{ nome : ativos['USIM5'].nome ,valor : ativos['USIM5'].valor },
+		{ nome : ativos['CSNA3'].nome ,valor : ativos['CSNA3'].valor },
+		{ nome : ativos['GOLL4'].nome ,valor : ativos['GOLL4'].valor },
+		{ nome : ativos['GGBR4'].nome ,valor : ativos['GGBR4'].valor },
+		{ nome : ativos['GOAU4'].nome ,valor : ativos['GOAU4'].valor }
+	]);
 	res.json(cliente);
 });
 
