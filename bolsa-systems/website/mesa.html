@@ -68,20 +68,8 @@
 				//fazendo a soma do total na chegada dos dados da view.
 				papel.total = papel.valor * papel.quantidade;
 				
-				var data = { 
-					id_corretora: '13',
-					id_cliente: '27',
-					ativo: 'VALE5',
-					quantidade: '1000',
-					valor: '1000',
-					token: '1234abcd' 
-				};
-
-				ssvar config = {headers :{'Content-Type':'application/x-www-form-urlencoded'}}
-				
-
 				$http({
-				    url: 'http://189.55.194.115:3000/comprar',
+				    url: 'http://189.55.194.115:3010/comprar',
 				    method: 'POST',
 				    headers: { 'Content-Type': 'application/x-www-form-urlencoded;' },
 				    data: {id_cliente: '27',ativo: 'VALE5', quantidade: '1000', valor: '1000', token: '1234abcd'}
@@ -178,7 +166,7 @@
 			</div>
 
 			<div class='carteira'> 
-<!--			{{carteira_array}} -->
+<!--			{{carteira_array}}  -->
 			   <h4> Carteira de Investimentos </h4>
 			   <table class='table'>
 				   <tr>
