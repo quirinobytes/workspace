@@ -29,8 +29,10 @@
 						background-color: #DDDDDD;
 		}
 	</style>
-<!--	<script src="http://code.angularjs.org/1.0.1/angular-1.0.1.min.js"> </script> -->
-  <script id="angularScript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<!-- ####  Incluindo os fontes #### -->	
+	<script id="angularScript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
 	<script> 
 		angular.module("ibSYM", []);
 		angular.module("ibSYM").controller("exibir-titulo",function($scope,$http){
@@ -41,10 +43,10 @@
 			$scope.cotacoes_array = [];
 	
 			$scope.carteira_array = [
-					{nome: "VALE5", quantidade: "500", total: "10300", valor:"20.60", "montadora":{"nome":"VALE5","valor":"8.10"}},
-					{nome: "PETR4", quantidade: "900", total: "15570", valor:"17.30", "montadora":{"nome":"PETR4","valor":"8.10"}},
-					{nome: "CSNA3", quantidade: "3200", total: "32320", valor:"10.10", "montadora":{"nome":"CSNA3","valor":"8.10"}},
-					{nome: "VALEW46", quantidade: "3400", total: "1530", valor:"0.45", "montadora":{"nome":"VALEW46","valor":"8.10"}},
+					{nome: "VALE5", quantidade: "500", totalnegociado: "10300", valor:"20.60", "montadora":{"nome":"VALE5","valor":"8.10"}},
+					{nome: "PETR4", quantidade: "900", totalnegociado: "15570", valor:"17.30", "montadora":{"nome":"PETR4","valor":"8.10"}},
+					{nome: "CSNA3", quantidade: "3200", totalnegociado: "32320", valor:"10.10", "montadora":{"nome":"CSNA3","valor":"8.10"}},
+					{nome: "VALEW46", quantidade: "3400", totalnegociado: "1530", valor:"0.45", "montadora":{"nome":"VALEW46","valor":"8.10"}},
 			];
 
 			$scope.montadoras= [
@@ -62,12 +64,36 @@
 					{nome:"", pais: "DERIVATIVOS", categoria:"investimentos"},
 			];
 
-			//funcao chamada dentro do ng-click do button CADASTRAR
+			// ##### FUNCAO ORDEM DE COMPRA     (Chamada de dentro do ng-click do button CADASTRAR)
 			$scope.ordemCompra = function(papel){
 				//console.log($scope.quantidade+$scope.vencimento+$scope.valor);
 				//fazendo a soma do total na chegada dos dados da view.
-				papel.total = papel.valor * papel.quantidade;
-				
+				papel.totalnegociado = papel.valor * papel.quantidade;
+			
+
+<!--
+
+angular.module('myApp', [])
+.controller('myCtrl', function ($scope, $http) {
+    $scope.hello = {name: "Boaz"};
+    $scope.newName = "";
+    $scope.sendPost = function() {
+        var data = $.param({
+            json: JSON.stringify({
+                name: $scope.newName
+            })
+        });
+ 
+l.       $http.post("/echo/json/", data).success(function(data, status) {
+            $scope.hello = data;
+        })
+    }                   
+})
+
+-->
+
+
+	
 				$http({
 				    url: 'http://189.55.194.115:3010/comprar',
 				    method: 'POST',
@@ -174,7 +200,7 @@
 					  <th> Ação </th>
 					  <th> Quantidade </th>
 					  <th> Valor </th>
-					  <th> Total </th>
+					  <th> Total Negociado </th>
 				  </tr>
 				 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
 				 <tr ng-class="{selecionado: papel.selecionado }" ng-repeat="papel in carteira_array">
@@ -185,7 +211,7 @@
 					 <td>{{papel.montadora.nome}}</td>
 					 <td>{{papel.quantidade}} </td>
 					 <td>{{papel.valor}}</td>
-					 <td>{{papel.total | currency:'R$ '}}</td>
+					 <td>{{papel.totalnegociado | currency:'R$ '}}</td>
 					 <td></td>
 				 </tr>
 			   </table>
