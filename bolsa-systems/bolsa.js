@@ -119,7 +119,8 @@ app.get ('/operar/',function (req,res) {
 
 //###############		/listar		###############################
 app.get ('/listar',function(req,res){
-	var cliente = JSON.stringify([
+
+	data = [
 		{ nome : ativos['VALE5'].nome ,valor : ativos['VALE5'].valor },
 		{ nome : ativos['PETR4'].nome ,valor : ativos['PETR4'].valor },
 		{ nome : ativos['USIM5'].nome ,valor : ativos['USIM5'].valor },
@@ -127,8 +128,8 @@ app.get ('/listar',function(req,res){
 		{ nome : ativos['GOLL4'].nome ,valor : ativos['GOLL4'].valor },
 		{ nome : ativos['GGBR4'].nome ,valor : ativos['GGBR4'].valor },
 		{ nome : ativos['GOAU4'].nome ,valor : ativos['GOAU4'].valor }
-	]);
-	res.json(cliente);
+	];
+	res.json(data);
 });
 
 
@@ -147,7 +148,7 @@ app.get ('/total',function(req,res){
 	res.writeHead(200, {"Content-Type" : "text/html"}); 
 	if ( total) res.write(total + unidade);
 	else
-		res.write('0,00 (Aguardando o primeiro negócio...)');
+		res.write(' Aguardando negócios ...');
 	res.end();
 
 });
@@ -157,7 +158,7 @@ app.get ('/total',function(req,res){
 app.post ('/comprar', function (req,res) {
 	var id_corretora  = req.body.id_corretora;
 	var id_cliente = req.body.id_cliente;
-        var ativo = req.body.ativo;
+    var ativo = req.body.ativo;
 	var quantidade = req.body.quantidade;
 	var valor = parseFloat(req.body.valor);
 	var token = req.body.token;

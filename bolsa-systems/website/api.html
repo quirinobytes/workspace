@@ -20,7 +20,7 @@
 			padding: 10px;
 		}
 		.table{ 
-			width: 400px;
+			width: 700px;
 			margin-top:20px;
 			margin-right: auto;
 			margin-left: auto;
@@ -36,17 +36,6 @@
 	var today = now.getFullYear() + "-" + (month) + "-" + (day);
 </script>
 
-<script>
-   function loadDoc() {
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-		  if (this.readyState == 4 && this.status == 200) {
-		   document.getElementById("demo").innerHTML = this.responseText;
-		  }
-		};
-		xhttp.open("GET", "http://189.55.194.115:3000/total", true);
-		xhttp.send();
-   }
 </script>
 
 
@@ -78,30 +67,36 @@
 <div class='container'>
    <h2>Documentação, API e Robo Trader</h2>
 
-	<table class="table table-striped">
+	<table class="table table-striped table-bordered">
 		<tr>
 			<th>Metodos	</td>
+			<th>Verbo</td>
 			<th>Descrição:</td>
 		</tr>
 		<tr>
 			<td> /total/</td>
+			<td> GET </td>
 			<td> Lista o valor total negociado na bolsa.</td>
 		</tr>
 		<tr>
 			<td> /comprar/</td>
+			<td> POST (nome:string,valor:float,quantidade:integer,token:string)</td>
 			<td> Comprar as ações.</td>
 		</tr>
 		<tr>
 			<td> /vender/</td>
+			<td> POST (nome:string,valor:float,quantidade:integer,token:string)</td>
 			<td> Vender as ações.</td>
 		</tr>
 		<tr>
 			<td> /listar/</td>
+			<td> GET /</td>
 			<td> Lista o valor das ações durante o pregão.</td>
 		</tr>
 
 		<tr>
 			<td> /</td>
+			<td> GET </td>
 			<td> Url Base do Site.</td>
 		</tr>
 
