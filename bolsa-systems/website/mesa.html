@@ -37,19 +37,15 @@
 			
 			// TITULO E VERSAO DO PROGRAMA #############
 			$scope.titulo = "ibSYM Cognitive Stock API ® v.1.3"
+
+			$scope.cotacoes_array = [];
 	
-			$scope.cotacoes_array = [
-					{nome: "VALE5", vencimento: "19,12", valor:"18,00"},
-					{nome:"USIM5",vencimento:"4.80",  valor:"4,32"},
-					{nome: "PETR	4", vencimento: "18.82",  valor:"17.21"}
-			];
-
-			
-
 			$scope.carteira_array = [
-					{quantidade: "VALE5", vencimento: "19,12", valor:"18,00"},
-					{quantidade:"USIM5",vencimento:"4.80",  valor:"4,32"},
-					{quantidade: "PETR	4", vencimento: "18.82",  valor:"17.21"}
+					{nome: "VALE5", vencimento: "19,12", valor:"18,00","montadora":{"nome":"VALE5","valor":"28,10"}},
+					{nome: "PETR4", vencimento: "19,12", valor:"18,00","montadora":{"nome":"PETR4","valor":"28,10"}},
+					{nome: "USIM5", vencimento: "19,12", valor:"18,00","montadora":{"nome":"USIM5","valor":"28,10"}},
+					{nome: "CSNA3", vencimento: "19,12", valor:"18,00","montadora":{"nome":"CSNA3","valor":"28,10"}},
+					{nome: "VALEW46", vencimento: "19,12", valor:"18,00","tipo":{"nome":"VALEW46","valor":"28,10"}},
 			];
 
 			$scope.montadoras= [
@@ -80,7 +76,9 @@
 				//console.log(veiculos);
 				$scope.carteira_array = veiculos.filter(function(papel){
 					if (!papel.selecionado) return papel;
+						//aqui foi realizada a venda.
 						console.log(papel);
+						
 				});
 
 			};
@@ -144,13 +142,17 @@
 				<tr>
 					<th> Ativo</th>
 					<th> Valor</th>
-
-
+					<th> Min </th>
+					<th> Max </th>
+					<th> Volume</th>
 				</tr>
 
 				<tr ng-repeat="ativo in cotacoes_array">
 					<td> {{ativo.nome}}	</td>
-					<td> {{ativo.valor}}	</td>
+					<td > {{ativo.valor | currency:''}} </td>
+					<td> {{ativo.min}}	</td>
+					<td> {{ativo.max}}	</td>
+					<td> {{ativo.volume/1000000 | number:'2'}}M	</td>
 
 				</tr>
 				</table>
@@ -162,7 +164,7 @@
 				   <tr>
 					  <th> </th>
 					  <th> Ação </th>
-					  <th> Abertura </th>
+					  <th> Quantidade </th>
 					  <th> Min </th>
 					  <th> Max </th>
 					  <th> Volume </th>
@@ -173,10 +175,10 @@
 				 {{ key + " - " + value}}
 				 </td> -->
 					 <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
+					 <td>{{papel.montadora.nome}}</td>
 					 <td>{{papel.quantidade}} </td>
 					 <td>{{papel.vencimento}} </td>
 					 <td>{{papel.valor}}</td>
-					 <td>{{papel.montadora.nome}}</td>
 					 <td>{{papel.montadora.pais}}</td>
 				 </tr>
 			   </table>

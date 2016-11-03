@@ -121,13 +121,13 @@ app.get ('/operar/',function (req,res) {
 app.get ('/listar',function(req,res){
 
 	data = [
-		{ nome : ativos['VALE5'].nome ,valor : ativos['VALE5'].valor },
-		{ nome : ativos['PETR4'].nome ,valor : ativos['PETR4'].valor },
-		{ nome : ativos['USIM5'].nome ,valor : ativos['USIM5'].valor },
-		{ nome : ativos['CSNA3'].nome ,valor : ativos['CSNA3'].valor },
-		{ nome : ativos['GOLL4'].nome ,valor : ativos['GOLL4'].valor },
-		{ nome : ativos['GGBR4'].nome ,valor : ativos['GGBR4'].valor },
-		{ nome : ativos['GOAU4'].nome ,valor : ativos['GOAU4'].valor }
+		{ nome : ativos['VALE5'].nome ,valor : ativos['VALE5'].valor, volume: volume['VALE5'], min:min['VALE5'],max:max['VALE5'] },
+		{ nome : ativos['PETR4'].nome ,valor : ativos['PETR4'].valor, volume: volume['PETR4'] ,min:min['PETR4'],max:max['PETR4'] },
+		{ nome : ativos['USIM5'].nome ,valor : ativos['USIM5'].valor, volume: volume['USIM5'] ,min:min['USIM5'],max:max['USIM5'] },
+		{ nome : ativos['CSNA3'].nome ,valor : ativos['CSNA3'].valor, volume: volume['CSNA3'] ,min:min['CSNA3'],max:max['CSNA3'] },
+		{ nome : ativos['GOLL4'].nome ,valor : ativos['GOLL4'].valor, volume: volume['GOLL4'] ,min:min['GOLL4'],max:max['GOLL4'] },
+		{ nome : ativos['GGBR4'].nome ,valor : ativos['GGBR4'].valor, volume: volume['GGBR4'] ,min:min['GGBR4'],max:max['GGBR4'] },
+		{ nome : ativos['GOAU4'].nome ,valor : ativos['GOAU4'].valor, volume: volume['GOAU4'] ,min:min['GOAU4'],max:max['GOAU4'] }
 	];
 	res.json(data);
 });
