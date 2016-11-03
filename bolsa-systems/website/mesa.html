@@ -33,7 +33,7 @@
   <script id="angularScript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	<script> 
 		angular.module("ibSYM", []);
-		angular.module("ibSYM").controller("exibir-titulo",function($scope){
+		angular.module("ibSYM").controller("exibir-titulo",function($scope,$http){
 			
 			// TITULO E VERSAO DO PROGRAMA #############
 			$scope.titulo = "ibSYM Cognitive Stock API ® v.1.3"
@@ -65,8 +65,31 @@
 			//funcao chamada dentro do ng-click do button CADASTRAR
 			$scope.ordemCompra = function(papel){
 				//console.log($scope.quantidade+$scope.vencimento+$scope.valor);
+				//fazendo a soma do total na chegada dos dados da view.
 				papel.total = papel.valor * papel.quantidade;
 				
+				var data = { 
+					id_corretora: '13',
+					id_cliente: '27',
+					ativo: 'VALE5',
+					quantidade: '1000',
+					valor: '1000',
+					token: '1234abcd' 
+				};
+
+				ssvar config = {headers :{'Content-Type':'application/x-www-form-urlencoded'}}
+				
+
+				$http({
+				    url: 'http://189.55.194.115:3000/comprar',
+				    method: 'POST',
+				    headers: { 'Content-Type': 'application/x-www-form-urlencoded;' },
+				    data: {id_cliente: '27',ativo: 'VALE5', quantidade: '1000', valor: '1000', token: '1234abcd'}
+				}).then(function (results){
+					console.log(results);
+				});			
+
+
 				$scope.carteira_array.push(angular.copy(papel));
 				//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
 				delete $scope.papel;
