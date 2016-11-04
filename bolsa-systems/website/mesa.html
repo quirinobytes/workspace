@@ -36,10 +36,12 @@
 	<script> 
 		angular.module("ibSYM", []);
 		angular.module("ibSYM").controller("exibir-titulo",function($scope,$http){
-			
+		angular.module("ibSYM").run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});	
 			// TITULO E VERSAO DO PROGRAMA #############
 			$scope.titulo = "ibSYM Cognitive Stock API ® v.1.3"
-
+			$scope.saldo=10000;
 			$scope.cotacoes_array = [];
 	
 			$scope.carteira_array = [
@@ -164,7 +166,9 @@
 						 <tr>
 					  	<td>Volume </td>
 					  	<td> </td>
-						<td text-align='right'>Total negociado: {{totalnegociado}}</td>
+						<td >Total negociado: {{total}}</td>
+					  	<td> </td>
+					  	<td> Saldo {{saldo | currency:'R$':2}}</td>
 					</tr>
 				</table>
 			</div>
@@ -211,7 +215,7 @@
 					 <td>{{papel.montadora.nome}}</td>
 					 <td>{{papel.quantidade}} </td>
 					 <td>{{papel.valor}}</td>
-					 <td>{{papel.total | currency:'R$ '}}</td>
+					 <td editable-text="papel.total">{{papel.total | currency:'R$ '}}</td>
 					 <td></td>
 				 </tr>
 			   </table>
