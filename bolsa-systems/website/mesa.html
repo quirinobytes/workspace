@@ -12,7 +12,11 @@
 			padding: 10px;
 		}
 		.carteira{
-		    background:#ffffff;
+		    background:#dddddd;
+			border-size:0px;
+			border-style:dotted;
+			border-color:black;
+			margin-top:20px;
 		}		
 
 		.cotacoes{
@@ -44,6 +48,9 @@
 			$scope.saldo=10000;
 			$scope.cotacoes_array = [];
 	
+			$scope.eEditable = -1;	
+
+
 			$scope.carteira_array = [
 					{nome: "VALE5", quantidade: "500", total: "10300", valor:"20.60", "montadora":{"nome":"VALE5","valor":"8.10"}},
 					{nome: "PETR4", quantidade: "900", total: "15570", valor:"17.30", "montadora":{"nome":"PETR4","valor":"8.10"}},
@@ -70,8 +77,13 @@
 			$scope.ordemCompra = function(papel){
 				//console.log($scope.quantidade+$scope.vencimento+$scope.valor);
 				//fazendo a soma do total na chegada dos dados da view.
-				papel.totalnegociado = papel.valor * papel.quantidade;
-			
+				papel.total = parseFloat(papel.valor) * parseInt(papel.quantidade);
+			 	console.log("total="+ papel.total + " saldo="+$scope.saldo); 
+				if (papel.total > $scope.saldo ) { 
+					$scope.retornoOrdens = "Não executado: sem saldo!"
+//					alert("Sem saldo"); 
+					return ;
+				}
 				//papel.nome=papel.montadora.nome;				
 
 				$http({
@@ -81,10 +93,16 @@
 					    data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
 				}).success(function (response) { 
 						if (response.Compra){
-				
+							//aqui ja testou o retorno da ordem e deu susceso, reponse.Compra = true.
+							//faz o push do papel no array da carteira.
 							$scope.carteira_array.push(angular.copy(papel));
 							//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
 							delete $scope.papel;
+							$scope.saldo = parseFloat($scope.saldo) - parseFloat(papel.valor)*parseInt(papel.quantidade) ;
+						}
+						else { 
+							//Se o retorno da ordem for false, exiba a mensagem.
+							$scope.retornoOrdens ="Compra não executada!"
 						}
 						console.log('POST Compra ...enviado');
 						});
@@ -100,8 +118,10 @@
 					if (!papel.selecionado) return papel;
 						//aqui foi realizada a venda.
 						console.log(papel);
-						 //aqui foi realizada a venda.
-						 //FAZENDO O POST NO SERVIDOR ibSYM - ENVIANDO ORDEM DE VENDA
+						 //
+						 // aqui foi realizada a venda.
+						 // FAZENDO O POST NO SERVIDOR ibSYM - ENVIANDO ORDEM DE VENDA
+						 //
 						 $http({
 								 method: 'POST',
 								 url: 'http://189.55.194.115:3000/vender',
@@ -112,11 +132,16 @@
 );
 						 		//	console.log(response);
 									if (!response.Venda) {
+										//aqui, caso o retorno do response seja Venda:false, é pq deu ruim, e volta a copia do array q foi apagado acima.
 										$scope.carteira_array = copia_array;
 										console.log('venda NAO executada!');
+										$scope.retornoOrdens = 'Venda não executada: valor muito alto!';
 									}
-									else
+									else{
 										console.log('venda executada!');
+										$scope.retornoOrdens = 'Venda executada!' ;
+										$scope.saldo = parseFloat($scope.saldo) + parseFloat(papel.valor)*parseInt(papel.quantidade) ;
+									} 
 							});
 				});
 
@@ -157,7 +182,11 @@
    });
    </script>
    <script>
-	
+
+	var	eEditable = 0;
+
+	function editarvalor(){
+	}
 
 	</script>
 
@@ -174,7 +203,7 @@
 					  	<td> </td>
 						<td >Total negociado: {{total}}</td>
 					  	<td> </td>
-					  	<td> Saldo {{saldo | currency:'R$':2}}</td>
+					  	<td><span style='font-weight:bold;'>Saldo => {{saldo | currency:'R$':2}} </span></td>
 					</tr>
 				</table>
 			</div>
@@ -203,7 +232,7 @@
 
 			<div class='carteira'> 
 <!--			{{carteira_array}}  -->
-			   <h4> Carteira de Investimentos </h4>
+			   <h4> Seus Investimentos </h4><hr>
 			   <table class='table'>
 				   <tr>
 					  <th> </th>
@@ -219,32 +248,35 @@
 				 </td> -->
 					 <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
 					 <td>{{papel.montadora.nome}}</td>
-					 <td>{{papel.valor}}</td>
+					<!-- Aqui faz outra das magicas mais lindas que ja vi no angular, para editar o valor no próprio inputbox. -->
+					<td> <input type="text" value="{{papel.valor}}" ng-model='papel.valor' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel ; "/> </td>
+<!--					 <td>{{papel.valor}}</td>  -->
 					 <td>{{papel.quantidade}} </td>
 					 <td>{{papel.total | currency:'R$ '}}</td>
-					 <td><button class="btn btn-primary" ng-click="edit(carteira_array)">valor</button></td>
+<!--					 <td><button class="btn btn-primary" ng-click="edit(carteira_array)">valor</button></td>  -->
 				 </tr>
 			   </table>
-				<form ng-if="carteira_array">
+<!--				<form ng-if="carteira_array">
 		            <input type="valor" ng-model="papel.valor" class="form-control" />
         		    <input type="quantidade" ng-model="papel.quantidade" class="form-control" />
-		        	<button type="submit" ng-click="save()" ng-click="save()" class="btn btn-primary">Salvar</button>
-            
+		<!--        	<button type="submit" ng-click="save()" ng-click="editarValor()" class="btn btn-primary"> Editar </button> -->
         		</form>
 
 			</div>
 
+		<button class="btn btn-danger btn-block" ng-click="ordemVenda(carteira_array)"> Vender </button>
 	   		<hr>
-		   {{papel}}
+<!--		    {{papel}} -->
+			{{retornoOrdens}}
 	   		<select class="form-control" ng-model='papel.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
 		   		<option value=''> Selecione um ativo </option>
 			</select>
 	     	<input class="form-control" type="number" min="100" max="500000" step="100" ng-model="papel.quantidade" placeholder="Quantidade">
 	   		<input class="form-control" type="number" min="0.01" step=".01" ng-model="papel.valor" placeholder="Valor">
-	   		<input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura">
-			<button class="btn btn-success btn-block" ng-click="ordemCompra(papel)" ng-disabled="! papel.quantidade || ! papel.assinatura || ! papel.valor || papel.montadora == null"> Comprar
-		<button class="btn btn-danger btn-block" ng-click="ordemVenda(carteira_array)"> Vender
-			</button>
+	   		<input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura"> 
+			<br>
+			<button class="btn btn-success" ng-click="ordemCompra(papel)" ng-disabled="! papel.quantidade || ! papel.assinatura || ! papel.valor || papel.montadora == null"> Comprar </button>
+		&nbsp;	&nbsp;	&nbsp;	&nbsp;
 	</div>
 </body>
 </html>
