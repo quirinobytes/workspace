@@ -50,7 +50,7 @@
 			];
 
 			$scope.montadoras= [
-					{nome:"VALE5", pais: "ACOES", categoria:"investimentos"},
+					{nome:"VALE5", pais: "ACOES", categoria:"investimentos", valor: "22.30" },
 					{nome:"PETR4", pais: "ACOES", categoria:"investimentos"},
 					{nome:"CSNA3", pais: "ACOES", categoria:"investimentos"},
 					{nome:"GOAU4", pais: "ACOES", categoria:"investimentos"},
@@ -70,23 +70,30 @@
 				//fazendo a soma do total na chegada dos dados da view.
 				papel.totalnegociado = papel.valor * papel.quantidade;
 			
-
+				//papel.nome=papel.montadora.nome;				
 
 				$http({
 					    method: 'POST',
 					    url: 'http://189.55.194.115:3000/comprar',
 					    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					    data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
-				}).success(function () { console.log('POST ')});
+				}).success(function (response) { 
+						if (response.Compra){
+				
+							$scope.carteira_array.push(angular.copy(papel));
+							//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
+							delete $scope.papel;
+						}
+						console.log('POST Compra ...enviado');
+						});
 	
-				$scope.carteira_array.push(angular.copy(papel));
-				//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
-				delete $scope.papel;
-			};
+				};
 
-			//funcao chamada dentro do ng-click do button EXCLUIR
+			//  ################ ORDEM VENDER   ###################
+			//funcao chamada dentro do ng-click do button 
 			$scope.ordemVenda = function(veiculos){
 				//console.log(veiculos);
+				copia_array = $scope.carteira_array;
 				$scope.carteira_array = veiculos.filter(function(papel){
 					if (!papel.selecionado) return papel;
 						//aqui foi realizada a venda.
@@ -99,8 +106,15 @@
 								 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 								 data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
 						 }).success(function (response) { 
-									console.log('POST Enviado ')
-						 			console.log(response);
+									console.log('POST venda ... enviado => ' + 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
+);
+						 		//	console.log(response);
+									if (!response.Venda) {
+										$scope.carteira_array = copia_array;
+										console.log('venda NAO executada!');
+									}
+									else
+										console.log('venda executada!');
 							});
 				});
 
