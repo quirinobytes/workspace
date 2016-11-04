@@ -156,6 +156,12 @@
 	   };
    });
    </script>
+   <script>
+	
+
+	</script>
+
+
 </head>
 
 <body ng-controller="exibir-titulo">
@@ -202,8 +208,8 @@
 				   <tr>
 					  <th> </th>
 					  <th> Ação </th>
-					  <th> Quantidade </th>
 					  <th> Valor </th>
+					  <th> Quantidade </th>
 					  <th> Total Negociado </th>
 				  </tr>
 				 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
@@ -213,12 +219,19 @@
 				 </td> -->
 					 <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
 					 <td>{{papel.montadora.nome}}</td>
-					 <td>{{papel.quantidade}} </td>
 					 <td>{{papel.valor}}</td>
-					 <td editable-text="papel.total">{{papel.total | currency:'R$ '}}</td>
-					 <td></td>
+					 <td>{{papel.quantidade}} </td>
+					 <td>{{papel.total | currency:'R$ '}}</td>
+					 <td><button class="btn btn-primary" ng-click="edit(carteira_array)">valor</button></td>
 				 </tr>
 			   </table>
+				<form ng-if="carteira_array">
+		            <input type="valor" ng-model="papel.valor" class="form-control" />
+        		    <input type="quantidade" ng-model="papel.quantidade" class="form-control" />
+		        	<button type="submit" ng-click="save()" ng-click="save()" class="btn btn-primary">Salvar</button>
+            
+        		</form>
+
 			</div>
 
 	   		<hr>
