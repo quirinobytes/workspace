@@ -12,9 +12,9 @@
 			padding: 10px;
 		}
 		.carteira{
-		    background:#dddddd;
-			border-size:0px;
-			border-style:dotted;
+		    background:#dddddc;
+			border-size:1px;
+			border-style:solid;
 			border-color:black;
 			margin-top:20px;
 		}		
@@ -30,7 +30,7 @@
 			margin-bottom: 4px;
 		}
 		.selecionado{
-						background-color: #DDDDDD;
+						background-color: #55AAFF;
 		}
 	</style>
 	<!-- ####  Incluindo os fontes #### -->	
@@ -55,7 +55,7 @@
 					{nome: "VALE5", quantidade: "500", total: "10300", valor:"20.60", "montadora":{"nome":"VALE5","valor":"8.10"}},
 					{nome: "PETR4", quantidade: "900", total: "15570", valor:"17.30", "montadora":{"nome":"PETR4","valor":"8.10"}},
 					{nome: "CSNA3", quantidade: "3200", total: "32320", valor:"10.10", "montadora":{"nome":"CSNA3","valor":"8.10"}},
-					{nome: "VALEW46", quantidade: "3400", total: "1530", valor:"0.45", "montadora":{"nome":"VALEW46","valor":"8.10"}},
+					{nome: "GOLL4", quantidade: "3400", total: "1530", valor:"8.00", "montadora":{"nome":"GOLL4","valor":"8.00"}},
 			];
 
 			$scope.montadoras= [
@@ -99,6 +99,7 @@
 							//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
 							delete $scope.papel;
 							$scope.saldo = parseFloat($scope.saldo) - parseFloat(papel.valor)*parseInt(papel.quantidade) ;
+							$scope.retornoOrdens ="Compra executada!"
 						}
 						else { 
 							//Se o retorno da ordem for false, exiba a mensagem.
@@ -182,15 +183,7 @@
    });
    </script>
    <script>
-
-	var	eEditable = 0;
-
-	function editarvalor(){
-	}
-
-	</script>
-
-
+   </script>
 </head>
 
 <body ng-controller="exibir-titulo">
@@ -203,7 +196,7 @@
 					  	<td> </td>
 						<td >Total negociado: {{total}}</td>
 					  	<td> </td>
-					  	<td><span style='font-weight:bold;'>Saldo => {{saldo | currency:'R$':2}} </span></td>
+					  	<td><span style='font-weight:bold;'>Saldo = {{saldo | currency:'R$':2}} </span></td>
 					</tr>
 				</table>
 			</div>
@@ -230,6 +223,7 @@
 				</table>
 			</div>
 
+			{{retornoOrdens}}
 			<div class='carteira'> 
 <!--			{{carteira_array}}  -->
 			   <h4> Seus Investimentos </h4><hr>
@@ -249,7 +243,7 @@
 					 <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
 					 <td>{{papel.montadora.nome}}</td>
 					<!-- Aqui faz outra das magicas mais lindas que ja vi no angular, para editar o valor no próprio inputbox. -->
-					<td> <input type="text" value="{{papel.valor}}" ng-model='papel.valor' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel ; "/> </td>
+					<td> <input type="number" style="width: 100px;" value="{{ papel.valor }}" ng-model='papel.valor' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel ; "/> </td>
 <!--					 <td>{{papel.valor}}</td>  -->
 					 <td>{{papel.quantidade}} </td>
 					 <td>{{papel.total | currency:'R$ '}}</td>
@@ -259,15 +253,14 @@
 <!--				<form ng-if="carteira_array">
 		            <input type="valor" ng-model="papel.valor" class="form-control" />
         		    <input type="quantidade" ng-model="papel.quantidade" class="form-control" />
-		<!--        	<button type="submit" ng-click="save()" ng-click="editarValor()" class="btn btn-primary"> Editar </button> -->
-        		</form>
+		        	<button type="submit" ng-click="save()" ng-click="editarValor()" class="btn btn-primary"> Editar </button> 
+        		    </form> -->
 
 			</div>
-
-		<button class="btn btn-danger btn-block" ng-click="ordemVenda(carteira_array)"> Vender </button>
+			<br>
+			<button class="btn btn-danger btn-block" ng-click="ordemVenda(carteira_array)"> Vender </button>
 	   		<hr>
 <!--		    {{papel}} -->
-			{{retornoOrdens}}
 	   		<select class="form-control" ng-model='papel.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
 		   		<option value=''> Selecione um ativo </option>
 			</select>
@@ -275,7 +268,7 @@
 	   		<input class="form-control" type="number" min="0.01" step=".01" ng-model="papel.valor" placeholder="Valor">
 	   		<input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura"> 
 			<br>
-			<button class="btn btn-success" ng-click="ordemCompra(papel)" ng-disabled="! papel.quantidade || ! papel.assinatura || ! papel.valor || papel.montadora == null"> Comprar </button>
+			<button class="btn btn-success btn-block" ng-click="ordemCompra(papel)" ng-disabled="! papel.quantidade || ! papel.assinatura || ! papel.valor || papel.montadora == null"> Comprar </button>
 		&nbsp;	&nbsp;	&nbsp;	&nbsp;
 	</div>
 </body>
