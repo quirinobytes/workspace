@@ -103,18 +103,24 @@ app.get ('/',function (req,res) {
 app.use('/website', express.static(path.join(__dirname, './website')));
 
 //###############		/operar		###############################
-app.get ('/operar/',function (req,res) {
+app.get ('/robo',function (req,res) {
 
-	fs.readFile('./website/index.html', function (err, html) {
-    	if (err) {
-        	throw err;
-	    }
-		//do something
-		res.writeHeader(200, {"Content-Type": "text/html"});
-        res.write(html);
-        res.end();
-	});
+ativo='VALE5';
+valor='16';
+quantidade = 100000
 
+			ativos[ativo].valor = ativos[ativo].valor + ((valor - ativos[ativo].valor)*quantidade/1000000) ;
+			volume[ativo]=volume[ativo]+quantidade*valor;
+
+ativo='PETR4';
+valor='20';
+			ativos[ativo].valor = ativos[ativo].valor + ((valor + ativos[ativo].valor)*quantidade/1000000) ;
+			volume[ativo]=volume[ativo]+quantidade*valor;
+
+
+			total_compra = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
+res.end();
+mostra_painel();
 });
 
 //###############		/listar		###############################
