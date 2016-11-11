@@ -1,0 +1,275 @@
+<html ng-app=ibSYM>
+<head>
+	<title> ibSYM - Cognitive Stock Model API</title>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap.css">
+	<style type="text/css">
+		.jumbotron{
+			width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top:20px;
+			text-align: center;
+			padding: 10px;
+		}
+		.carteira{
+		    background:#dddddc;
+			border-size:1px;
+			border-style:solid;
+			border-color:black;
+			margin-top:20px;
+		}		
+
+		.cotacoes{
+			font-size:small;
+		}		
+		.table{ 
+			margin-top:20px;
+			background-color: light-blue;
+		}
+		.form-control{
+			margin-bottom: 4px;
+		}
+		.selecionado{
+						background-color: #55AAFF;
+		}
+	</style>
+	<!-- ####  Incluindo os fontes #### -->	
+	<script id="angularScript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<script> 
+		angular.module("ibSYM", []);
+		angular.module("ibSYM").controller("exibir-titulo",function($scope,$http){
+		angular.module("ibSYM").run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});	
+			// TITULO E VERSAO DO PROGRAMA #############
+			$scope.titulo = "ibSYM Cognitive Stock API ® v.1.3"
+			$scope.saldo=10000;
+			$scope.cotacoes_array = [];
+	
+			$scope.eEditable = -1;	
+
+
+			$scope.carteira_array = [
+					{nome: "VALE5", quantidade: "500", total: "10300", valor:"20.60", "montadora":{"nome":"VALE5","valor":"8.10"}},
+					{nome: "PETR4", quantidade: "900", total: "15570", valor:"17.30", "montadora":{"nome":"PETR4","valor":"8.10"}},
+					{nome: "CSNA3", quantidade: "3200", total: "32320", valor:"10.10", "montadora":{"nome":"CSNA3","valor":"8.10"}},
+					{nome: "GOLL4", quantidade: "3400", total: "1530", valor:"8.00", "montadora":{"nome":"GOLL4","valor":"8.00"}},
+			];
+
+			$scope.montadoras= [
+					{nome:"VALE5", pais: "ACOES", categoria:"investimentos", valor: "22.30" },
+					{nome:"PETR4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"CSNA3", pais: "ACOES", categoria:"investimentos"},
+					{nome:"GOAU4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"GGBR4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"GOLL4", pais: "ACOES", categoria:"investimentos"},
+					{nome:"USIM5", pais: "ACOES", categoria:"investimentos"},
+					{nome:"VALEW46", pais: "OPCOES", categoria:"investimentos"},
+					{nome:"VALEW22", pais: "OPCOES", categoria:"investimentos"},
+					{nome:"Tesouro Direto", pais: "DERIVATIVOS", categoria:"investimentos"},
+					{nome:"Renda Fixa", pais: "DERIVATIVOS", categoria:"investimentos"},
+					{nome:"", pais: "DERIVATIVOS", categoria:"investimentos"},
+			];
+
+			// ##### FUNCAO ORDEM DE COMPRA     (Chamada de dentro do ng-click do button CADASTRAR)
+			$scope.ordemCompra = function(papel){
+				//console.log($scope.quantidade+$scope.vencimento+$scope.valor);
+				//fazendo a soma do total na chegada dos dados da view.
+				papel.total = parseFloat(papel.valor) * parseInt(papel.quantidade);
+			 	console.log("total="+ papel.total + " saldo="+$scope.saldo); 
+				if (papel.total > $scope.saldo ) { 
+					$scope.retornoOrdens = "Não executado: sem saldo!"
+//					alert("Sem saldo"); 
+					return ;
+				}
+				//papel.nome=papel.montadora.nome;				
+
+				$http({
+					    method: 'POST',
+					    url: 'http://189.55.194.115:3000/comprar',
+					    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					    data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
+				}).success(function (response) { 
+						if (response.Compra){
+							//aqui ja testou o retorno da ordem e deu susceso, reponse.Compra = true.
+							//faz o push do papel no array da carteira.
+							$scope.carteira_array.push(angular.copy(papel));
+							//faz a magica de apagar os input box, pois mata o $scope.veiculo do object model que ta amarrado aos input box.
+							delete $scope.papel;
+							$scope.saldo = parseFloat($scope.saldo) - parseFloat(papel.valor)*parseInt(papel.quantidade) ;
+							$scope.retornoOrdens ="Compra executada!"
+						}
+						else { 
+							//Se o retorno da ordem for false, exiba a mensagem.
+							$scope.retornoOrdens ="Compra não executada!"
+						}
+						console.log('POST Compra ...enviado');
+						});
+	
+				};
+
+			//  ################ ORDEM VENDER   ###################
+			//funcao chamada dentro do ng-click do button 
+			$scope.ordemVenda = function(veiculos){
+				//console.log(veiculos);
+				copia_array = $scope.carteira_array;
+				$scope.carteira_array = veiculos.filter(function(papel){
+					if (!papel.selecionado) return papel;
+						//aqui foi realizada a venda.
+						console.log(papel);
+						 //
+						 // aqui foi realizada a venda.
+						 // FAZENDO O POST NO SERVIDOR ibSYM - ENVIANDO ORDEM DE VENDA
+						 //
+						 $http({
+								 method: 'POST',
+								 url: 'http://189.55.194.115:3000/vender',
+								 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+								 data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
+						 }).success(function (response) { 
+									console.log('POST venda ... enviado => ' + 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
+);
+						 		//	console.log(response);
+									if (!response.Venda) {
+										//aqui, caso o retorno do response seja Venda:false, é pq deu ruim, e volta a copia do array q foi apagado acima.
+										$scope.carteira_array = copia_array;
+										console.log('venda NAO executada!');
+										$scope.retornoOrdens = 'Venda não executada: valor muito alto!';
+									}
+									else{
+										console.log('venda executada!');
+										$scope.retornoOrdens = 'Venda executada!' ;
+										$scope.saldo = parseFloat($scope.saldo) + parseFloat(papel.valor)*parseInt(papel.quantidade) ;
+									} 
+							});
+				});
+
+			};
+			$scope.classe = 'selecionado';
+		});
+	</script>
+
+
+   <script>
+   angular.module('ibSYM').controller('exibir-total', function($scope, $http,$interval) {
+	    load_total();
+		$interval(function(){
+			load_total();
+		},1000);
+		
+			function load_total(){
+				$http.get('http://189.55.194.115:3000/total').then(function(response){
+					$scope.total = response.data;
+			});
+	   };
+   });
+   </script>
+
+
+   <script>
+   angular.module('ibSYM').controller('exibir-cotacoes', function($scope, $http, $interval) {
+	 load_cotacoes();
+		$interval(function(){
+			load_cotacoes();
+		},100);
+		
+			function load_cotacoes(){
+				$http.get('http://189.55.194.115:3000/listar').then(function(response){
+					$scope.cotacoes_array = response.data;
+			});
+	   };
+   });
+   </script>
+   <script>
+   </script>
+</head>
+
+<body ng-controller="exibir-titulo">
+	<div class="jumbotron jumbotron-fluid" >
+			<h3> {{titulo}} </h3>
+			<div class='container'> 
+				<table magin-left='100px' class='table' ng-controller="exibir-total">
+						 <tr>
+					  	<td>Volume </td>
+					  	<td> </td>
+						<td >Total negociado: {{total}}</td>
+					  	<td> </td>
+					  	<td><span style='font-weight:bold;'>Saldo = {{saldo | currency:'R$':2}} </span></td>
+					</tr>
+				</table>
+			</div>
+
+			<div class='cotacoes container' ng-controller='exibir-cotacoes'>
+			<h4> Cotações Real Time </h4>
+				<table class='table table-striped' ng-controller='exibir-cotacoes'>
+				<tr>
+					<th> Ativo</th>
+					<th> Valor</th>
+					<th> Min </th>
+					<th> Max </th>
+					<th> Volume</th>
+				</tr>
+
+				<tr ng-repeat="ativo in cotacoes_array">
+					<td> {{ativo.nome}}	</td>
+					<td > {{ativo.valor | currency:''}} </td>
+					<td> {{ativo.min}}	</td>
+					<td> {{ativo.max}}	</td>
+					<td> {{ativo.volume/1000000 | number:'2'}}M	</td>
+
+				</tr>
+				</table>
+			</div>
+
+			{{retornoOrdens}}
+			<div class='carteira'> 
+<!--			{{carteira_array}}  -->
+			   <h4> Seus Investimentos </h4><hr>
+			   <table class='table'>
+				   <tr>
+					  <th> </th>
+					  <th> Ação </th>
+					  <th> Valor </th>
+					  <th> Quantidade </th>
+					  <th> Total Negociado </th>
+				  </tr>
+				 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
+				 <tr ng-class="{selecionado: papel.selecionado }" ng-repeat="papel in carteira_array">
+				 <!-- <td ng-repeat="(key,value) in veiculos">
+				 {{ key + " - " + value}}
+				 </td> -->
+					 <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
+					 <td>{{papel.montadora.nome}}</td>
+					<!-- Aqui faz outra das magicas mais lindas que ja vi no angular, para editar o valor no próprio inputbox. -->
+					<td> <input type="text" style="width: 100px;" value="{{ papel.valor }}" ng-model='papel.valor' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel ; "/> </td>
+<!--					 <td>{{papel.valor}}</td>  -->
+					 <td>{{papel.quantidade}} </td>
+					 <td>{{papel.total | currency:'R$ '}}</td>
+<!--					 <td><button class="btn btn-primary" ng-click="edit(carteira_array)">valor</button></td>  -->
+				 </tr>
+			   </table>
+<!--				<form ng-if="carteira_array">
+		            <input type="valor" ng-model="papel.valor" class="form-control" />
+        		    <input type="quantidade" ng-model="papel.quantidade" class="form-control" />
+		        	<button type="submit" ng-click="save()" ng-click="editarValor()" class="btn btn-primary"> Editar </button> 
+        		    </form> -->
+
+			</div>
+			<br>
+			<button class="btn btn-danger btn-block" ng-click="ordemVenda(carteira_array)"> Vender </button>
+	   		<hr>
+<!--		    {{papel}} -->
+	   		<select class="form-control" ng-model='papel.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
+		   		<option value=''> Selecione um ativo </option>
+			</select>
+	     	<input class="form-control" type="number" min="100" max="500000" step="100" ng-model="papel.quantidade" placeholder="Quantidade">
+	   		<input class="form-control" type="number" min="0.01" step=".01" ng-model="papel.valor" placeholder="Valor">
+	   		<input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura"> 
+			<br>
+			<button class="btn btn-success btn-block" ng-click="ordemCompra(papel)" ng-disabled="! papel.quantidade || ! papel.assinatura || ! papel.valor || papel.montadora == null"> Comprar </button>
+		&nbsp;	&nbsp;	&nbsp;	&nbsp;
+	</div>
+</body>
+</html>
