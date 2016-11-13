@@ -67,49 +67,49 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AdvisorCtrl', function($scope,$state, $http, WatsonService) {
-    
+
     $scope.news1={};
     $scope.news2={};
     $scope.news3={};
     $scope.news4={};
-          
-          
+
+
           WatsonService.analise('http://www.telegraph.co.uk/business/2016/08/29/bhp-billiton-report-blames-construction-flaws-on-samarco-disaste/').then(function successCallback(response) {
-	
-	
+
+
         $scope.news1=response.data;
         console.log($scope.news1);
-    
+
   }, function errorCallback(response) {
     console.log(response);
   });
-  
+
    WatsonService.analise('http://www.digitaltrends.com/mobile/samsung-halts-galaxy-note-7-shipments-phones-catching-fire/').then(function successCallback(response) {
-	
-	
+
+
         $scope.news2=response.data;
         console.log($scope.news2);
-    
+
   }, function errorCallback(response) {
     console.log(response);
   });
-  
+
   WatsonService.analise('http://www.epmag.com/petrobras-new-libra-well-confirms-extension-oil-discovery-906716').then(function successCallback(response) {
-	
-	
+
+
         $scope.news3=response.data;
         console.log($scope.news3);
-    
+
   }, function errorCallback(response) {
     console.log(response);
   });
-  
+
   WatsonService.analise('http://www.wsj.com/articles/brazil-education-firms-kroton-estacio-agree-to-merge-1468234775').then(function successCallback(response) {
-	
-	
+
+
         $scope.news4=response.data;
         console.log($scope.news4);
-    
+
   }, function errorCallback(response) {
     console.log(response);
   });
@@ -122,7 +122,7 @@ angular.module('starter.controllers', [])
       sentiment: 1
       }
 }).then(function successCallback(response) {
-	
+
 	console.log(response);
     // this callback will be called asynchronously
     // when the response is available
@@ -130,13 +130,13 @@ angular.module('starter.controllers', [])
     console.log(response);
   });
   */
-     
+
 })
 
         .factory('WatsonService', function($http){
-            
+
             var WatsonService  = {};
-    
+
             WatsonService.analise = function (link) {
         return  $http({
   method: 'GET',
@@ -147,9 +147,9 @@ angular.module('starter.controllers', [])
       }
 });
     };
-    
+
     return WatsonService;
-    
+
         })
 
 
@@ -166,37 +166,52 @@ angular.module('starter.controllers', [])
 		$interval(function(){
 			load_cotacoes();
 		},100);
-		
+
 			function load_cotacoes(){
 				$http.get('http://189.55.194.115:3000/listar').then(function(response){
 					$scope.cotacoes_array = response.data;
 			});
 	   };
    })
-   
+
    .controller('exibir-total', function($scope, $http,$interval) {
 	    load_total();
 		$interval(function(){
 			load_total();
 		},1000);
-		
+
 			function load_total(){
 				$http.get('http://189.55.194.115:3000/total').then(function(response){
 					$scope.total = response.data;
 			});
 	   };
    })
-   
+
+   .controller('novo', function($scope, $http) {
+    lerwatson();
+      function lerwatson(){
+        $http.get('http://189.55.194.115:3010/carros').then(function(response){
+          $scope.watsonjson = response.data;
+          console.log($scope.watsonjson);
+      });
+     };
+   })
+
+
+
+
+
+
    .controller("exibir-titulo",function($scope,$http){
 //		angular.module("ibSYM").run(function(editableOptions) {
 //  editableOptions.theme = 'bs3';
-//});	
+//});
 			// TITULO E VERSAO DO PROGRAMA #############
 			$scope.titulo = "ibSYM Cognitive Stock API ® v.1.3"
 			$scope.saldo=10000;
 			$scope.cotacoes_array = [];
-	
-			$scope.eEditable = -1;	
+
+			$scope.eEditable = -1;
 
 
 			$scope.carteira_array = [
@@ -226,20 +241,20 @@ angular.module('starter.controllers', [])
 				//console.log($scope.quantidade+$scope.vencimento+$scope.valor);
 				//fazendo a soma do total na chegada dos dados da view.
 				papel.total = parseFloat(papel.valor) * parseInt(papel.quantidade);
-			 	console.log("total="+ papel.total + " saldo="+$scope.saldo); 
-				if (papel.total > $scope.saldo ) { 
+			 	console.log("total="+ papel.total + " saldo="+$scope.saldo);
+				if (papel.total > $scope.saldo ) {
 					$scope.retornoOrdens = "Não executado: sem saldo!"
-//					alert("Sem saldo"); 
+//					alert("Sem saldo");
 					return ;
 				}
-				//papel.nome=papel.montadora.nome;				
+				//papel.nome=papel.montadora.nome;
 
 				$http({
 					    method: 'POST',
 					    url: 'http://189.55.194.115:3000/comprar',
 					    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					    data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
-				}).success(function (response) { 
+				}).success(function (response) {
 						if (response.Compra){
 							//aqui ja testou o retorno da ordem e deu susceso, reponse.Compra = true.
 							//faz o push do papel no array da carteira.
@@ -249,17 +264,17 @@ angular.module('starter.controllers', [])
 							$scope.saldo = parseFloat($scope.saldo) - parseFloat(papel.valor)*parseInt(papel.quantidade) ;
 							$scope.retornoOrdens ="Compra executada!"
 						}
-						else { 
+						else {
 							//Se o retorno da ordem for false, exiba a mensagem.
 							$scope.retornoOrdens ="Compra não executada!"
 						}
 						console.log('POST Compra ...enviado');
 						});
-	
+
 				};
 
 			//  ################ ORDEM VENDER   ###################
-			//funcao chamada dentro do ng-click do button 
+			//funcao chamada dentro do ng-click do button
 			$scope.ordemVenda = function(veiculos){
 				//console.log(veiculos);
 				copia_array = $scope.carteira_array;
@@ -276,7 +291,7 @@ angular.module('starter.controllers', [])
 								 url: 'http://189.55.194.115:3000/vender',
 								 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 								 data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
-						 }).success(function (response) { 
+						 }).success(function (response) {
 									console.log('POST venda ... enviado => ' + 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
 );
 						 		//	console.log(response);
@@ -290,7 +305,7 @@ angular.module('starter.controllers', [])
 										console.log('venda executada!');
 										$scope.retornoOrdens = 'Venda executada!' ;
 										$scope.saldo = parseFloat($scope.saldo) + parseFloat(papel.valor)*parseInt(papel.quantidade) ;
-									} 
+									}
 							});
 				});
 

@@ -1,7 +1,7 @@
 <ion-view view-title="Investir" >
   <ion-content>
     <h1>Investir</h1>
-    
+
 
 
         <div class="" role="main" ng-controller="exibir-titulo">
@@ -35,10 +35,10 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="clearfix"></div>
-                
+
                 <div class="row" ng-controller='exibir-cotacoes'>
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
                     <div class="x_panel">
@@ -46,7 +46,7 @@
                             <h2>Cotações em Realtime<small>
                                    <!-- <span style='font-weight:bold;'>Saldo  = {{saldo| currency:'R$':2}} </span></small>-->
                             </h2>
-                            
+
                             <div class="clearfix"></div>
                         </div>
 
@@ -66,7 +66,7 @@
                                     <tbody>
                                         <tr class="even pointer" ng-repeat="ativo in cotacoes_array">
                                             <td> {{ativo.nome}} </td>
-                                            <td > {{ativo.valor| currency:''}} </td>
+                                            <td> {{ativo.valor| currency:''}} </td>
                                             <td> {{ativo.min}}  </td>
                                             <td> {{ativo.max}}  </td>
                                             <td> {{ativo.volume / 1000000| number:'2'}}M </td>
@@ -88,7 +88,7 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Seus Investimentos <small></small></h2>
-                                
+
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -129,21 +129,21 @@
                     </div>
 
 
-                    
+
 
 
 
 
                 </div>
-                
-                
-                
-                <div class="row" > 
+
+
+
+                <div class="row" >
                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Comprar Ações <small></small></h2>
-                                
+
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -152,18 +152,18 @@
                                 </select>
                                 <input class="form-control" type="number" min="100" max="500000" step="100" ng-model="papel.quantidade" placeholder="Quantidade">
                                 <input class="form-control" type="number" min="0.01" step=".01" ng-model="papel.valor" placeholder="Valor">
-                                <input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura"> 
+                                <input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura">
                                 <br>
-                                <button class="btn btn-success btn-block" ng-click="ordemCompra(papel)" 
-                                        ng-disabled="!papel.quantidade || !papel.assinatura || !papel.valor || papel.montadora == null"> 
+                                <button class="btn btn-success btn-block" ng-click="ordemCompra(papel)"
+                                        ng-disabled="!papel.quantidade || !papel.assinatura || !papel.valor || papel.montadora == null">
                                     Comprar </button>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
         <!-- /page content -->
