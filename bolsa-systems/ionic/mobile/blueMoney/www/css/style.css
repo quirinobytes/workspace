@@ -1,7 +1,7 @@
 /* Empty. Add your own CSS if you like */
 .bar-positive{
-    background: #2A3F54 !important; 
-    border-color: #2A3F54 !important; 
+    background: #2A3F54 !important;
+    border-color: #2A3F54 !important;
 }
 
 
@@ -21,8 +21,11 @@
 }
 
 .botoes{
-    padding-top: 40px;
+    padding-top: 50px;
+
 }
+
+
 
 .logo{
     width: 40px;
@@ -56,5 +59,3 @@
     /*float: left;*/
     color: #337ab7;
 }
-
-
