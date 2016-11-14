@@ -1,0 +1,11 @@
+<ion-view view-title="Assessor">
+  <ion-content>
+  <div class="" role="main" ng-controller="novo">
+    <ion-list ng-repeat="fatos in watsonjson">
+      <ion-item ng-repeat="item in fatos.result.docs">
+        <a href={{item.source.enriched.url.url}}> {{item.source.enriched.url.title}} </a>
+      </ion-item>
+    </ion-list>
+  </div >
+  </ion-content>
+</ion-view>

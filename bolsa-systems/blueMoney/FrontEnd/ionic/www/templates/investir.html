@@ -1,0 +1,172 @@
+<ion-view view-title="Investir" >
+  <ion-content>
+    <h1>Investir</h1>
+
+
+
+        <div class="" role="main" ng-controller="exibir-titulo">
+            <div class="">
+                <div class="row">
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   <!-- <table magin-left='100px' class='table' ng-controller="exibir-total">
+						 <tr>
+					  	<td>Volume </td>
+					  	<td> </td>
+						<td >Total negociado: {{total}}</td>
+					  	<td> </td>
+					  	<td><span style='font-weight:bold;'>Saldo = {{saldo | currency:'R$':2}} </span></td>
+					</tr>
+				</table>-->
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" ng-controller="exibir-total">
+                        <div class="title_left">
+                            <h3>Volume: <small>Total negociado: {{total}}</small></h3>
+                            <span style='font-weight:bold;'>Saldo = {{saldo | currency:'R$':2}} </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="clearfix"></div>
+
+                <div class="row" ng-controller='exibir-cotacoes'>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Cotações em Realtime<small>
+                                   <!-- <span style='font-weight:bold;'>Saldo  = {{saldo| currency:'R$':2}} </span></small>-->
+                            </h2>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table bulk_action" >
+                                    <thead>
+                                        <tr class="headings">
+                                            <th> Ativo</th>
+                                            <th> Valor</th>
+                                            <th> Min </th>
+                                            <th> Max </th>
+                                            <th> Volume</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr class="even pointer" ng-repeat="ativo in cotacoes_array">
+                                            <td> {{ativo.nome}} </td>
+                                            <td> {{ativo.valor| currency:''}} </td>
+                                            <td> {{ativo.min}}  </td>
+                                            <td> {{ativo.max}}  </td>
+                                            <td> {{ativo.volume / 1000000| number:'2'}}M </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{retornoOrdens}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="clearfix"></div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Seus Investimentos <small></small></h2>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                            <div class="table-responsive">
+                                <table class='table table-striped jambo_table bulk_action' >
+                                    <thead>
+                                        <tr>
+                                            <th> </th>
+                                            <th> Ação </th>
+                                            <th> Valor </th>
+                                            <th> Quantidade </th>
+                                            <th> Total Negociado </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
+                                        <tr ng-class="{selecionado: papel.selecionado }" ng-repeat="papel in carteira_array">
+                                            <!-- <td ng-repeat="(key,value) in veiculos">
+                                            {{ key + " - " + value}}
+                                            </td> -->
+                                            <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
+                                            <td>{{papel.montadora.nome}}</td>
+                                            <!-- Aqui faz outra das magicas mais lindas que ja vi no angular, para editar o valor no próprio inputbox. -->
+                                            <td> <input type="text" style="width: 100px;" value="{{ papel.valor}}" ng-model='papel.valor' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel;"/> </td>
+                                            <!--           <td>{{papel.valor}}</td>  -->
+                                            <td>{{papel.quantidade}} </td>
+                                            <td>{{papel.total| currency:'R$ '}}</td>
+                                            <!--           <td><button class="btn btn-primary" ng-click="edit(carteira_array)">valor</button></td>  -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+</div>
+
+                                <button class="btn btn-danger btn-block" ng-click="ordemVenda(carteira_array)"> Vender </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="row" >
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Comprar Ações <small></small></h2>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <select class="form-control" ng-model='papel.montadora' ng-options='montadora.nome group by montadora.pais for montadora in montadoras'>
+                                    <option value=''> Selecione um ativo </option>
+                                </select>
+                                <input class="form-control" type="number" min="100" max="500000" step="100" ng-model="papel.quantidade" placeholder="Quantidade">
+                                <input class="form-control" type="number" min="0.01" step=".01" ng-model="papel.valor" placeholder="Valor">
+                                <input class="form-control" type="password" ng-model="papel.assinatura" placeholder="Assinatura">
+                                <br>
+                                <button class="btn btn-success btn-block" ng-click="ordemCompra(papel)"
+                                        ng-disabled="!papel.quantidade || !papel.assinatura || !papel.valor || papel.montadora == null">
+                                    Comprar </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /page content -->
+
+    </ion-content>
+</ion-view>
