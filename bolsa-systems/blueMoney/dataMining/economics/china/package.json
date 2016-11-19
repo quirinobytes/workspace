@@ -1,0 +1,18 @@
+{
+  "name": "iron-price",
+  "version": "1.0.0",
+  "description": "Iron Price on International Market",
+  "main": "ironFe62_crawler.js",
+  "scripts": {
+    "test": "teste.sh"
+  },
+  "keywords": [
+    "Iron",
+    "Price"
+  ],
+  "author": "Rafael Quirino",
+  "license": "ISC",
+  "dependencies": {
+    "crawler-js": "^2.0.1"
+  }
+}
