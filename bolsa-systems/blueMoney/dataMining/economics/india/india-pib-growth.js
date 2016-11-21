@@ -3,8 +3,8 @@ var crawlerjs = require('crawler-js');
 
 crawler = {
 	interval: 100,
-	getSample: 'http://www.tradingeconomics.com/china/loans-to-private-sector/forecast',
-	get: 'http://www.tradingeconomics.com/china/loans-to-private-sector/forecast',
+	getSample: 'http://www.tradingeconomics.com/india/gdp/forecast',
+	get: 'http://www.tradingeconomics.com/india/gdp/forecast',
   preview: 3,
 	extractors: [
 		{
