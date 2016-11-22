@@ -1,4 +1,9 @@
 var crawlerjs = require('crawler-js');
+var fs = require('fs');
+var json2csv = require('json2csv');
+
+fields = ['valor_ENERGIA_ELETRICA'];
+
 
 
 crawler = {
@@ -8,12 +13,23 @@ crawler = {
   preview: 3,
 	extractors: [
 		{
-		selector: '.bandeira-tarifa tbody tr',
+		selector: '#ctl00_SPWebPartManager1_g_05e7f7cc_6e08_4fa0_801d_af831cb60dc7_ctl00_divTarifasCorporativo table:nth-child(2)',
 		callback: function (err,html,url,response) {
 			data = {};
-			data.valor = html.children('td').eq(0).eq(1).text();
+			data.valor_ponta_ENERGIA_ELETRICA = html.text();
+			data.valor_fora_ponta_ENERGIA_ELETRICA = html.children('tr').eq(1).children('td').eq(0).text();
+			data.valor_ultrapassagem_ponta_ENERGIA_ELETRICA = html.children('tr').eq(2).children('td').eq(0).text();
 			data.url = url;
 			console.log(data);
+			console.log(html);
+			var csv = json2csv({ data: data, fields: fields });
+
+			fs.writeFile('../../../csv/all/energia-eletrica.csv', csv, function(err) {
+			if (err) throw err;
+				console.log('file saved');
+
+			});
+
 			}
 		}
 	]
