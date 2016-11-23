@@ -42,7 +42,7 @@ crawler = {
 			console.log(data);
 			var csv = json2csv({ data: data, fields: fields });
 
-			fs.writeFile('../../../csv/all/china-business.csv', csv, function(err) {
+			fs.writeFile('../../../csv/all/economics-china-business_confidence.csv', csv, function(err) {
 			if (err) throw err;
 				console.log('file saved');
 

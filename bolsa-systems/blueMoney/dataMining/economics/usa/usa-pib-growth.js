@@ -1,15 +1,8 @@
 var crawlerjs = require('crawler-js');
+var json2csv = require('json2csv');
 
 var fs = require('fs');
 fields = ['valor_ANGLO','valorizacao_ANGLO','percentual_ANGLO'];
-
-			var csv = json2csv({ data: data, fields: fields });
-
-			fs.writeFile('../../../csv/all/anglo-american.csv', csv, function(err) {
-			if (err) throw err;
-				console.log('file saved');
-
-			});
 
 
 crawler = {
@@ -27,7 +20,15 @@ crawler = {
 			data.valor = html.children('td').eq(1).text();
 			data.url = url;
 			console.log(data);
-			}
+			var csv = json2csv({ data: data, fields: fields });
+
+			fs.writeFile('../../../csv/all/anglo-american.csv', csv, function(err) {
+			if (err) throw err;
+				console.log('file saved');
+
+			});
+
+		}
 		}
 	]
 
