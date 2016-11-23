@@ -3,6 +3,12 @@
 N=/usr/bin/node
 
 
+DATACSV=`date "+%H:%M %d/%m/%Y"`
+echo "\"DATA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"$DATACSV\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+
+
+
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/anglo-american/
 $N anglo-american.js
 
