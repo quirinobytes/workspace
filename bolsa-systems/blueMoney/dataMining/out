@@ -1,0 +1,336 @@
+{ valor_ANGLO: '1,237.50',
+  valorizacao_ANGLO: '+29.50',
+  percentual_ANGLO: '+2.44%',
+  url: 
+   { get: 'http://www.investing.com/equities/anglo-american',
+     post: undefined } }
+file saved
+{ valor_CLIFF: '9.190',
+  valorizacao_CLIFF: '+0.550',
+  percentual_CLIFF: '+6.37%' }
+file saved
+{ valor_CSNA3: '12.79',
+  valorizacao_CSNA3: '+0.80',
+  percentual_CSNA3: '+6.67%',
+  url: 
+   { get: 'http://www.investing.com/equities/sid-nacional-on',
+     post: undefined } }
+file saved
+{ valor_RIO_TINTO: '39.38',
+  valorizacao_RIO_TINTO: '+0.38',
+  percentual_RIO_TINTO: '+0.97%',
+  url: 
+   { get: 'http://www.investing.com/equities/rio-tinto-plc-exch',
+     post: undefined } }
+file saved
+{ valor_DJI: '19,083.18',
+  valorizacao_DJI: '+59.31',
+  percentual_DJI: '+0.31%',
+  url: 
+   { get: 'http://www.investing.com/indices/us-30',
+     post: undefined } }
+file saved
+{ valor_IBOVESPA: '62,268',
+  valorizacao_IBOVESPA: '-27',
+  percentual_IBOVESPA: '-0.04%',
+  url: 
+   { get: 'http://www.investing.com/indices/ibovespa-futures',
+     post: undefined } }
+file saved
+{ valor_SP500: '2,204.72',
+  valorizacao_SP500: '+1.78',
+  percentual_SP500: '+0.08%',
+  url: 
+   { get: 'http://www.investing.com/indices/us-spx-500',
+     post: undefined } }
+file saved
+{ valor_ALUMINUM: '1,783.50',
+  valorizacao_ALUMINUM: '+5.25',
+  percentual_ALUMINUM: '+0.30%',
+  url: 
+   { get: 'http://www.investing.com/commodities/aluminum',
+     post: undefined } }
+file saved
+{ valor_COAL: ' 40.00 ',
+  maximo_COAL: ' 43.63 ',
+  minimo_COAL: ' 39.50 ',
+  url: 
+   { get: 'http://www.infomine.com/investment/metal-prices/coal/1-year/',
+     post: undefined } }
+file saved
+{ valor_COOPER_UK: '5,912.00',
+  valorizacao_COOPER_UK: '+145.50',
+  percentual_COOPER_UK: '+2.52%',
+  url: 
+   { get: 'http://www.investing.com/commodities/copper?cid=959211',
+     post: undefined } }
+file saved
+{ valor_COOPER_US: '2.678',
+  valorizacao_COOPER_US: '+0.062',
+  percentual_COOPER_US: '+2.37%',
+  url: 
+   { get: 'http://www.investing.com/commodities/copper',
+     post: undefined } }
+file saved
+{ valor_IRON_FE62: '70.88',
+  valorizacao_IRON_FE62: '+0.88',
+  percentual_IRON_FE62: '+1.26%',
+  url: 
+   { get: 'http://www.investing.com/commodities/iron-ore-62-cfr-futures',
+     post: undefined } }
+file saved
+{"valor_IRON_SINA_CN":"645","maximo_SINA_CN":"659","minimo_SINA_CN":"602","media_SINA_CN":"620"}
+file saved
+{ valor_IRON_ORE_PELLETS: ' 75.93 ',
+  maximo_IRON_ORE_PELLETS: ' 87.39 ',
+  minimo_IRON_ORE_PELLETS: ' 54.11 ',
+  url: 
+   { get: 'http://www.infomine.com/investment/metal-prices/iron-ore-pellets/1-year/',
+     post: undefined } }
+file saved
+{ valor_MANGANESE: ' 1.74 ',
+  maximo_MANGANESE: ' 2.05 ',
+  minimo_MANGANESE: ' 1.48 ',
+  url: 
+   { get: 'http://www.infomine.com/investment/metal-prices/manganese/',
+     post: undefined } }
+file saved
+{ valor_NICKEL: '11,695.00',
+  valorizacao_NICKEL: '+67.50',
+  percentual_NICKEL: '+0.58%',
+  url: 
+   { get: 'http://www.investing.com/commodities/nickel?cid=959208',
+     post: undefined } }
+file saved
+{ valor_BRASIL_GROWTH: '11.86',
+  anterior_BRASIL_GROWTH: '11.86',
+  maximo_BRASIL_GROWTH: '17.91',
+  minimo_BRASIL_GROWTH: '9.11',
+  url: 
+   { get: 'http://pt.tradingeconomics.com/brazil/government-bond-yield',
+     post: undefined } }
+file saved
+{ valor_BRASIL_GROWTH_RATE: '-0.6',
+  valor_BRASIL_ANUAL_GROWTH: '-3.8',
+  valor_BRASIL_GDP: '1775',
+  valor_BRASIL_GDP_CONSTANT_PRICES: '285392',
+  valor_BRASIL_GROSS_NATIONAL_PRODUCT: '1506742',
+  valor_BRASIL_GROSS_FIXED_CAPITAL_FORMATION: '256741',
+  valor_BRASIL_GDP_PERCAPITA: '11159',
+  valor_BRASIL_GDP_PERCAPITA_PPP: '14455',
+  valor_BRASIL_GDP_FROM_AGRICULTURE: '19178',
+  valor_BRASIL_GDP_FROM_CONSTRUCTION: '16626',
+  valor_BRASIL_GDP_FROM_MANUFACTURING: '28544',
+  valor_BRASIL_GDP_FROM_MINING: '2374',
+  valor_BRASIL_GDP_FROM_PUBLIC_ADMINISTRATION: '39643',
+  valor_BRASIL_GDP_FROM_SERVICES: '172180',
+  valor_BRASIL_GDP_FROM_TRANSPORT: '7884',
+  valor_BRASIL_GDP_FROM_UTILITIES: '6267',
+  url: 
+   { get: 'http://www.tradingeconomics.com/brazil/gdp/forecast',
+     post: undefined } }
+file saved
+{ valor_FGV_CONSUMER_CONFIDENCE: '82,4',
+  projecao_FGV_CONSUMER_CONFIDENCE: '82,0',
+  previo_FGV_CONSUMER_CONFIDENCE: '80,6',
+  url_FGV_CONSUMER_CONFIDENCE: 
+   { get: 'http://br.investing.com/economic-calendar/fgv-consumer-confidence-860',
+     post: undefined } }
+file saved
+{ valor_BUSINESS_CONFIDENCE: '51.2',
+  valor_MANUFACTURING_PMI: '51.2',
+  valor_NON_MANUFACTURING_PMI: '54',
+  valor_SERVICES_PMI: '52.4',
+  valor_INDUSTRIAL_PRODUCTION: '6.1',
+  valor_INDUSTRIAL_PRODUCTION_MOM: '0.5',
+  valor_MANUFACTURING_PRODUCTION: '6.7',
+  valor_NEW_ORDERS: '52.8',
+  valor_CHANGE_IN_INVENTORIES: '11110',
+  valor_TOTAL_VEHICLE_SALES: '2649900',
+  valor_CAR_PRODUCTION: '2287100',
+  valor_CAR_REGISTRATIONS: '2344100',
+  valor_LEADING_ECONOMIC_INDEX: '0.2',
+  valor_MNI_BUSINESS_SENTIMENT: '53.1',
+  valor_STELL_PRODUCTION: '68510',
+  valor_COMPETITIVENESS_INDEX: '4.95',
+  valor_COMPETITIVENESS_RANK: '28',
+  valor_CEMENT_PRODUCTION: '22783',
+  valor_EASE_OF_DOING_BUSINESS: '78',
+  valor_ELECTRICITY_PRODUCTION: '487600',
+  valor_CORRUPTION_INDEX: '37',
+  valor_CORRUPTION_RANK: '83',
+  valor_CORPORATE_PROFITS: '4638060',
+  url: 
+   { get: 'http://www.tradingeconomics.com/china/business-confidence/forecast',
+     post: undefined } }
+file saved
+{ valor_TOTAL_VEHICLE_SALES: '2649900.00',
+  valor_CAR_PRODUCTION: '2287100.00',
+  valor_CAR_REGISTRATIONS: '2344100.00',
+  url: 
+   { get: 'http://www.tradingeconomics.com/china/car-registrations',
+     post: undefined } }
+file saved
+{ valor_BRASIL_GROWTH_RATE: '1.8',
+  valor_BRASIL_ANUAL_GROWTH: '6.7',
+  valor_BRASIL_GDP: '10866',
+  valor_BRASIL_GDP_CONSTANT_PRICES: '673837',
+  valor_BRASIL_GROSS_NATIONAL_PRODUCT: '292396',
+  valor_BRASIL_GROSS_FIXED_CAPITAL_FORMATION: '6416',
+  valor_BRASIL_GDP_PERCAPITA: '13400',
+  valor_BRASIL_GDP_PERCAPITA_PPP: '529971',
+  valor_BRASIL_GDP_FROM_AGRICULTURE: '40666',
+  valor_BRASIL_GDP_FROM_CONSTRUCTION: '33193',
+  valor_BRASIL_GDP_FROM_MANUFACTURING: '177101',
+  valor_BRASIL_GDP_FROM_MINING: '279890',
+  valor_BRASIL_GDP_FROM_PUBLIC_ADMINISTRATION: '24160',
+  valor_BRASIL_GDP_FROM_SERVICES: '',
+  valor_BRASIL_GDP_FROM_TRANSPORT: '',
+  valor_BRASIL_GDP_FROM_UTILITIES: '',
+  url: 
+   { get: 'http://www.tradingeconomics.com/china/gdp/forecast',
+     post: undefined } }
+file saved
+{ valor_HOUSING_INDEX_LAST: '12.30',
+  valor_HOUSING_INDEX_PREVIOUS: '11.20',
+  valor_HOUSING_INDEX_HIGHEST: '12.30',
+  valor_HOUSING_INDEX_LOWEST: '-6.10',
+  valor_HOUSING_OWNERSHIP_RATE_LAST: '90.00',
+  valor_HOUSING_OWNERSHIP_RATE_PREVIOUS: '90.00',
+  valor_HOUSING_OWNERSHIP_RATE_HIGHEST: '90.00',
+  valor_HOUSING_OWNERSHIP_RATE_LOWEST: '90.00',
+  url: 
+   { get: 'http://www.tradingeconomics.com/china/housing-index',
+     post: undefined } }
+file saved
+{ texto: 'China Industrial Production',
+  valor_INDUSTRIAL_PRODUCTION_ACTUAL: '6.1',
+  valor_INDUSTRIAL_PRODUCTION_Q4_16: '5.9',
+  valor_INDUSTRIAL_PRODUCTION_Q1_17: '5.8',
+  valor_INDUSTRIAL_PRODUCTION_Q2_17: '5.8',
+  valor_INDUSTRIAL_PRODUCTION_Q3_17: '5.7',
+  valor_INDUSTRIAL_PRODUCTION_2020: '5.2',
+  url: 
+   { get: 'http://www.tradingeconomics.com/china/industrial-production/forecast',
+     post: undefined } }
+file saved
+{ valor_INTEREST_RATE_LAST: '4.35',
+  valor_INTEREST_RATE_Q4_16: '4.1',
+  valor_INTEREST_RATE_Q1_17: '4.1',
+  valor_INTEREST_RATE_Q2_17: '4.1',
+  valor_INTEREST_RATE_Q3_17: '4.1',
+  valor_INTEREST_RATE_2020: '6',
+  valor_CASH_RESERVE_RATIO_LAST: '17',
+  valor_CASH_RESERVE_RATIO_Q4_16: '16',
+  valor_CASH_RESERVE_RATIO_Q1_17: '16',
+  valor_CASH_RESERVE_RATIO_Q2_17: '16',
+  valor_CASH_RESERVE_RATIO_Q3_17: '16',
+  valor_CASH_RESERVE_RATIO_2020: '20',
+  valor_INTERBANK_RATE_LAST: '3.51',
+  valor_INTERBANK_RATE_Q4_16: '3.22',
+  valor_INTERBANK_RATE_Q1_17: '3.19',
+  valor_INTERBANK_RATE_Q2_17: '3.19',
+  valor_INTERBANK_RATE_Q3_17: '2.85',
+  valor_INTERBANK_RATE_2020: '4.08',
+  valor_MONEY_SUPPLY_M0_LAST: '6420',
+  valor_MONEY_SUPPLY_M0_Q4_16: '6464',
+  valor_MONEY_SUPPLY_M0_Q1_17: '6420',
+  valor_MONEY_SUPPLY_M0_Q2_17: '6373',
+  valor_MONEY_SUPPLY_M0_Q3_17: '6326',
+  valor_MONEY_SUPPLY_M0_2020: '5581',
+  valor_MONEY_SUPPLY_M1_LAST: '46540',
+  valor_MONEY_SUPPLY_M1_Q4_16: '46868',
+  valor_MONEY_SUPPLY_M1_Q1_17: '48338',
+  valor_MONEY_SUPPLY_M1_Q2_17: '49844',
+  valor_MONEY_SUPPLY_M1_Q3_17: '51390',
+  valor_MONEY_SUPPLY_M1_2020: '75854',
+  valor_MONEY_SUPPLY_M2_LAST: '151950',
+  valor_MONEY_SUPPLY_M2_Q4_16: '156469',
+  valor_MONEY_SUPPLY_M2_Q1_17: '161477',
+  valor_MONEY_SUPPLY_M2_Q2_17: '166646',
+  valor_MONEY_SUPPLY_M2_Q3_17: '171980',
+  valor_MONEY_SUPPLY_M2_2020: '259027',
+  valor_FOREIGN_ENCHANGE_RESERVES_LAST: '3121000',
+  valor_FOREIGN_ENCHANGE_RESERVES_Q4_16: '3076394',
+  valor_FOREIGN_ENCHANGE_RESERVES_Q1_17: '3009548',
+  valor_FOREIGN_ENCHANGE_RESERVES_Q2_17: '2951831',
+  valor_FOREIGN_ENCHANGE_RESERVES_Q3_17: '2899079',
+  valor_FOREIGN_ENCHANGE_RESERVES_2020: '2840000',
+  valor_CENTRAL_BANK_BALANCE_SHEET_LAST: '342058',
+  valor_CENTRAL_BANK_BALANCE_SHEET_Q4_16: '341097',
+  valor_CENTRAL_BANK_BALANCE_SHEET_Q1_17: '345171',
+  valor_CENTRAL_BANK_BALANCE_SHEET_Q2_17: '348465',
+  valor_CENTRAL_BANK_BALANCE_SHEET_Q3_17: '351417',
+  valor_CENTRAL_BANK_BALANCE_SHEET_2020: '374249',
+  valor_BANKS_BALANCE_SHEET_LAST: '651',
+  valor_BANKS_BALANCE_SHEET_Q4_16: '937',
+  valor_BANKS_BALANCE_SHEET_Q1_17: '1010',
+  valor_BANKS_BALANCE_SHEET_Q2_17: '1010',
+  valor_BANKS_BALANCE_SHEET_Q3_17: '1000',
+  valor_BANKS_BALANCE_SHEET_2020: '1143',
+  valor_LOANS_TO_PRIVATE_SECTOR_LAST: '8963',
+  valor_LOANS_TO_PRIVATE_SECTOR_Q4_16: '12703',
+  valor_LOANS_TO_PRIVATE_SECTOR_Q1_17: '12568',
+  valor_LOANS_TO_PRIVATE_SECTOR_Q2_17: '13025',
+  valor_LOANS_TO_PRIVATE_SECTOR_Q3_17: '13253',
+  valor_LOANS_TO_PRIVATE_SECTOR_2020: '13279',
+  valor_DEPOSIT_INTEREST_RATE_LAST: '1.5',
+  valor_DEPOSIT_INTEREST_RATE_Q4_16: '1.5',
+  valor_DEPOSIT_INTEREST_RATE_Q1_17: '1.5',
+  valor_DEPOSIT_INTEREST_RATE_Q2_17: '1.25',
+  valor_DEPOSIT_INTEREST_RATE_Q3_17: '1.1',
+  valor_DEPOSIT_INTEREST_RATE_2020: '3.5',
+  valor_LOAN_GROWTH_LAST: '13.1',
+  valor_LOAN_GROWTH_Q4_16: '13.9',
+  valor_LOAN_GROWTH_Q1_17: '14.1',
+  valor_LOAN_GROWTH_Q2_17: '14.1',
+  valor_LOAN_GROWTH_Q3_17: '16.03',
+  valor_LOAN_GROWTH_2020: '12.7',
+  valor_LOANS_TO_BANKS_LAST: '1043724',
+  valor_LOANS_TO_BANKS_Q4_16: '1062695',
+  valor_LOANS_TO_BANKS_Q1_17: '1091099',
+  valor_LOANS_TO_BANKS_Q2_17: '1119440',
+  valor_LOANS_TO_BANKS_Q3_17: '1147718',
+  valor_LOANS_TO_BANKS_2020: '1509670',
+  url: 
+   { get: 'http://www.tradingeconomics.com/china/loans-to-private-sector/forecast',
+     post: undefined } }
+file saved
+{ valor_INDIA_GROWTH_RATE: '1.4',
+  valor_INDIA_ANUAL_GROWTH: '7.1',
+  valor_INDIA_GDP: '2074',
+  valor_INDIA_GDP_CONSTANT_PRICES: '29173',
+  valor_INDIA_GROSS_NATIONAL_PRODUCT: '56739',
+  valor_INDIA_GROSS_FIXED_CAPITAL_FORMATION: '8640',
+  valor_INDIA_GDP_PERCAPITA: '1806',
+  valor_INDIA_GDP_PERCAPITA_PPP: '5730',
+  valor_INDIA_GDP_FROM_AGRICULTURE: '3744',
+  valor_INDIA_GDP_FROM_CONSTRUCTION: '2291',
+  valor_INDIA_GDP_FROM_MANUFACTURING: '4902',
+  valor_INDIA_GDP_FROM_MINING: '861',
+  valor_INDIA_GDP_FROM_PUBLIC_ADMINISTRATION: '3376',
+  valor_INDIA_GDP_FROM_UTILITIES: '624',
+  url: 
+   { get: 'http://www.tradingeconomics.com/india/gdp/forecast',
+     post: undefined } }
+file saved
+{ valor_USA_GROWTH_RATE: '2.9',
+  valor_USA_ANUAL_GROWTH: '1.5',
+  valor_USA_GDP: '17947',
+  valor_USA_GDP_CONSTANT_PRICES: '16702',
+  valor_USA_GROSS_NATIONAL_PRODUCT: '16758',
+  valor_USA_GROSS_FIXED_CAPITAL_FORMATION: '2775',
+  valor_USA_GDP_PERCAPITA: '51486',
+  valor_USA_GDP_PERCAPITA_PPP: '52549',
+  valor_USA_GDP_FROM_AGRICULTURE: '162',
+  valor_USA_GDP_FROM_CONSTRUCTION: '779',
+  valor_USA_GDP_FROM_MANUFACTURING: '2172',
+  valor_USA_GDP_FROM_MINING: '258',
+  valor_USA_GDP_FROM_PUBLIC_ADMINISTRATION: '2381',
+  valor_USA_GDP_FROM_SERVICES: '12698',
+  valor_USA_GDP_FROM_TRANSPORT: '561',
+  valor_USA_GDP_FROM_UTILITIES: '284',
+  url: 
+   { get: 'http://www.tradingeconomics.com/united-states/gdp/forecast',
+     post: undefined } }
+file saved

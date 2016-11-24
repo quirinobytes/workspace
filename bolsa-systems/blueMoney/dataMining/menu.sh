@@ -36,6 +36,7 @@ while : ; do
             4 'CSNA3'     		\
             5 'Rio Tinto' 		\
             6 'BHP'     		\
+            7 'Mining...'     		\
             0 'Sair'                )
 
     # Ela apertou CANCELAR ou ESC, então vamos sair...
@@ -89,6 +90,14 @@ while : ; do
                 --backtitle 'Menu'   \
                 --title 'BHP executado' \
                 --msgbox "\n\n Executado com sucesso:\n\n$RESULT" 20 100
+				;;
+			
+			7) /root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh 2>&1 > /tmp/out &
+					dialog                                         \
+			   	--title 'Aguarde'                           \
+					--tailbox /tmp/out									\
+				   40 100
+
 				;;
 
          0) break ;;
