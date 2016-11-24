@@ -22,7 +22,7 @@ console.log(JSON.stringify(data));
 
 
 		var csv = json2csv({ data: JSON.stringify(data), fields: fields });
-		fs.writeFile('../../../csv/all/finance.sina.cn.com.csv', csv, function(err) {
+		fs.writeFile('/root/workspace/bolsa-systems/blueMoney/csv/all/finance.sina.cn.com.csv', csv, function(err) {
 		if (err) throw err;
 			console.log('file saved');
 		});
