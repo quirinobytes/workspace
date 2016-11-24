@@ -2,10 +2,18 @@
 
 N=/usr/bin/node
 
+ANO=`date "+%Y"`
+MES=`date "+%m"`
+DIA=`date "+%d"`
+HORA=`date "+%H:%M"`
 
-DATACSV=`date "+%H:%M %d/%m/%Y"`
-echo "\"DATA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
-echo "\"$DATACSV\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+rm /root/workspace/bolsa-systems/blueMoney/csv/all/* -rf
+
+echo "\"ANO\",\"MES\",\"DIA\",\"HORA\",\"RESPOSTA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"$ANO\",\"$MES\",\"$DIA\",\"$HORA\",\"1\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+
+echo "\"clima da CHINA\",\"negociação entre EUA e BRASIL\",\"abertura do EURO\",\"prisão do lula\",\"justiça condena samarco\",\"descoberta de jazida de minerio na china\",\"crise em algum pais/EURO\",\"problema/beneficio com alguma empresa concorrente (natureza externa)\",\"novo processo judicial\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
+echo "\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
 
 
 
@@ -52,23 +60,23 @@ cd /root/workspace/bolsa-systems/blueMoney/dataMining/commodities/nickel/
 $N nickel.js
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/economics/brasil/
-$N brasil-government-bold-yeld.js
-$N brasil-pib-growth.js
-$N fgv-consumer-confidence.js
+$N government_bold_yeld.js
+$N gdp_growth.js
+$N fgv_consumer_confidence.js
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/economics/china/
 $N business_confidence.js
 $N car_index.js
-$N gdp-growth.js
+$N gdp_growth.js
 $N housing_index.js
-$N industrial-production.js
-$N loan-to-private.js
+$N industrial_production.js
+$N loan_to_private.js
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/economics/india/
-$N gdp-growth.js
+$N gdp_growth.js
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/economics/usa/
-$N gdp-growth.js
+$N gdp_growth.js
 
 
 cd /root/workspace/bolsa-systems/blueMoney/csv/all
