@@ -8,7 +8,7 @@ content= {};
 // ### CONFIG ###
 var debug=false;
 var REQUESTS=500;
-var filename = './config/cotacoes-c.json';
+var filename = './datafiles/cotacoes-c.json';
 var urlserver = 'http://192.168.200.128:3000/comprar' ;
 
 fs.exists(filename, function(exists) {
