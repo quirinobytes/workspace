@@ -83,4 +83,33 @@ cd /root/workspace/bolsa-systems/blueMoney/csv/all
 paste * -d, > ../consolidado.csv
 
 DATA=`date "+%H_%Mh-%d-%h-%Y"`
-mv /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /var/www/webserver/arquivos/coleta-$DATA.csv
+#cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /root/workspace/bolsa-systems/blueMoney/csv/ultimo.csv
+cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /var/www/webserver/arquivos/coleta-$DATA.csv
+
+cd /root/workspace/bolsa-systems/blueMoney/csv/
+head -1 ultimo.csv | sed 's/",/"\n/g' > ultimo.colunas
+tail -1 ultimo.csv | sed 's/",/"\n/g' > ultimo.valores
+paste ultimo.colunas ultimo.valores > ultimo.txt
+
+head -1 consolidado.csv | sed 's/",/"\n/g' > consolidado.colunas
+tail -1 consolidado.csv | sed 's/",/"\n/g' > consolidado.valores
+paste consolidado.colunas consolidado.valores > consolidado.txt
+
+rm consolidado.colunas consolidado.valores ultimo.colunas ultimo.valores
+
+colordiff consolidado.txt ultimo.txt
+
+cd - 
+
+
+
+
+
+
+
+
+
+
+
+
+

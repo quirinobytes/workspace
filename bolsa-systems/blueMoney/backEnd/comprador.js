@@ -11,12 +11,12 @@ var REQUESTS=500;
 var filename = './datafiles/cotacoes-c.json';
 var urlserver = 'http://192.168.200.128:3000/comprar' ;
 
-fs.exists(filename, function(exists) {
- if (exists) {
+//fs.exists(filename, function(exists) {
+// if (exists) {
 	var conteudojson = fs.readFileSync(filename);
 	var content = JSON.parse(conteudojson);
- }
-});
+// }
+//});
 var totalUrl = 1;
 array_valores=[];
 
@@ -26,7 +26,7 @@ array_ativos = ['VALE5','CSNA3','PETR4','USIM5','GOLL4','GGBR4','GOAU4'];
 if (content.VALE5)	array_valores['VALE5'] = content.VALE5 ;
 else array_valores['VALE5'] = 21.90;
 
-if (content.USIM5) 	array_valores['USIM5'] = content.VALE5 ;
+if (content.USIM5) 	array_valores['USIM5'] = content.USIM5 ;
 else array_valores['USIM5'] = 4.60;
 
 if (content.PETR4) array_valores['PETR4'] = content.PETR4 ;
@@ -35,13 +35,13 @@ else 	array_valores['PETR4'] = 18;
 if (content.GOLL4) 	array_valores['GOLL4'] = content.GOLL4;
 else 	array_valores['GOLL4'] = 8;
 
-if (content.GGBR4)	array_valores['GGBR4'] = content.VALE5 ;
+if (content.GGBR4)	array_valores['GGBR4'] = content.GGBR4 ;
 else	array_valores['GGBR4'] = 11;
 
-if (content.GOAU4)	array_valores['GOAU4'] = content.VALE5 ;
+if (content.GOAU4)	array_valores['GOAU4'] = content.GOAU4 ;
 else	array_valores['GOAU4'] = 4;
 
-if (content.CSNA3)	array_valores['CSNA3'] = content.VALE5 ;
+if (content.CSNA3)	array_valores['CSNA3'] = content.CSNA3 ;
 else	array_valores['CSNA3'] = 10;
 
 
@@ -123,7 +123,7 @@ function gravar_cotacoes_no_arquivo(r){
 // EXEMPLO DE JSON ->
 // { "name": "John Johnson", "street": "Oslo West 16", "phone": "555 1234567" };
 
-data = { "VALE5": r['VALE5'], "CSNA3": r['CSNA3'], "PETR4": r['PETR4'], "GOLL4": r['GOLL4'], "GOAU4":r['GOAU4'], "GGBR4" :r['GGBR4'] };
+data = { "VALE5": r['VALE5'], "CSNA3": r['CSNA3'], "PETR4": r['PETR4'], "GOLL4": r['GOLL4'], "GOAU4":r['GOAU4'], "GGBR4" :r['GGBR4'], "USIM5" :r['USIM5'] };
 
 //leva de JSON para stringify
 var jsonstring = JSON.stringify(data);
