@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login no Facebook</title>
+<!--	<script type="type/javascript" src="js/jquery-3.1.1.min.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"> </script>
+	<script>
+		
+		function login(){
+			FB.login(function(response){
+				callbackMudancasStatus(response);
+				});
+		
+		}
+		function logout(){
+			FB.logout(function(response){
+				$('#status').html('Voce acaba de fazer logout;');
+				callbackMudancasStatus(response);
+			});
+		}
+
+
+
+		function callbackMudancasStatus(response){
+			// O objeto de resposta é retornado com o campo de status, que faz com que o aplicativo saiba o status de login da pessoa ///atual.
+
+			if (response.status === 'connected'){
+				// caso o usuario esteja logado execute minha API recuperando as informacoes
+				$('#logar').hide();
+				$('#status').html("<a href='javascript:void(0);' onclick='logout();' > Sair </a>");
+				$('#status').append(testAPI());
+
+			}else if (response.status === 'not_authorized'){
+				$('#status').append('<p> Por favor, faça o login no aplicativo </p>');
+			}else{
+				//senao a pessoa nao está logada no facebook nem no aplicativo, portanto nao é possivel recuperar informacoes.
+				$('#status').append("<p> Faça <a href='javascript:void(0);' onclick='login();'> login </a> no Facebook! </p>");
+			}
+		}
+
+		function testAPI(){
+			FB.api("/me?fields=id, email,first_name,gender, last_name, link, locale, name, timezone, verified",function(response){
+				$('#status').append("<p> Ola "+response.name+" seja bem vindo </p>");
+				console.log(response);
+			});
+		}
+
+
+	  window.fbAsyncInit = function() {
+    	FB.init({
+	      appId      : '1142602759151596',
+	      xfbml      : true,
+	      version    : 'v2.8'
+	    });
+	  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+</script>
+</head>
+<body onLoad='' bgcolor='#ebebeb'>
+
+	<a id="logar" href="javascript:void(0)" onclick="login();">Efetuar Login</a>
+	<div id='status'> </div>
+
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+
+</body>
+</html>
