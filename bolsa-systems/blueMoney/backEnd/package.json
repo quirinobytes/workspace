@@ -1,0 +1,20 @@
+{
+  "name": "bolsa-backend",
+  "version": "1.0.0",
+  "description": "Blue Money - Bolsa BackEnd",
+  "main": "bolsa.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "chance": "^1.0.4",
+    "colors": "^1.1.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.3",
+    "request": "^2.76.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "comprador.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
