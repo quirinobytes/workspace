@@ -8,8 +8,8 @@ content= {};
 // ### CONFIG ###
 var debug=false;
 var REQUESTS=500;
-var filename = './datafiles/cotacoes-v.json';
-var urlserver = 'http://192.168.200.128:3000/vender';
+var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/datafiles/cotacoes-c.json';
+var urlserver = 'http://192.168.200.128:3000/comprar' ;
 
 //fs.exists(filename, function(exists) {
 // if (exists) {
@@ -94,26 +94,28 @@ function getUrl(){
     };
 
 	if (debug) console.log();
-	request(options, function (error, response, body) {
-	if (error) throw new Error(error);
-		if (debug) console.log(body);
-	obj = JSON.parse(body)
-	if (obj.Compra){
-	   if (debug) console.log (obj.ativo);
-	   array_valores[obj.ativo] = obj.valor;
-	   array_valores[papel] = obj.valor;
-	}
-	else{
-	   array_valores[papel] = obj.valor;
-	}
+	req = request(options, function (error, response, body) {
+		if(error) throw new Error(error)
 
-	gravar_cotacoes_no_arquivo(array_valores);
+		if (debug) console.log(body);
+			obj = JSON.parse(body)
+		if (obj.Compra){
+			 if (debug) console.log (obj.ativo);
+			 array_valores[obj.ativo] = obj.valor;
+			 array_valores[papel] = obj.valor;
+		}
+		else{
+			 array_valores[papel] = obj.valor;
+		}
+
+		gravar_cotacoes_no_arquivo(array_valores);
 
 	if (debug)   mostrar(array_valores); //EXIBIR AS COTACOES LOGO APOS FAZER O REQUEST.
-	
     //  response.end;
 	});
 
+
+	
   //mostrar(array_valores);
 };
 
@@ -121,7 +123,7 @@ function gravar_cotacoes_no_arquivo(r){
 // EXEMPLO DE JSON ->
 // { "name": "John Johnson", "street": "Oslo West 16", "phone": "555 1234567" };
 
-data = { "VALE5": r['VALE5'], "CSNA3": r['CSNA3'], "PETR4": r['PETR4'], "GOLL4": r['GOLL4'], "GOAU4":r['GOAU4'], "GGBR4" :r['GGBR4'], "USIM5" :r['USIM5']  };
+data = { "VALE5": r['VALE5'], "CSNA3": r['CSNA3'], "PETR4": r['PETR4'], "GOLL4": r['GOLL4'], "GOAU4":r['GOAU4'], "GGBR4" :r['GGBR4'], "USIM5" :r['USIM5'] };
 
 //leva de JSON para stringify
 var jsonstring = JSON.stringify(data);
