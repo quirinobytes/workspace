@@ -6,7 +6,7 @@ var fs = require('fs');
 content= {};
 
 // ### CONFIG ###
-var debug=false;
+var debug=true;
 var REQUESTS=500;
 var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/datafiles/cotacoes-v.json';
 var urlserver = 'http://192.168.200.128:3000/vender';
