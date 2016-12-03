@@ -17,14 +17,28 @@ echo "\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"" >> /root/workspace/bolsa-sys
 
 
 
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/vale5/
+$N vale5.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/petr4/
+$N petr4.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/usim5/
+$N usim5.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/csna3/
+$N csna3.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/goll4/
+$N goll4.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/ggbr4/
+$N ggbr4.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/goau4/
+$N goau4.js
+
+
+
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/anglo-american/
 $N anglo-american.js
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/cliff_natural_resources/
 $N cliff_natural_resources.js
-
-cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/csna3/
-$N csna3.js
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/rio_tinto/
 $N rio_tinto.js

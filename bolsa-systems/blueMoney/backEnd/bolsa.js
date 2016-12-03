@@ -39,20 +39,23 @@ var total = 0.0;
 var total_compra = 0.0;
 var total_venda = 0.0;
 
-ativos['VALE5'] = {'nome':'VALE5', 'valor':21};
-ativos['USIM5'] = {'nome':"USIM5", 'valor':4.60};
-ativos['CSNA3'] = {'nome':"CSNA3", 'valor':10};
-ativos['PETR4'] = {'nome':"PETR4", 'valor':18};
-ativos['GOLL4'] = {'nome':"GOLL4", 'valor':8};
-ativos['GGBR4'] = {'nome':"GGBR4", 'valor':11};
-ativos['GOAU4'] = {'nome':"GOAU4", 'valor':4.80};
-abertura['VALE5'] = {'nome':'VALE5', 'valor':21};
-abertura['USIM5'] = {'nome':"USIM5", 'valor':4.60};
-abertura['CSNA3'] = {'nome':"CSNA3", 'valor':10};
-abertura['PETR4'] = {'nome':"PETR4", 'valor':18};
-abertura['GOLL4'] = {'nome':"GOLL4", 'valor':8};
-abertura['GGBR4'] = {'nome':"GGBR4", 'valor':11};
-abertura['GOAU4'] = {'nome':"GOAU4", 'valor':4.80};
+//array para armazenar o valor dos ativos realtime
+ativos['VALE5'] = {'nome':'VALE5', 'valor':0};
+ativos['USIM5'] = {'nome':"USIM5", 'valor':0};
+ativos['CSNA3'] = {'nome':"CSNA3", 'valor':0};
+ativos['PETR4'] = {'nome':"PETR4", 'valor':0};
+ativos['GOLL4'] = {'nome':"GOLL4", 'valor':0};
+ativos['GGBR4'] = {'nome':"GGBR4", 'valor':0};
+ativos['GOAU4'] = {'nome':"GOAU4", 'valor':0};
+
+//array somente para abertura, depois vamos colocar isso em um banco de dados, so fazer leia array da collection abertura
+abertura['VALE5'] = {'nome':'VALE5', 'valor':25.30};
+abertura['USIM5'] = {'nome':"USIM5", 'valor':4.02};
+abertura['CSNA3'] = {'nome':"CSNA3", 'valor':11.66};
+abertura['PETR4'] = {'nome':"PETR4", 'valor':15.44};
+abertura['GOLL4'] = {'nome':"GOLL4", 'valor':5.41};
+abertura['GGBR4'] = {'nome':"GGBR4", 'valor':12.87};
+abertura['GOAU4'] = {'nome':"GOAU4", 'valor':5.40};
 min['VALE5']= 99999;
 max['VALE5']= 0;
 min['USIM5']= 99999;
@@ -158,6 +161,28 @@ app.get ('/total',function(req,res){
 	res.end();
 
 });
+
+ app.get ('/leitura',function(req,res){
+var db = require('/var/www/webserver/arquivos/news/vale5.json');
+ res.json(db);
+
+});
+
+//###############		/loadprice ( JSON({acao:valor}) )  ###############################
+app.post ('/loadprice',function(req,res){
+    var ativo = req.body.ativo;
+	var valor = parseFloat(req.body.valor);
+
+if (ativo != undefined && valor != undefined ){
+	ativos[ativo] = {'nome':ativo, 'valor':valor};
+}
+
+res.end();
+
+});
+
+
+
 
 
 //###############		/comprar	###############################
@@ -425,7 +450,6 @@ function mostra_painel(){
 		if (porcentagem['GGBR4'] < 0 )
 			porcentagem['GGBR4'] = porcentagem['GGBR4'].toFixed(2).red;
 
-
 	porcentagem['GOAU4'] = (100 * ativos['GOAU4'].valor / abertura['GOAU4' ].valor) - 100 ;
 			if (porcentagem['GOAU4'] > 0 )
 			porcentagem['GOAU4'] = porcentagem['GOAU4'].toFixed(2).green;
@@ -441,15 +465,15 @@ function mostra_painel(){
 	console.log("\t\t###   Mesa de Operações    ###\t tempo:".yellow + tempo.toFixed(0)+ "s Total: "+str_total+"M"); 
 	console.log("\t\t      =================       ".yellow); 
 
-	console.log("  ATIVO   |   VALOR     |    VAR %      | ABERT |  MIN\t| MAX\t|    VOLUME");
-	console.log("==========|=============|===============|=======|=======|=======|==============");
-	console.log("  "+ ativos['VALE5'].nome+"   |   "+ativos['VALE5'].valor.toFixed(2)+ "\t|     " + porcentagem['VALE5']+ "%\t|  "+ abertura['VALE5'].valor + "\t| " + min['VALE5']+"\t| " + max['VALE5'] + "\t|  " + (volume['VALE5']/1000).toFixed(2)+"K");
-	console.log("  "+ ativos['USIM5'].nome+"   |   "+ativos['USIM5'].valor.toFixed(2)+ "\t|     " + porcentagem['USIM5']+ "%\t|  "+ abertura['USIM5'].valor + "\t| " + min['USIM5']+"\t| " + max['USIM5'] + "\t|  " + (volume['USIM5']/1000).toFixed(2)+"K");
-	console.log("  "+ ativos['CSNA3'].nome+"   |   "+ativos['CSNA3'].valor.toFixed(2)+ "\t|     " + porcentagem['CSNA3']+ "%\t|  "+ abertura['CSNA3'].valor + "\t| " + min['CSNA3']+"\t| " + max['CSNA3'] + "\t|  " + (volume['CSNA3']/1000).toFixed(2)+"K");
-	console.log("  "+ ativos['PETR4'].nome+"   |   "+ativos['PETR4'].valor.toFixed(2)+ "\t|     " + porcentagem['PETR4']+ "%\t|  "+ abertura['PETR4'].valor + "\t| " + min['PETR4']+"\t| " + max['PETR4'] + "\t|  " + (volume['PETR4']/1000).toFixed(2)+"K");
-	console.log("  "+ ativos['GOLL4'].nome+"   |   "+ativos['GOLL4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOLL4']+ "%\t|  "+ abertura['GOLL4'].valor + "\t| " + min['GOLL4']+"\t| " + max['GOLL4'] + "\t|  " + (volume['GOLL4']/1000).toFixed(2)+"K");
-	console.log("  "+ ativos['GGBR4'].nome+"   |   "+ativos['GGBR4'].valor.toFixed(2)+ "\t|     " + porcentagem['GGBR4']+ "%\t|  "+ abertura['GGBR4'].valor + "\t| " + min['GGBR4']+"\t| " + max['GGBR4'] + "\t|  " + (volume['GGBR4']/1000).toFixed(2)+"K");
-	console.log("  "+ ativos['GOAU4'].nome+"   |   "+ativos['GOAU4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOAU4']+ "%\t|  "+ abertura['GOAU4'].valor + "\t| " + min['GOAU4']+"\t| " + max['GOAU4'] + "\t|  " + (volume['GOAU4']/1000).toFixed(2)+"K");
+	console.log("  ATIVO   |   VALOR     |    VAR %      | ABERT         | MIN\t| MAX\t|    VOLUME");
+	console.log("==========|=============|===============|===============|=======|=======|==============");
+	console.log("  "+ ativos['VALE5'].nome+"   |   "+ativos['VALE5'].valor.toFixed(2)+ "\t|     " + porcentagem['VALE5']+ "%\t|  "+ abertura['VALE5'].valor + "  \t| " + min['VALE5']+" \t| " + max['VALE5'] + "\t|  " + (volume['VALE5']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['USIM5'].nome+"   |   "+ativos['USIM5'].valor.toFixed(2)+ "\t|     " + porcentagem['USIM5']+ "%\t|  "+ abertura['USIM5'].valor + "  \t| " + min['USIM5']+" \t| " + max['USIM5'] + "\t|  " + (volume['USIM5']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['CSNA3'].nome+"   |   "+ativos['CSNA3'].valor.toFixed(2)+ "\t|     " + porcentagem['CSNA3']+ "%\t|  "+ abertura['CSNA3'].valor + "  \t| " + min['CSNA3']+" \t| " + max['CSNA3'] + "\t|  " + (volume['CSNA3']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['PETR4'].nome+"   |   "+ativos['PETR4'].valor.toFixed(2)+ "\t|     " + porcentagem['PETR4']+ "%\t|  "+ abertura['PETR4'].valor + "  \t| " + min['PETR4']+" \t| " + max['PETR4'] + "\t|  " + (volume['PETR4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['GOLL4'].nome+"   |   "+ativos['GOLL4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOLL4']+ "%\t|  "+ abertura['GOLL4'].valor + "  \t| " + min['GOLL4']+" \t| " + max['GOLL4'] + "\t|  " + (volume['GOLL4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['GGBR4'].nome+"   |   "+ativos['GGBR4'].valor.toFixed(2)+ "\t|     " + porcentagem['GGBR4']+ "%\t|  "+ abertura['GGBR4'].valor + "  \t| " + min['GGBR4']+" \t| " + max['GGBR4'] + "\t|  " + (volume['GGBR4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['GOAU4'].nome+"   |   "+ativos['GOAU4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOAU4']+ "%\t|  "+ abertura['GOAU4'].valor + "  \t| " + min['GOAU4']+" \t| " + max['GOAU4'] + "\t|  " + (volume['GOAU4']/1000).toFixed(2)+"K");
 
 
 
