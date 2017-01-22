@@ -47,33 +47,40 @@
 			$scope.eEditable = -1;	
 			
 			$scope.comandos_array = [
-					{nome: "excluir cache", quantidade: "eliot", total: "10300", valor:"20.60", "montadora":{"nome":"Excluir Cache","valor":"8.10"}},
-					{nome: "Renovar", quantidade: "zautoritext1", total: "15570", valor:"17.30", "montadora":{"nome":"Renovar Cache","valor":"8.10"}},
-					{nome: "Alterar TTL", quantidade: "zoom1", total: "32320", valor:"10.10", "montadora":{"nome":"Alterar TTL","valor":"8.10"}},
-					{nome: "Flush Zona toda", quantidade: "pool-az", total: "1530", valor:"8.00", "montadora":{"nome":"Flush Toda Zona","valor":"8.00"}},
+					{nome: "excluir cache", quantidade: "eliot", total: "10", valor:"20.60", "montadora":{"nome":"Excluir Cache","valor":"8.10"}},
+					{nome: "listar", quantidade: "zautoritext1", total: "3600", valor:"17.30", "montadora":{"nome":"Listar","valor":"8.10"}},
+					{nome: "Alterar TTL", quantidade: "zoom1", total: "20", valor:"10.10", "montadora":{"nome":"Alterar TTL","valor":"8.10"}},
+					{nome: "Flush Zona toda", quantidade: "pool-az", total: "30", valor:"8.00", "montadora":{"nome":"Flush Toda Zona","valor":"8.00"}},
 			];
 
 			
 			
 
 			$scope.robo = function (){ 
+					 	//	window.location.reload(true); 
 			    $http({
 					method: 'POST',
 					url: 'http://189.55.194.115:3000/hello',
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					data: 'nome=13&id_cliente=27&ativo=qualquer&cor=azul&valor=1000&tamanho=1234abcd'
 					 }).success(function (response) { 
-					console.log('POST venda ... enviado => ' + 'id_corretora=13&id_clen=1234abcd'
-);
- window.location.reload(false); 
+							console.log('POST venda ... enviado => ' + 'id_corretora=13&id_clen=1234abcd');
 					});   
-			
-
-				
+							
 		    };
 
 			$scope.executa = function(obj){
 					console.log("Executa: "+obj);
+					opcao = obj.filter(function(data){
+						if (data.selecionado) return data;
+					});
+					console.log("acao:"+opcao[0].nome);
+		
+					//Fazendo a chamada da API no servidor qMonitor
+					$http.get('http://189.55.194.115:3000/api/'+opcao[0].nome).then(function(response){
+					$scope.cotacoes_array = response.data;
+					});
+
 			};
 
 			
@@ -135,7 +142,7 @@
 				</tr>
 
 				<tr ng-repeat="item in nodes_array.servidores">
-				<td> <input type="radio"  id="{{name}}" name="favorite"> {{item}}</td>
+				<td> <input type="checkbox"  id="{{name}}" name="favorite"> {{item}}</td>
 				</tr>
 				</table>
 			</div>
@@ -151,20 +158,20 @@
 					  <th> Ação </th>
 					  <th> TTL </th>
 					  <th> Hostname </th>
-					  <th> Ação </th>
+					  <th> Temporizador </th>
 				  </tr>
 				 <!-- so poe a classe selecionado quando veiculo.selecionado igual a true -->
 				 <tr ng-class="{selecionado: papel.selecionado }" ng-repeat="papel in comandos_array">
 				 <!-- <td ng-repeat="(key,value) in veiculos">
 				 {{ key + " - " + value}}
 				 </td> -->
-					 <td> <input type="checkbox" ng-model='papel.selecionado'/></td>
+					 <td> <input type="checkbox" ng-model='papel.selecionado' /></td>
 					 <td>{{papel.montadora.nome}}</td>
 					<!-- Aqui faz outra das magicas mais lindas que ja vi no angular, para editar o valor no próprio inputbox. -->
 					<td> <input type="text" style="width: 100px;" value="{{ papel.valor }}" ng-model='papel.valor' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel ; "/> </td>
 <!--					 <td>{{papel.valor}}</td>  -->
 					 <td><input type="text" style="width: 100px;" value="{{ papel.quantidade }}" ng-model='papel.quantidade' ng-readonly='!($papel == eEditable)' ng-dblclick="eEditable = $papel ; "/> </td>
-					 <td>{{papel.total | currency:'R$ '}}</td>
+					 <td>{{papel.total }}</td>
 <!--					 <td><button class="btn btn-primary" ng-click="edit(carteira_array)">valor</button></td>  -->
 				 </tr>
 			   </table>

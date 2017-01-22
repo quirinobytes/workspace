@@ -5,6 +5,7 @@ var db = require('./config/db_config.js');
 var product = require('./models/product');
 var productController = require('./controllers/productController');
 var os = require("os");
+var request = require('request');
 var fs= require('fs');
 var nodesFile= 'nodes.txt';
 var body="";
@@ -81,13 +82,31 @@ app.post ('/cadastrar', function (req,res) {
 });
 
 
-app.delete ('/apagar/:id', function(req,res){
-	var id = req.params.id;
+app.get ('/api/:nome', function(req,res){
+	var metodo = req.params.nome;
 
-	productController.delete(id, function(resp){
-		res.json(resp);
-	});
-	console.log('Produto excluido id: '+id);
+//	productController.delete(id, function(resp){
+//		res.json(resp);
+//	});
+	console.log('Metodo : '+metodo);
+
+
+
+	console.log('Enviando a chamada para os nos');
+
+	for (i = 0 ; i < aliveNodes.length ; i++){
+		url = 'http://'+aliveNodes[i]+':3000/'+metodo;
+		console.log("URL="+url);
+		request(url, function (error, response, body) {
+				  if (!error && response.statusCode == 200) {
+				    console.log("Retorno do servidor:"+aliveNodes+" => "+body) // Show the HTML for the Google homepage.
+				  }
+		})
+
+	}
+
+
+	res.end();
 });
 
 
