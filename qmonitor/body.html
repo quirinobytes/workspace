@@ -49,7 +49,7 @@
 			$scope.comandos_array = [
 					{nome: "excluir", quantidade: "eliot", total: "10", valor:"2000", "montadora":{"nome":"Excluir Cache","valor":"8.10"}},
 					{nome: "listar", quantidade: "zautoritext1", total: "3600", valor:"1700", "montadora":{"nome":"Listar","valor":"8.10"}},
-					{nome: "alterar", quantidade: "zoom1", total: "20", valor:"1000", "montadora":{"nome":"Alterar TTL","valor":"8.10"}},
+					{nome: "uptime", quantidade: "zoom1", total: "20", valor:"1000", "montadora":{"nome":"Uptime Server","valor":"8.10"}},
 					{nome: "flush", quantidade: "pool-az", total: "30", valor:"300", "montadora":{"nome":"Flush Toda Zona","valor":"8.00"}},
 			];
 
@@ -184,7 +184,8 @@
 			</div>
 			<br>
 
-			<button class="btn btn-danger btn-block" ng-click="executa(comandos_array)"> Excluir  </button>
+       <!-- <button class="btn btn-danger  btn-block" ng-click="executa(comandos_array)"> Enviar  </button> -->
+			<button class="btn btn-primary btn-block" ng-click="executa(comandos_array)"> Enviar  </button>
 	   		<hr>
 			</div>
 	     	<input class="form-control" type="number" min="100" max="50000000" step="100" ng-model="papel.quantidade" placeholder="Quantidade">

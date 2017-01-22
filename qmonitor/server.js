@@ -110,14 +110,63 @@ app.get ('/api/:nome', function(req,res){
 	res.end();
 });
 
-
+//funcao que faz o registro de aliveNodes.
 function registerNode(node){
+	if (aliveNodes.indexOf(node) < 0){
+		aliveNodes.push(node);
+		console.log("AliveNodes.add:"+node); 
+	}
+}
 
-
-if (aliveNodes.indexOf(node) < 0){
-	aliveNodes.push(node);
-	console.log("AliveNodes.add:"+node); 
+//funcao de remove da lista de aliveNodes.
+function removeNodes(node){
+	if (aliveNodes.indexOf(node) >= 0){
+		aliveNodes.pop(node);
+		console.log("AliveNodes.del:"+node); 
+	}
 }
 
 
+//executar o sanitize em loop de 5minutos.
+setInterval(function () {
+     console.log('Sanitizing....');
+     sanitize();
+}, 20000);
+
+
+
+
+function sanitize(){
+error_times=0;
+for (i = 0 ; i < aliveNodes.length ; i++){
+		node = aliveNodes[i];
+
+options = { method: 'GET',
+    		uri: 'http://'+node+':3000/ping',
+			timeout: 3000,
+		 };
+
+		//request( 'http://'+node+':3000/ping', function (error, response, body) {
+		request( options, function (error, response, body) {
+				  if (!error && response.statusCode == 200) {
+				    console.log("Retorno do servidor | GET "+node+" => "+body) // Show the HTML for the Google homepage.
+				  }
+			console.log(body);
+			if (body != 'alive'){
+				
+				//error_times = numero de vezes que o node nao respondeu.
+				if (error_times >= 0){
+					removeNodes(node);
+					console.log("Chamado remover para: "+node);
+					error_times = 0;
+				}
+				else{
+					console.log("Remover #"+error_times);
+					error_times++;
+				}
+			}
+		});
+	}
 }
+
+
