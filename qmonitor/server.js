@@ -84,6 +84,7 @@ app.post ('/cadastrar', function (req,res) {
 
 app.get ('/api/:nome', function(req,res){
 	var metodo = req.params.nome;
+	var i;
 
 //	productController.delete(id, function(resp){
 //		res.json(resp);
@@ -97,9 +98,9 @@ app.get ('/api/:nome', function(req,res){
 	for (i = 0 ; i < aliveNodes.length ; i++){
 		url = 'http://'+aliveNodes[i]+':3000/'+metodo;
 		console.log("URL="+url);
-		request(url, function (error, response, body) {
+		request(url, aliveNodes, function (error, response, body) {
 				  if (!error && response.statusCode == 200) {
-				    console.log("Retorno do servidor:"+aliveNodes+" => "+body) // Show the HTML for the Google homepage.
+				    console.log("Retorno do servidor | GET "+url+" => "+body) // Show the HTML for the Google homepage.
 				  }
 		})
 
