@@ -1,32 +1,41 @@
 #!/usr/bin/env node
 
 var app = require('./config/app_config');
-var db = require('./config/db_config.js');
-var product = require('./models/product');
-var productController = require('./controllers/productController');
 var os = require("os");
 var request = require('request');
-var fs= require('fs');
-var nodesFile= 'nodes.txt';
-var body="";
-fs.writeFile(nodesFile,'');
-var txt;
+var sys = require('sys');
+var exec = require('child_process').exec;
 
-var aliveNodes = [];
-var active_nodes = [];
-var death_nodes = [];
-
+console.log("qMonitor client: Iniciado..... OK");
 
 //####################################### LISTAR NODES ###############
-app.get ('/x/listar' ,function (req,res) {
-		res.json({servidores:aliveNodes});
+app.get ('/listar' ,function (req,res) {
+function puts(error, stdout, stderr){ sys.puts(stdout); res.write(stdout);}
+	exec("ls -la", puts);
+//res.write(stdout);
+res.end();
 });
+
+//####################################### LISTAR NODES ###############
+app.get ('/uptime' ,function (req,res) {
+function puts(error, stdout, stderr){ sys.puts(stdout); res.write(stdout);}
+	exec("uptime", puts);
+//res.write(stdout);
+res.end();
+});
+
 
 app.get ('/x/uptime' ,function (req,res) {
 		res.write(""+aliveNodes.length);
 		res.end();
 		console.log(aliveNodes.length);
 
+});
+
+app.get ('/ping' ,function (req,res) {
+		res.write("alive");
+		res.end();
+		console.log("ping - alive");
 });
 
 
@@ -40,22 +49,23 @@ function hello () {
         'cache-control': 'no-cache',
         'content-type': 'application/x-www-form-urlencoded' },
      form:
-      { ativo: papel,
-        quantidade: qtde,
-        valor: preco,
+      { ativo: "teste",
+        quantidade: "teste",
+        valor: 111,
         token: '1234abcd'
       }
     };
 
     req = request(options, function (error, response, body) {
         if(error) throw new Error(error)
-
-	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-		if (ip.substr(0, 7) == "::ffff:") {
-		  ip = ip.substr(7)
-		}
-	console.log ("HELLO: " + ip);
-
+		console.log("erro: "+error);
 	});
 }
 
+
+//chama e depois chama a cada 5minutos.
+hello();
+setInterval(function () { 
+    console.log('second passed'); 
+	hello();
+}, 30000); 
