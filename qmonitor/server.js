@@ -20,7 +20,7 @@ var death_nodes = [];
 //############################ HOME PAGE ######################
 app.get ('/',function (req,res) {
 	//Montando a pagina
-	res.write('<br> Servidor: '+os.hostname()+'<hr>');
+	//res.write('<br> Servidor: '+os.hostname()+'<hr>');
 
 	fs.readFile('body.html','utf8',function(err,body){
 		console.log('%s',body.toString());
