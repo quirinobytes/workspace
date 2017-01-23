@@ -10,7 +10,7 @@ console.log("qMonitor client: Iniciado..... OK");
 
 //####################################### LISTAR NODES ###############
 app.get ('/listar' ,function (req,res) {
-function puts(error, stdout, stderr){ sys.puts(stdout); res.write(stdout);}
+function puts(error, stdout, stderr){ sys.puts(stdout); }
 	exec("ls -la", puts);
 //res.write(stdout);
 res.end();
@@ -18,7 +18,7 @@ res.end();
 
 //####################################### LISTAR NODES ###############
 app.get ('/uptime' ,function (req,res) {
-function puts(error, stdout, stderr){ sys.puts(stdout); res.write(stdout);}
+function puts(error, stdout, stderr){ sys.puts(stdout); }
 	exec("uptime", puts);
 //res.write(stdout);
 res.end();
@@ -43,7 +43,7 @@ app.get ('/ping' ,function (req,res) {
 function hello () {
 
  var options = { method: 'POST',
-     url: 'http://172.23.2.134:3000/hello',
+     url: 'http://192.168.131.1:3000/hello',
      headers:
       { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
         'cache-control': 'no-cache',
