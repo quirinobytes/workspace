@@ -43,7 +43,7 @@ app.get ('/ping' ,function (req,res) {
 function hello () {
 
  var options = { method: 'POST',
-     url: 'http://189.55.194.115:3000/hello',
+     url: 'http://172.23.2.134:3000/hello',
      headers:
       { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
         'cache-control': 'no-cache',
