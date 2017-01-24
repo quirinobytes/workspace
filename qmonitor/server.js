@@ -100,7 +100,7 @@ app.get ('/api/:nome', function(req,res){
 		console.log("URL="+url);
 		request(url, aliveNodes, function (error, response, body) {
 				  if (!error && response.statusCode == 200) {
-				    console.log("Retorno do servidor | GET "+url+" => "+body) // Show the HTML for the Google homepage.
+				    console.log("PING CLIENT | GET "+url+" == "+body+" ? Yes!") // Show the HTML for the Google homepage.
 				  }
 		})
 
@@ -149,11 +149,16 @@ options = { method: 'GET',
 		//request( 'http://'+node+':3000/ping', function (error, response, body) {
 		request( options, function (error, response, body) {
 				  if (!error && response.statusCode == 200) {
-				    console.log("Retorno do servidor | GET "+node+" => "+body) // Show the HTML for the Google homepage.
+				    console.log("PING "+node+" ?" ) // Show the HTML for the Google homepage.
+					console.log(node+" => I am "+body+"!");
 				  }
-			console.log(body);
+				  else{
+					console.log(node+" => ???");
+			      }
+
+
 			if (body != 'alive'){
-				
+
 				//error_times = numero de vezes que o node nao respondeu.
 				if (error_times >= 0){
 					removeNodes(node);
