@@ -15,8 +15,8 @@ console.log("qMonitor client: Iniciado..... OK");
 //####################################### LISTAR NODES ###############
 app.get ('/listar' ,function (req,res) {
 function puts(error, stdout, stderr){ sys.puts(stdout); }
-	exec("ls -la", puts);
-//res.write(stdout);
+var saida =	exec("ls -la", puts);
+res.write("executei o comando");
 res.end();
 });
 
