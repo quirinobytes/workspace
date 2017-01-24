@@ -41,7 +41,7 @@ app.get ('/x/uptime' ,function (req,res) {
 app.get ('/ping' ,function (req,res) {
 		res.write("alive");
 		res.end();
-		console.log("ping - alive");
+		console.log("REPLY SERVER PING");
 });
 
 
@@ -65,7 +65,6 @@ function hello () {
 
     req = request(options, function (error, response, body) {
         if(error) throw new Error(error)
-		console.log("erro: "+error);
 	});
 }
 
