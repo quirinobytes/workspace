@@ -50,7 +50,7 @@ app.get ('/ping' ,function (req,res) {
 function hello () {
 
  var options = { method: 'POST',
-     url: 'http://'+qmonitorserverip+':'+porta+'/hello',
+     url: 'http://'+qmonitorserverip+':'+port+'/hello',
      headers:
       { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
         'cache-control': 'no-cache',
