@@ -57,7 +57,7 @@ app.post ('/hello', function (req,res) {
 		if (ip.substr(0, 7) == "::ffff:") {
 		  ip = ip.substr(7)
 		}
-	console.log ("HELLO: " + ip);
+	console.log ("HELLO CLIENT: " + ip);
 
 
 	//aliveNodes.push(ip);

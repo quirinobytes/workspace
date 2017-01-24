@@ -77,6 +77,6 @@ function hello () {
 //chama e depois chama a cada 5minutos.
 hello();
 setInterval(function () { 
-    console.log('second passed'); 
+    console.log('HELLO SERVER: '+qmonitorserverip); 
 	hello();
 }, 30000); 
