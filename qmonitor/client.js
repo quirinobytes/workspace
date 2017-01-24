@@ -4,7 +4,7 @@
 var app = require('./config/app_config');
 var os = require("os");
 var request = require('request');
-//var sys = require('sys');
+var sys = require('sys');
 var exec = require('child_process').exec;
 
 //Iniciando o client
