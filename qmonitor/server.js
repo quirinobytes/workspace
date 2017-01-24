@@ -89,7 +89,7 @@ app.get ('/api/:nome', function(req,res){
 //	productController.delete(id, function(resp){
 //		res.json(resp);
 //	});
-	console.log('Metodo : '+metodo);
+	console.log('Comando : '+metodo);
 
 
 
@@ -98,9 +98,11 @@ app.get ('/api/:nome', function(req,res){
 	for (i = 0 ; i < aliveNodes.length ; i++){
 		url = 'http://'+aliveNodes[i]+':3000/'+metodo;
 		console.log("URL="+url);
-		request(url, aliveNodes, function (error, response, body) {
+		request(url, function (error, response, body) {
 				  if (!error && response.statusCode == 200) {
-				    console.log("PING CLIENT | GET "+url+" == "+body+" ? Yes!") // Show the HTML for the Google homepage.
+				    console.log("CLIENT RESPONSE OK => "+body) // Show the HTML for the Google homepage.
+					console.log(body.toString());
+//					console.log(JSON.stringify(body, null, 3));
 				  }
 		})
 
@@ -150,10 +152,13 @@ options = { method: 'GET',
 		request( options, function (error, response, body) {
 				  if (!error && response.statusCode == 200) {
 				    console.log("PING "+node+" ?" ) // Show the HTML for the Google homepage.
-					console.log(node+" => I am "+body+"!");
+					if (body === 'alive' ){
+						console.log(node+" => I am "+body+"!");
+					}
 				  }
 				  else{
 					console.log(node+" => ???");
+					body='';
 			      }
 
 
@@ -171,6 +176,7 @@ options = { method: 'GET',
 				}
 			}
 		});
+
 	}
 }
 
