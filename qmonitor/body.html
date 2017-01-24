@@ -31,7 +31,7 @@
 						background-color: #55AAFF;
 		}
 	</style>
-	<title> qMonitor - Cognitive Stock Model API</title>
+	<title> qMonitor </title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">	
 	<script id="angularScript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	<script> 
@@ -60,7 +60,7 @@
 					 	//	window.location.reload(true); 
 			    $http({
 					method: 'POST',
-					url: 'http://172.23.2.134:3000/hello',
+					url: './hello',
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					data: 'nome=13&id_cliente=27&ativo=qualquer&cor=azul&valor=1000&tamanho=1234abcd'
 					 }).success(function (response) { 
@@ -77,7 +77,7 @@
 					console.log("acao:"+opcao[0].nome);
 		
 					//Fazendo a chamada da API no servidor qMonitor
-					$http.get('http://172.23.2.134:3000/api/'+opcao[0].nome).then(function(response){
+					$http.get('./api/'+opcao[0].nome).then(function(response){
 					$scope.cotacoes_array = response.data;
 					});
 
@@ -94,7 +94,7 @@
 	    load_total();
 		$interval(function(){ load_total();},2000); //Atualizar o total de nodes a cada 5 segundos.
 			function load_total(){
-				$http.get('http://172.23.2.134:3000/total').then(function(response){
+				$http.get('./total').then(function(response){
 					$scope.total = response.data;
 			});
 	   };
@@ -104,13 +104,17 @@
 
    <script>
    angular.module('qMonitor').controller('exibir-nodes', function($scope, $http, $interval) {
-	 load_cotacoes();
+	//carregar o nodes clientes
+	 load_clientes();
+
+		//ficar chamando a carregar os nodes clientes de 5 em 5s.
 		$interval(function(){
-			load_cotacoes();
+			load_clientes();
 		},5000);
-		
-			function load_cotacoes(){
-				$http.get('http://172.23.2.134:3000/listar').then(function(response){
+			
+			//funcao carregar clientes no array, faz um get no /listar e recebe um JSON e coloca no nodes_array.
+			function load_clientes(){
+				$http.get('./listar').then(function(response){
 					$scope.nodes_array = response.data;
 			});
 	   };
@@ -147,7 +151,7 @@
 				</table>
 			</div>
 
-			{{retornoOrdens}}
+			{{retornoComandos}}
 			<div class='carteira'>
 
 	<!--			{{carteira_array}}  -->

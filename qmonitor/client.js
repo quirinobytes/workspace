@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 
+//Config
 var app = require('./config/app_config');
 var os = require("os");
 var request = require('request');
 var sys = require('sys');
 var exec = require('child_process').exec;
 
+//Iniciando o client
 console.log("qMonitor client: Iniciado..... OK");
 
+
+//	API  //
 //####################################### LISTAR NODES ###############
 app.get ('/listar' ,function (req,res) {
 function puts(error, stdout, stderr){ sys.puts(stdout); }
@@ -16,7 +20,7 @@ function puts(error, stdout, stderr){ sys.puts(stdout); }
 res.end();
 });
 
-//####################################### LISTAR NODES ###############
+//####################################### UPTIME NODES ###############
 app.get ('/uptime' ,function (req,res) {
 function puts(error, stdout, stderr){ sys.puts(stdout); }
 	exec("uptime", puts);
@@ -25,6 +29,7 @@ res.end();
 });
 
 
+//####################################### ###############
 app.get ('/x/uptime' ,function (req,res) {
 		res.write(""+aliveNodes.length);
 		res.end();
@@ -32,6 +37,7 @@ app.get ('/x/uptime' ,function (req,res) {
 
 });
 
+//####################################### PING - ALIVE ###############
 app.get ('/ping' ,function (req,res) {
 		res.write("alive");
 		res.end();
@@ -40,6 +46,7 @@ app.get ('/ping' ,function (req,res) {
 
 
 
+//####################################### HELLO() ###############
 function hello () {
 
  var options = { method: 'POST',
@@ -62,6 +69,10 @@ function hello () {
 	});
 }
 
+
+
+
+//final do programa, mas nao para, fica em loop infinito chamando hello.
 
 //chama e depois chama a cada 5minutos.
 hello();
