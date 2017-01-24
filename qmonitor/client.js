@@ -17,6 +17,7 @@ app.get ('/listar' ,function (req,res) {
 function puts(error, stdout, stderr){ sys.puts(stdout); }
 var saida =	exec("ls -la", puts);
 res.write("executei o comando");
+res.write(saida.stdout.toString());
 res.end();
 });
 
