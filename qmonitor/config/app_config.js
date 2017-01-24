@@ -1,6 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var port = 3000;
+
+// #### VARIAVEIS GLOBAIS
+global.qmonitorserverip = '189.55.194.115' ;
+global.port = 3000;
 
 var app = module.exports = express();
 
@@ -22,5 +25,4 @@ res.setHeader ('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 res.setHeader ('Access-Control-Allow-Headers', 'X-Requested-With', 'content-type','Authorization');
 next();
 })
-
 

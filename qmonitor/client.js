@@ -4,7 +4,7 @@
 var app = require('./config/app_config');
 var os = require("os");
 var request = require('request');
-var sys = require('sys');
+//var sys = require('sys');
 var exec = require('child_process').exec;
 
 //Iniciando o client
@@ -50,7 +50,7 @@ app.get ('/ping' ,function (req,res) {
 function hello () {
 
  var options = { method: 'POST',
-     url: 'http://192.168.131.1:3000/hello',
+     url: 'http://'+qmonitorserverip+'/hello',
      headers:
       { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
         'cache-control': 'no-cache',
