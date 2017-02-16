@@ -9,8 +9,8 @@ var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 
 crawler = {
 	interval: 100,
-	getSample: 'http://www.investing.com/equities/gerdau-sa-adr?cid=18689',
-	get: 'http://www.investing.com/equities/gerdau-sa-adr?cid=18689',
+	getSample: 'https://www.investing.com/equities/gerdau-pn-n1',
+	get: 'https://www.investing.com/equities/gerdau-pn-n1',
   preview: 3,
 	extractors: [
 		{

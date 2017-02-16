@@ -1,3 +1,4 @@
+//#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
@@ -9,8 +10,8 @@ var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 
 crawler = {
 	interval: 100,
-	getSample: 'http://www.investing.com/equities/vale-s.a.--americ?cid=18815',
-	get: 'http://www.investing.com/equities/vale-s.a.--americ?cid=18815',
+	getSample: 'https://www.investing.com/equities/vale-pna-n1',
+	get: 'https://www.investing.com/equities/vale-pna-n1',
   preview: 3,
 	extractors: [
 		{

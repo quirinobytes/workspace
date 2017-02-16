@@ -9,9 +9,9 @@ var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 
 crawler = {
 	interval: 100,
-	getSample: 'http://www.investing.com/equities/gol-linhas-aereas-adr?cid=18692',
-	get: 'http://www.investing.com/equities/gol-linhas-aereas-adr?cid=18692',
-  preview: 3,
+	getSample: 'https://www.investing.com/equities/gol-pn-es-n2',
+	get: 'https://www.investing.com/equities/gol-pn-es-n2',
+	preview: 3,
 	extractors: [
 		{
 		selector: 'div div div div div .top',
@@ -28,7 +28,7 @@ crawler = {
 				console.log('file saved');
 
 			});
-			
+
 
 			loadPrice(data);
 			console.log(data);
