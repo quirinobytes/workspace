@@ -33,6 +33,8 @@ crawler = {
 			item.ano = modelo[1];
 			item.valor = html.find('div.col-3').text().trim();
 
+
+
 				if ((item.carro == '') || (item.valor == '')) {
            				delete item.carro;
 					delete item.valor;

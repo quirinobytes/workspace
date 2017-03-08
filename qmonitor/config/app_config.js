@@ -2,7 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 // #### VARIAVEIS GLOBAIS
-global.qmonitorserverip = '189.55.194.115' ;
+global.qmonitorserverip = '172.23.2.134' ;
+global.qmonitorserverip = '192.168.131.131' ;
 global.port = 3000;
 
 var app = module.exports = express();
