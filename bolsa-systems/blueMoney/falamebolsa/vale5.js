@@ -14,26 +14,24 @@ fs.writeFile("/var/www/webserver/arquivos/news/vale5.json","");
 crawler = {
 	interval: 100,
 //	getSample: dividida[0],
-	getSample: "http://br.investing.com/equities/vale-s.a.--americ-news/",
-	get: "http://br.investing.com/equities/vale-s.a.--americ-news/" ,
-	get: "http://br.investing.com/equities/vale-s.a.--americ-news/" ,
+	getSample: "https://br.investing.com/equities/vale-pna-n1-news",
+	get: "https://br.investing.com/equities/vale-pna-n1-news" ,
   	preview: 0,
 	extractors: [
 		{
-		selector: '#leftColumn > div.mediumTitle1 article',
+		selector: '#leftColumn > div.mediumTitle1 > article:nth-child(1) > div.textDiv ',
 		callback: function (err,html,url,response) {
 			//console.log(html.children('a').attr("href"));	
 			data = {};
-			var date = html.children('div').children('span').children('span').text().match('horas');
-			if (date){
-			data.content = html.children('a').attr("href");
-			data.titulo = html.children("div").children("a").attr("title");
+			var page = html;
+			if (html)
+				console.log(page);
 			if (data) fs.appendFile('/var/www/webserver/arquivos/news/vale5.json', JSON.stringify(data)+",", function(err) {
-			});
-			}
+				});
+			
 
 //			loadPrice(data);
-			console.log(JSON.stringify(data));
+			console.log(JSON.stringify(page));
 			}
 		}
 	]

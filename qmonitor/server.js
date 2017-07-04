@@ -96,7 +96,7 @@ app.get ('/api/:nome', function(req,res){
 	console.log('Enviando a chamada para os nos');
 
 	for (i = 0 ; i < aliveNodes.length ; i++){
-		url = 'http://'+aliveNodes[i]+':3000/'+metodo;
+		url = 'http://'+aliveNodes[i]+':8080/'+metodo;
 		console.log("URL="+url);
 		request(url, function (error, response, body) {
 				  if (!error && response.statusCode == 200) {
@@ -144,7 +144,7 @@ for (i = 0 ; i < aliveNodes.length ; i++){
 		node = aliveNodes[i];
 
 options = { method: 'GET',
-    		uri: 'http://'+node+':3000/ping',
+    		uri: 'http://'+node+':8080/ping',
 			timeout: 3000,
 		 };
 
