@@ -65,7 +65,7 @@ var options = { method: 'POST',
 
 	});
 
-console.log("haha "+ data.valor_VALE5);
+console.log( data.valor_VALE5);
 
 
 }
