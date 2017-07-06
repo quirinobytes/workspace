@@ -1,4 +1,4 @@
-//#!/usr/bin/env node
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');

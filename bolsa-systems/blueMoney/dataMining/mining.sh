@@ -31,6 +31,9 @@ cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/ggbr4/
 $N ggbr4.js
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/goau4/
 $N goau4.js
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/jbss3/
+$N jbss3.js
+
 
 
 
