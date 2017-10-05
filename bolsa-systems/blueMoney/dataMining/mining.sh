@@ -7,7 +7,7 @@ MES=`date "+%m"`
 DIA=`date "+%d"`
 HORA=`date "+%H:%M"`
 
-rm /root/workspace/bolsa-systems/blueMoney/csv/all/* -rf
+#rm /root/workspace/bolsa-systems/blueMoney/csv/all/* -rf
 
 echo "\"ANO\",\"MES\",\"DIA\",\"HORA\",\"RESPOSTA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
 echo "\"$ANO\",\"$MES\",\"$DIA\",\"$HORA\",\"1\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv

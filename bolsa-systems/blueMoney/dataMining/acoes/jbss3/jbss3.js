@@ -67,7 +67,7 @@ var options = { method: 'POST',
 
 	});
 
-console.log("haha "+ data.valor_jbss3);
+console.log(data.valor_jbss3);
 
 
 }

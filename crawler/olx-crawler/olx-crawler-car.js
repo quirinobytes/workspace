@@ -12,14 +12,18 @@ var total_data=0;
 //CONFIG
 var file = 'carros.json';
 fs.writeFile('carros.json');
-fs.appendFile('carros.json','['); 
+fs.appendFile('carros.json','[');
 
 
 crawler = {
-	interval: 200,
-	getSample: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?',
-	get: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?o=[numbers:1:823:1]',
-	preview: 0,
+	interval: 2000,
+
+    //getSample: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?',
+	getSample: 'http://sp.olx.com.br/veiculos-e-acessorios/carros?q=carros',
+
+    //get: 'http://sp.olx.com.br/sao-paulo-e-regiao/outras-cidades/veiculos/carros?o=[numbers:1:823:1]',
+    get: 'http://sp.olx.com.br/veiculos-e-acessorios/carros?q=carros&o=[numbers:1:100:1]',
+	preview: 3,
 	extractors: [
 		{
 		selector: '#main-ad-list li.item',
@@ -67,10 +71,11 @@ crawler = {
 
 
 function finaliza(){
+	 console.log("Rodei a finaliza e escrevi o ] no arquivo");
 	 fs.appendFile('carros.json',']');
 };
 
-process.nextTick(finaliza);
 crawlerjs(crawler);
+//process.nextTick(finaliza);
 
 
