@@ -1,27 +1,30 @@
 var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
-var json2csv = require('json2csv');
-fields = ['valor_CSNA3','valorizacao_CSNA3','percentual_CSNA3'];
+myfields = ['valor_CSNA3','valorizacao_CSNA3','percentual_CSNA3'];
 var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 
+data = {};
 
 
 crawler = {
 	interval: 100,
 	getSample: 'http://www.investing.com/equities/sid-nacional-on',
 	get: 'http://www.investing.com/equities/sid-nacional-on',
+	post: 'http://www.investing.com/equities/sid-nacional-on',
   preview: 3,
 	extractors: [
 		{
 		selector: 'div div div div div .top',
 		callback: function (err,html,url,response) {
-			data = {};
 			data.valor_CSNA3 = html.children('span').eq(0).text();
 			data.valorizacao_CSNA3 = html.children('span').eq(1).text();
 			data.percentual_CSNA3 = html.children('span').eq(3).text();
-			data.url = url;
-			var csv = json2csv({ data: data, fields: fields });
+			//var csv = json2csv({ data: data, fields: fields });
+
+			const Json2csvParser = require('json2csv').Parser;
+			const json2csvParser = new Json2csvParser({ fields: myfields , quote: "" , del: "," });
+			csv = json2csvParser.parse(data);
 
 			fs.writeFile('../../../csv/all/csna3.csv', csv, function(err) {
 			if (err) throw err;
@@ -29,9 +32,8 @@ crawler = {
 
 			});
 			
-
-			loadPrice(data);
 			console.log(data);
+			loadPrice(data);
 			}
 		}
 	]
@@ -42,8 +44,6 @@ crawlerjs(crawler);
 
 
 function loadPrice(data){
-
-
 
 var options = { method: 'POST',
      url: url_LOADPRICE,
@@ -63,8 +63,5 @@ var options = { method: 'POST',
 			console.log(error)
 
 	});
-
-console.log("haha "+ data.valor_CSNA3);
-
 
 }

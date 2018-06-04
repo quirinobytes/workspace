@@ -47,6 +47,7 @@ ativos['PETR4'] = {'nome':"PETR4", 'valor':0};
 ativos['GOLL4'] = {'nome':"GOLL4", 'valor':0};
 ativos['GGBR4'] = {'nome':"GGBR4", 'valor':0};
 ativos['GOAU4'] = {'nome':"GOAU4", 'valor':0};
+ativos['CMIG4'] = {'nome':"CMIG4", 'valor':0};
 
 //array somente para abertura, depois vamos colocar isso em um banco de dados, so fazer leia array da collection abertura
 abertura['VALE5'] = {'nome':'VALE5', 'valor':25.30};
@@ -56,6 +57,7 @@ abertura['PETR4'] = {'nome':"PETR4", 'valor':15.44};
 abertura['GOLL4'] = {'nome':"GOLL4", 'valor':5.41};
 abertura['GGBR4'] = {'nome':"GGBR4", 'valor':12.87};
 abertura['GOAU4'] = {'nome':"GOAU4", 'valor':5.40};
+abertura['CMIG4'] = {'nome':"CMIG4", 'valor':7.40};
 min['VALE5']= 99999;
 max['VALE5']= 0;
 min['USIM5']= 99999;
@@ -70,6 +72,8 @@ min['GGBR4']= 99999;
 max['GGBR4']= 0;
 min['GOAU4']= 99999;
 max['GOAU4']= 0;
+min['CMIG4']= 99999;
+max['CMIG4']= 0;
 volume['VALE5']=0;
 volume['USIM5']=0;
 volume['PETR4']=0;
@@ -77,6 +81,7 @@ volume['CSNA3']=0;
 volume['GOLL4']=0;
 volume['GGBR4']=0;
 volume['GOAU4']=0;
+volume['CMIG4']=0;
 
 
 /*app.get ('/' ,function (req,res) {
@@ -136,7 +141,8 @@ app.get ('/listar',function(req,res){
 		{ nome : ativos['CSNA3'].nome ,valor : ativos['CSNA3'].valor, volume: volume['CSNA3'] ,min:min['CSNA3'],max:max['CSNA3'] },
 		{ nome : ativos['GOLL4'].nome ,valor : ativos['GOLL4'].valor, volume: volume['GOLL4'] ,min:min['GOLL4'],max:max['GOLL4'] },
 		{ nome : ativos['GGBR4'].nome ,valor : ativos['GGBR4'].valor, volume: volume['GGBR4'] ,min:min['GGBR4'],max:max['GGBR4'] },
-		{ nome : ativos['GOAU4'].nome ,valor : ativos['GOAU4'].valor, volume: volume['GOAU4'] ,min:min['GOAU4'],max:max['GOAU4'] }
+		{ nome : ativos['GOAU4'].nome ,valor : ativos['GOAU4'].valor, volume: volume['GOAU4'] ,min:min['GOAU4'],max:max['GOAU4'] },
+		{ nome : ativos['CMIG4'].nome ,valor : ativos['CMIG4'].valor, volume: volume['CMIG4'] ,min:min['CMIG4'],max:max['CMIG4'] }
 	];
 	res.json(data);
 });
@@ -221,7 +227,7 @@ if (debug){
 
 	if ( id_corretora > 0 && id_corretora < 1000)
 		id_corretora_checked=true;
-	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "GOLL4" )
+	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "CMIG4" | ativo == "GOLL4" )
 		ativo_checked = true;
 	if (quantidade >= 100 )
 		quantidade_checked = true;
@@ -241,7 +247,7 @@ if (debug){
 			//vamos pegar o volume
 			volume[ativo]=volume[ativo]+quantidade*valor;
 		  //vamos atualizar o total do Volume da Bolsa ibSYM.
-		  total_compra = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
+		  total_compra = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4']  + volume['CMIG4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
 
 			if (debug) console.log(('\nCompra:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Compra':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
@@ -291,7 +297,7 @@ app.post ('/vender', function (req,res) {
 	}
 	if ( id_corretora > 0 && id_corretora < 1000)
 		id_corretora_checked=true;
-	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "GOLL4" )
+	if (ativo == "VALE5" | ativo == "CSNA3" | ativo == "PETR4" | ativo == "USIM5"| ativo == "GOAU4" | ativo == "GGBR4" | ativo == "CMIG4" | ativo == "GOLL4" )
 		ativo_checked = true;
 	if (quantidade >= 100 )
 		quantidade_checked = true;
@@ -311,7 +317,7 @@ app.post ('/vender', function (req,res) {
 			//vamos pegar o volume
 			volume[ativo]=volume[ativo]+quantidade*valor;
 		  //vamos atualizar o total do Volume da Bolsa ibSYM.
-		  total_venda = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
+		  total_venda = (volume['VALE5'] + volume['CSNA3'] + volume['PETR4'] + volume['USIM5'] + volume['GOAU4'] + volume['CMIG4'] + volume['GGBR4'] + volume['GOLL4'])/1000000 ;
 
 			if (debug) console.log(('\nVenda:  '+ quantidade +' => '+ ativos[ativo].nome + '\n').green);
 			res.json({'Venda':true,'valor':ativos[ativo].valor,'quantidade':quantidade,'ativo':ativo});
@@ -443,6 +449,12 @@ function mostra_painel(){
 		if (porcentagem['GOLL4'] < 0 )
 			porcentagem['GOLL4'] = porcentagem['GOLL4'].toFixed(2).red;
 
+	porcentagem['CMIG4'] = (100 * ativos['CMIG4'].valor / abertura['CMIG4' ].valor) - 100 ;
+		if (porcentagem['CMIG4'] > 0 )
+			porcentagem['CMIG4'] = porcentagem['CMIG4'].toFixed(2).green;
+		if (porcentagem['CMIG4'] < 0 )
+			porcentagem['CMIG4'] = porcentagem['CMIG4'].toFixed(2).red;
+
 
 	porcentagem['GGBR4'] = (100 * ativos['GGBR4'].valor / abertura['GGBR4' ].valor) - 100 ;
 		if (porcentagem['GGBR4'] > 0 )
@@ -474,6 +486,7 @@ function mostra_painel(){
 	console.log("  "+ ativos['GOLL4'].nome+"   |   "+ativos['GOLL4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOLL4']+ "%\t|  "+ abertura['GOLL4'].valor + "  \t| " + min['GOLL4']+" \t| " + max['GOLL4'] + "\t|  " + (volume['GOLL4']/1000).toFixed(2)+"K");
 	console.log("  "+ ativos['GGBR4'].nome+"   |   "+ativos['GGBR4'].valor.toFixed(2)+ "\t|     " + porcentagem['GGBR4']+ "%\t|  "+ abertura['GGBR4'].valor + "  \t| " + min['GGBR4']+" \t| " + max['GGBR4'] + "\t|  " + (volume['GGBR4']/1000).toFixed(2)+"K");
 	console.log("  "+ ativos['GOAU4'].nome+"   |   "+ativos['GOAU4'].valor.toFixed(2)+ "\t|     " + porcentagem['GOAU4']+ "%\t|  "+ abertura['GOAU4'].valor + "  \t| " + min['GOAU4']+" \t| " + max['GOAU4'] + "\t|  " + (volume['GOAU4']/1000).toFixed(2)+"K");
+	console.log("  "+ ativos['CMIG4'].nome+"   |   "+ativos['CMIG4'].valor.toFixed(2)+ "\t|     " + porcentagem['CMIG4']+ "%\t|  "+ abertura['CMIG4'].valor + "  \t| " + min['CMIG4']+" \t| " + max['CMIG4'] + "\t|  " + (volume['CMIG4']/1000).toFixed(2)+"K");
 
 
 

@@ -2,9 +2,10 @@ var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
 var json2csv = require('json2csv');
-fields = ['valor_USIM5','valorizacao_USIM5','percentual_USIM5'];
+var fields = ['valor_USIM5','valorizacao_USIM5','percentual_USIM5'];
 var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 
+var	data = {};
 
 
 crawler = {
@@ -16,7 +17,6 @@ crawler = {
 		{
 		selector: 'div div div div div .top',
 		callback: function (err,html,url,response) {
-			data = {};
 			data.valor_USIM5 = html.children('span').eq(0).text();
 			data.valorizacao_USIM5 = html.children('span').eq(1).text();
 			data.percentual_USIM5 = html.children('span').eq(3).text();

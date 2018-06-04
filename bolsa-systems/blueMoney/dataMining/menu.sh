@@ -49,7 +49,7 @@ while : ; do
                 --cr-wrap \
                 --backtitle 'Menu'   \
                 --title 'finance.sina.cn getter' \
-                --msgbox "\n\n Executado com sucesso:\n\n$RESULT" 20 100
+                --tailbox "\n\n Executado com sucesso:\n\n$RESULT" 20 100
 				;;
          2) RESULT=`node /root/workspace/bolsa-systems/blueMoney/dataMining/bolsas/ibovespa/ibovespa.js`  
 				dialog \
@@ -92,18 +92,19 @@ while : ; do
                 --msgbox "\n\n Executado com sucesso:\n\n$RESULT" 20 100
 				;;
 			
-			7) /root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh 2>&1 > /tmp/out &
-					dialog                                         \
-			   	--title 'Aguarde'                           \
-					--tailbox /tmp/out									\
+			7) /root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh 2> /tmp/error.menu 1> /tmp/saida.menu &
+					dialog                           \
+			   	--title 'Mining financial data over internet to build dataset. \n Please, wait a moment...'      \
+					--tailbox /tmp/saida.menu			\
 				   40 100
+					
 
 				;;
 
          0) break ;;
     esac
-
 done
 
 # Mensagem final :)
+stty sane
 echo 'Wakeup Money!'

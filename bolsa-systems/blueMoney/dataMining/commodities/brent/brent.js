@@ -8,7 +8,7 @@ fields = ['valor_BRENT','valorizacao_BRENT','percentual_BRENT'];
 
 crawler = {
 	interval: 100,
-	getSample: 'http://br.investing.com/commodities/brent-oil',
+	getSample: 'https://br.investing.com/commodities/brent-oil',
 	get: 'https://br.investing.com/commodities/brent-oil',
   preview: 3,
 	extractors: [

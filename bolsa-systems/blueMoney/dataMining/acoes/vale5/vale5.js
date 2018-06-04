@@ -2,10 +2,11 @@
 var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
-var json2csv = require('json2csv');
+
+
 fields = ['valor_VALE5','valorizacao_VALE5','percentual_VALE5'];
 var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
-
+var data;
 
 
 crawler = {
@@ -22,7 +23,16 @@ crawler = {
 			data.valorizacao_VALE5 = html.children('span').eq(1).text();
 			data.percentual_VALE5 = html.children('span').eq(3).text();
 			data.url = url;
-			var csv = json2csv({ data: data, fields: fields });
+			console.log(data);
+		//	var csv = json-2-csv({ data: data, fields: fields });
+ 
+			const Json2csvParser = require('json2csv').Parser;
+			//const fields = ['car', 'color'];
+ 
+				const json2csvParser = new Json2csvParser({ fields });
+			const csv = json2csvParser.parse(data);
+ 
+			console.log(csv);
 
 			fs.writeFile('../../../csv/all/vale5.csv', csv, function(err) {
 			if (err) throw err;
