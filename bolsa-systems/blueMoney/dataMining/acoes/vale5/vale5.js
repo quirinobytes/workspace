@@ -2,7 +2,7 @@
 var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
-fields = ['valor_VALE5','valorizacao_VALE5','percentual_VALE5'];
+var fields = ['valor_VALE5','valorizacao_VALE5','percentual_VALE5'];
 var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 var data;
 

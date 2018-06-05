@@ -38,11 +38,10 @@ function loadPrice(){
     //fazendo o request(POST) para atualizar o preço.
     req = request(options, function (error, response, body) {
         if(error) throw new Error(error)
-			console.log(error)
 	});
 }
 
-function gravarCSV () {
+function gravarCSV (data) {
 	  if (data.valor_PETR4 && data.valorizacao_PETR4 && data.percentual_PETR4) {
 		  csv = '"'+ fields[0] + '"';
 		  csv+= ',';
