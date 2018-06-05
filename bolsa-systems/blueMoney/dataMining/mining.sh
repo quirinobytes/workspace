@@ -18,21 +18,23 @@ echo "\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"" >> /root/workspace/bolsa-sys
 
 
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/vale5/
-$N vale5.js
+$N vale5.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/petr4/
-$N petr4.js
+$N petr4.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/usim5/
-$N usim5.js
+$N usim5.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/csna3/
-$N csna3.js
+$N csna3.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/goll4/
-$N goll4.js
+$N goll4.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/ggbr4/
-$N ggbr4.js
+$N ggbr4.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/goau4/
-$N goau4.js
+$N goau4.js &
 cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/jbss3/
-$N jbss3.js
+$N jbss3.js &
+cd /root/workspace/bolsa-systems/blueMoney/dataMining/acoes/cmig4/
+$N cmig4.js &
 
 
 
