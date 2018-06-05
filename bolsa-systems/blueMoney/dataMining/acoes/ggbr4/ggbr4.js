@@ -7,8 +7,8 @@ var data;
 
 crawler = {
 	interval: 100,
-	getSample: 'https://www.investing.com/equities/gerdau-pn-n1',
-	get: 'https://www.investing.com/equities/gerdau-pn-n1',
+	getSample: 'http://www.investing.com/equities/gerdau-pn-n1',
+	get: 'http://www.investing.com/equities/gerdau-pn-n1',
     preview: 0,
 	extractors: [
 					{

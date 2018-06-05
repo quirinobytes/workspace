@@ -5,11 +5,10 @@ var fields = ['valor_CMIG4','valorizacao_CMIG4','percentual_CMIG4'];
 var url_LOADPRICE = 'http://192.168.200.128:3000/loadprice' ;
 var data;
 
-
 crawler = {
 	interval: 100,
-	getSample: 'https://www.investing.com/equities/cemig-pn-n1',
-	get: 'https://www.investing.com/equities/cemig-pn-n1',
+	getSample: 'http://www.investing.com/equities/cemig-pn-n1',
+	get: 'http://www.investing.com/equities/cemig-pn-n1',
 	preview: 0,
 	extractors: [
 					{
@@ -25,10 +24,8 @@ crawler = {
 				]
 }
 
-
-
-function gravarCSV (data) {
-      if (data.valor_CMIG4 && data.valorizacao_CMIG4 && data.percentual_CMIG4) {
+function gravarCSV(data) {
+      if ( data.valor_CMIG4 && data.valorizacao_CMIG4 && data.percentual_CMIG4 ) {
           csv = '"'+ fields[0] + '"';
           csv+= ',';
           csv+= '"'+ fields[1]+ '"';

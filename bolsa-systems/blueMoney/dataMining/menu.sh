@@ -49,7 +49,7 @@ while : ; do
                 --cr-wrap \
                 --backtitle 'Menu'   \
                 --title 'finance.sina.cn getter' \
-                --tailbox "\n\n Executado com sucesso:\n\n$RESULT" 20 100
+                --msgbox "\n\n Executado com sucesso:\n\n$RESULT" 20 100
 				;;
          2) RESULT=`node /root/workspace/bolsa-systems/blueMoney/dataMining/bolsas/ibovespa/ibovespa.js`  
 				dialog \
