@@ -10,23 +10,20 @@ crawler = {
 	interval: 100,
 	getSample: 'http://www.investing.com/equities/usiminas-pna',
 	get: 'http://www.investing.com/equities/usiminas-pna',
-  preview: 0,
+    preview: 0,
 	extractors: [
-		{
-		selector: 'div div div div div .top',
-		callback: function (err,html,url,response) {
-			data = {};
-			data.valor_USIM5 = html.children('span').eq(0).text();
-			data.valorizacao_USIM5 = html.children('span').eq(1).text();
-			data.percentual_USIM5 = html.children('span').eq(3).text();
-			gravarCSV(data);
-			}
-		}
-	]
-
+					{
+					selector: 'div div div div div .top',
+					callback: function (err,html,url,response) {
+								data = {};
+								data.valor_USIM5 = html.children('span').eq(0).text();
+								data.valorizacao_USIM5 = html.children('span').eq(1).text();
+								data.percentual_USIM5 = html.children('span').eq(3).text();
+								gravarCSV(data);
+								}
+					}
+				]
 }
-
-
 
 function loadPrice(){
 	var options = { method: 'POST',
@@ -39,7 +36,6 @@ function loadPrice(){
 	//fazendo o request(POST) para atualizar o preço.
 	req = request(options, function (error, response, body) {
     	if(error) throw new Error(error)
-			console.log(error);
 	});
 }
 
