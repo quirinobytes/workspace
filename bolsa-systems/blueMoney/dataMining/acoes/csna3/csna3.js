@@ -58,6 +58,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/csna3.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
+		  console.log("CSNA3= "+data.valor_CSNA3);
       }
 }
 
