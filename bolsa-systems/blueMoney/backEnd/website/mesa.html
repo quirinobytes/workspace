@@ -88,7 +88,7 @@
 
 				$http({
 					    method: 'POST',
-					    url: 'http://189.55.194.115:3000/comprar',
+					    url: './comprar',
 					    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					    data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
 				}).success(function (response) { 
@@ -181,7 +181,7 @@
 		},1000);
 		
 			function load_total(){
-				$http.get('http://189.55.194.115:3000/total').then(function(response){
+				$http.get('./total').then(function(response){
 					$scope.total = response.data;
 			});
 	   };
@@ -197,7 +197,7 @@
 		},100);
 		
 			function load_cotacoes(){
-				$http.get('http://189.55.194.115:3000/listar').then(function(response){
+				$http.get('./listar').then(function(response){
 					$scope.cotacoes_array = response.data;
 			});
 	   };
