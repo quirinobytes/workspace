@@ -150,13 +150,26 @@
 			$scope.classe = 'selecionado';
 
      	$scope.robo = function (){ 
+								$http.get('./../robo').then(function(response){
+							        <!-- window.location.reload(false); -->  
+								});
+		};
+		
+		$scope.mining = function (){ 
+								$http.get('./../mining').then(function(response){
+								           <!-- window.location.reload(false); -->
+								document.getElementById("btnMining").disabled = true;
+								document.getElementById("btnMining").classList.remove('btn-success');
+								document.getElementById("btnMining").classList.add('btn-danger');
+								document.getElementById("btnMining").innerHTML = "Already executed";
+								document.getElementById("btnMining").classList.add('disabled');
+										   });
+		};
 
-		$http.get('http://189.55.194.115:3000/robo').then(function(response){
-		        window.location.reload(false); 
-		});
-	    }
+});
 
-		});
+
+
 	</script>
 
 
@@ -197,8 +210,9 @@
 
 <body ng-controller="exibir-titulo">
 	<div class="jumbotron jumbotron-fluid" >
-			<h3> {{titulo}} </h3>
-<button class="btn btn-warning btn-block" ng-click="robo()"> Ativar Robo </button>
+			<ih3> {{titulo}} </h3><br>
+				<button id='btnRobo' class="btn btn-primary" ng-click="robo()" type="button"> Start Robot </button>
+				<button id='btnMining' class="btn btn-success" ng-click="mining()" type="button"> Start Mining </button>
 			<div class='container'> 
 				<table magin-left='100px' class='table' ng-controller="exibir-total">
 						 <tr>

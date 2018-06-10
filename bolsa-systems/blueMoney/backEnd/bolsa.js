@@ -6,6 +6,7 @@ var db = require('./config/db_config.js');
 var product = require('./models/product');
 var productController = require('./controllers/productController');
 //var os = require("os");
+const { spawn } = require('child_process');
 var fs = require("fs");
 var saldo=1500;
 //testar para remover
@@ -147,6 +148,15 @@ app.get ('/listar',function(req,res){
 	res.json(data);
 });
 
+//###############       /mining     ###############################
+app.get ('/mining',function(req,res){
+	const cmd = spawn('/root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh');
+//	res.write(cmd);
+	res.location("./");
+	res.send(201, null);
+//	console.log("mining executed");
+});
+//
 
 //###############		/total		###############################
 app.get ('/total',function(req,res){

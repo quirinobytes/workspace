@@ -13,7 +13,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "comprador.js"
+    "test": "comprador.js",
+	"start": "node bolsa.js",
+	"load": "/root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh"
   },
   "author": "",
   "license": "ISC"
