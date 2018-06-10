@@ -58,6 +58,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/vale5.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
+		  console.log("VALE5= "+data.valor_VALE5);
       }
 }
 

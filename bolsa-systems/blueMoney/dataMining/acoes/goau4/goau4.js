@@ -56,6 +56,8 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/goau4.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
+		  console.log("GOAU4= "+data.valor_GOAU4);
+
       }
 }
 

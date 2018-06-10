@@ -118,7 +118,7 @@ paste consolidado.colunas consolidado.valores > consolidado.txt
 rm consolidado.colunas consolidado.valores ultimo.colunas ultimo.valores
 
 colordiff consolidado.txt ultimo.txt
-sendmessage.js '`cat ultimo.txt`' 
+send_bluemoney.js "`cat ultimo.txt | tr '"' '\0' `"
 
 cd - 
 

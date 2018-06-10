@@ -184,7 +184,7 @@ if (ativo != undefined && valor != undefined ){
 }
 
 res.end();
-
+mostra_painel();
 });
 
 
