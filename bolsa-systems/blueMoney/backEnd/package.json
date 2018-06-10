@@ -9,13 +9,15 @@
     "colors": "^1.1.2",
     "express": "^4.14.0",
     "mongoose": "^4.6.3",
-    "request": "^2.76.0"
+    "react": "16.4.0",
+    "request": "^2.76.0",
+	"crawler-js": "^2.0.1"
   },
   "devDependencies": {},
   "scripts": {
     "test": "comprador.js",
-	"start": "node bolsa.js",
-	"load": "/root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh"
+    "start": "node bolsa.js",
+    "load": "/root/workspace/bolsa-systems/blueMoney/dataMining/mining.sh"
   },
   "author": "",
   "license": "ISC"

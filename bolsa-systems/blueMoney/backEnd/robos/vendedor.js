@@ -9,7 +9,7 @@ content= {};
 var debug=true;
 var REQUESTS=500;
 var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/datafiles/cotacoes-v.json';
-var urlserver = 'http://192.168.200.128:3000/vender';
+var urlserver = 'http://superati.com.br:8080/vender';
 
 //fs.exists(filename, function(exists) {
 // if (exists) {

@@ -9,7 +9,7 @@ content= {};
 var debug=true;
 var REQUESTS=500;
 var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/datafiles/cotacoes-c.json';
-var urlserver = 'http://192.168.200.128:3000/comprar' ;
+var urlserver = 'http://superati.com.br:8080/comprar' ;
 
 //fs.exists(filename, function(exists) {
 // if (exists) {
@@ -49,7 +49,7 @@ else	array_valores['CSNA3'] = 10;
 
 // -d para executar no modo daemon
 if (process.argv[2] == '-d')
-//	while (true) {
+//	while (true) 
 	for (c=0;c<REQUESTS;c++){
 
 		getUrl();

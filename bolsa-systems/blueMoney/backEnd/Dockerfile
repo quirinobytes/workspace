@@ -10,8 +10,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install -g
 
-#RUN npm install crawler-js
-
+#RUN npm install crawler-js 
 COPY dataMining /root/workspace/bolsa-systems/blueMoney/dataMining/
 RUN ln -s /usr/local/bin/node /usr/bin/node
 
@@ -19,7 +18,7 @@ RUN ln -s /usr/local/bin/node /usr/bin/node
 
 RUN mkdir /root/workspace/bolsa-systems/blueMoney/csv/all -p
 
-#RUN ln -s /usr/src/app/node_modules /root/workspace/bolsa-systems/blueMoney/dataMining/node_modules
+RUN ln -s /usr/src/app/node_modules /root/workspace/bolsa-systems/blueMoney/dataMining/node_modules
 
 # Bundle app source
 COPY . .

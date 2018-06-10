@@ -175,13 +175,13 @@
 
    <script>
    angular.module('ibSYM').controller('exibir-total', function($scope, $http,$interval) {
-	    load_total();
+	    //load_total();
 		$interval(function(){
 			load_total();
-		},1000);
+		},5000);
 		
 			function load_total(){
-				$http.get('./total').then(function(response){
+				$http.get('../total').then(function(response){
 					$scope.total = response.data;
 			});
 	   };
@@ -190,14 +190,15 @@
 
 
    <script>
-   angular.module('ibSYM').controller('exibir-cotacoes', function($scope, $http, $interval) {
-	 load_cotacoes();
+
+   angular.module('ibSYM').controller('exibir-cotacoes', function($scope, $http,$interval) {
+	 //load_cotacoes();
 		$interval(function(){
 			load_cotacoes();
-		},100);
+		},5000);
 		
 			function load_cotacoes(){
-				$http.get('./listar').then(function(response){
+				$http.get('../listar').then(function(response){
 					$scope.cotacoes_array = response.data;
 			});
 	   };
@@ -238,10 +239,10 @@
 
 				<tr ng-repeat="ativo in cotacoes_array">
 					<td> {{ativo.nome}}	</td>
-					<td > {{ativo.valor | currency:''}} </td>
+					<td > {{ativo.valor | currency:''}} </td> 
 					<td> {{ativo.min}}	</td>
 					<td> {{ativo.max}}	</td>
-					<td> {{ativo.volume/1000000 | number:'2'}}M	</td>
+					<td> {{ativo.volume/1000000 | number:'2'}}M	</td> 
 
 				</tr>
 				</table>
