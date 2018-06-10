@@ -102,7 +102,8 @@ cd /root/workspace/bolsa-systems/blueMoney/csv/all
 paste * -d, > ../consolidado.csv
 
 DATA=`date "+%H_%Mh-%d-%h-%Y"`
-#cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /root/workspace/bolsa-systems/blueMoney/csv/ultimo.csv
+#removido o comentario....
+cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /root/workspace/bolsa-systems/blueMoney/csv/ultimo.csv
 cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /var/www/webserver/arquivos/coleta-$DATA.csv
 
 cd /root/workspace/bolsa-systems/blueMoney/csv/
@@ -117,12 +118,12 @@ paste consolidado.colunas consolidado.valores > consolidado.txt
 rm consolidado.colunas consolidado.valores ultimo.colunas ultimo.valores
 
 colordiff consolidado.txt ultimo.txt
+sendmessage.js '`cat ultimo.txt`' 
 
 cd - 
 
 
 echo FINALIZADO TRUTA
-
 
 
 
