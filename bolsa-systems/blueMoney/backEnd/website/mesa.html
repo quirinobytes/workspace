@@ -37,7 +37,7 @@
        background-color: Tomato;
 }
 .highlight-green {
-       background-color: PaleGreen ;
+       background-color: MediumSeaGreen ;
 }
 td {
 		-webkit-transition: 1s linear all;
@@ -102,7 +102,7 @@ td {
 
 				$http({
 					    method: 'POST',
-					    url: './comprar',
+					    url: '../comprar',
 					    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					    data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
 				}).success(function (response) { 
