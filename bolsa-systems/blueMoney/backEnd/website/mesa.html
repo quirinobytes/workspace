@@ -32,13 +32,26 @@
 		.selecionado{
 						background-color: #55AAFF;
 		}
+
+.highlight-red {
+       background-color: red;
+}
+.highlight-green {
+       background-color: green;
+}
+td {
+       -webkit-transition: 1s linear all;
+	       transition: 1s linear all;
+		       background-color: clear;
+}
+
 	</style>
 	<!-- ####  Incluindo os fontes #### -->	
 	<script id="angularScript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
 	<script> 
-		angular.module("ibSYM", []);
+	var app = angular.module("ibSYM", []);
 		angular.module("ibSYM").controller("exibir-titulo",function($scope,$http){
 		angular.module("ibSYM").run(function(editableOptions) {
   editableOptions.theme = 'bs3';
@@ -170,6 +183,23 @@
 
 
 
+app.directive('highlighter', function ($timeout) {
+       return {
+		          restrict: 'A',link: function (scope, element, attrs) {
+					 					scope.$watch(attrs.highlighter, function (nv, ov) {
+									   			if (nv !== ov) {
+												   var newclass= nv < ov ? 'highlight-red' : 'highlight-green';
+												   // apply class
+												   element.addClass(newclass);
+												   // auto remove after some delay
+												   $timeout(function () { element.removeClass(newclass); }, 1000);
+					               				}
+					             		});
+			 	       				}
+			};
+});
+
+
 	</script>
 
 
@@ -237,12 +267,12 @@
 					<th> Volume</th>
 				</tr>
 
-				<tr ng-repeat="ativo in cotacoes_array">
+				<tr ng-repeat="ativo in cotacoes_array track by $index">
 					<td> {{ativo.nome}}	</td>
-					<td > {{ativo.valor | currency:''}} </td> 
-					<td> {{ativo.min}}	</td>
-					<td> {{ativo.max}}	</td>
-					<td> {{ativo.volume/1000000 | number:'2'}}M	</td> 
+					<td highlighter="ativo.valor"> {{ativo.valor | currency:''}} </td> 
+					<td highlighter="ativo.min"> {{ativo.min}}	</td>
+					<td highlighter="ativo.max"> {{ativo.max}}	</td>
+					<td highlighter="ativo.volume"> {{ativo.volume/1000000 | number:'2'}}M	</td> 
 
 				</tr>
 				</table>

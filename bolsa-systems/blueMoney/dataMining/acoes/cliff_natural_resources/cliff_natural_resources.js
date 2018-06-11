@@ -1,5 +1,4 @@
 var crawlerjs = require('crawler-js');
-var json2csv = require('json2csv');
 var fs = require('fs');
 var fields = ['valor_CLIFF','valorizacao_CLIFF','percentual_CLIFF'];
 var data;

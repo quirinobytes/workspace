@@ -9,10 +9,10 @@ HORA=`date "+%H:%M"`
 
 #rm /root/workspace/bolsa-systems/blueMoney/csv/all/* -rf
 
-echo "\"ANO\",\"MES\",\"DIA\",\"HORA\",\"RESPOSTA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
-echo "\"$ANO\",\"$MES\",\"$DIA\",\"$HORA\",\"1\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"DATA\",\"RESPOSTA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"DATA\",\"1\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
 
-echo "\"clima da CHINA\",\"negociação entre EUA e BRASIL\",\"abertura do EURO\",\"prisão do lula\",\"justiça condena samarco\",\"descoberta de jazida de minerio na china\",\"crise em algum pais/EURO\",\"problema/beneficio com alguma empresa concorrente (natureza externa)\",\"novo processo judicial\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
+echo "\"clima da CHINA\",\"negociacao entre EUA e BRASIL\",\"abertura do EURO\",\"prisao do lula\",\"justica condena samarco\",\"descoberta de jazida de minerio na china\",\"crise em algum pais/EURO\",\"greve\",\"inflacao-USA\",\"problema/beneficio com alguma empresa concorrente (natureza externa)\",\"novo processo judicial\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
 echo "\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
 
 
