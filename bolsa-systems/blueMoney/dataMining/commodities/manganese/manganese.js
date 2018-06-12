@@ -1,8 +1,8 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_MANGANESE','maximo_MANGANESE','minimo_MANGANESE'];
 var data;
-
 
 
 crawler = {
@@ -25,6 +25,9 @@ crawler = {
 								data.valor_MANGANESE = valor[1];
 								data.maximo_MANGANESE= high[1];
 								data.minimo_MANGANESE = low[1];
+								data.valor_MANGANESE = data.valor_MANGANESE.replace(",", "");
+								data.maximo_MANGANESE = data.maximo_MANGANESE.replace(/[+,%]/g, "");
+								data.minimo_MANGANESE = data.minimo_MANGANESE.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

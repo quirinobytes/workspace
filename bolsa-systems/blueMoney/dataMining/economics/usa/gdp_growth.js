@@ -1,15 +1,15 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
-var json2csv = require('json2csv');
-fields = ['valor_USA_GROWTH_RATE','valor_USA_ANUAL_GROWTH','valor_USA_GDP','valor_USA_GDP_CONSTANT_PRICES','valor_USA_GROSS_NATIONAL_PRODUCT','valor_USA_GROSS_FIXED_CAPITAL_FORMATION','valor_USA_GDP_PERCAPITA','valor_USA_GDP_PERCAPITA_PPP','valor_USA_GDP_FROM_AGRICULTURE','valor_USA_GDP_FROM_CONSTRUCTION','valor_USA_GDP_FROM_MANUFACTURING','valor_USA_GDP_FROM_MINING','valor_USA_GDP_FROM_PUBLIC_ADMINISTRATION','valor_USA_GDP_FROM_SERVICES','valor_USA_GDP_FROM_TRANSPORT','valor_USA_GDP_FROM_UTILITIES'];
-
+var fields = ['valor_USA_GROWTH_RATE','valor_USA_ANUAL_GROWTH','valor_USA_GDP','valor_USA_GDP_CONSTANT_PRICES','valor_USA_GROSS_NATIONAL_PRODUCT','valor_USA_GROSS_FIXED_CAPITAL_FORMATION','valor_USA_GDP_PERCAPITA','valor_USA_GDP_PERCAPITA_PPP','valor_USA_GDP_FROM_AGRICULTURE','valor_USA_GDP_FROM_CONSTRUCTION','valor_USA_GDP_FROM_MANUFACTURING','valor_USA_GDP_FROM_MINING','valor_USA_GDP_FROM_PUBLIC_ADMINISTRATION','valor_USA_GDP_FROM_SERVICES','valor_USA_GDP_FROM_TRANSPORT','valor_USA_GDP_FROM_UTILITIES'];
+var data;
 
 
 crawler = {
 	interval: 100,
-	getSample: 'http://www.tradingeconomics.com/united-states/gdp/forecast',
-	get: 'http://www.tradingeconomics.com/united-states/gdp/forecast',
-  preview: 3,
+	getSample: 'https://www.tradingeconomics.com/united-states/gdp/forecast',
+	get: 'https://www.tradingeconomics.com/united-states/gdp/forecast',
+	preview: 0,
 	extractors: [
 		{
 		selector: '#aspnetForm div.container div.row div.col-lg-8.col-md-9 div:nth-child(11) div table',
@@ -31,20 +31,32 @@ crawler = {
 			data.valor_USA_GDP_FROM_SERVICES = html.children('tr').eq(13).children('td').eq(1).text();
 			data.valor_USA_GDP_FROM_TRANSPORT = html.children('tr').eq(14).children('td').eq(1).text();
 			data.valor_USA_GDP_FROM_UTILITIES = html.children('tr').eq(15).children('td').eq(1).text();
-			data.url = url;
-			console.log(data);
-			var csv = json2csv({ data: data, fields: fields });
+			console.log("USA_GROWTH_RATE= "+data.valor_USA_GROWTH_RATE+" | "+data.valor_USA_ANUAL_GROWTH  + " | "+ data.valor_USA_GDP);
 
-			fs.writeFile('../../../csv/all/brasil-pib.csv', csv, function(err) {
-			if (err) throw err;
-				console.log('file saved');
-
-			});
+			gravarCSV(data);
 			}
 		}
 	]
 
 }
 
+function gravarCSV (data) {
+      if (data.valor_USA_GROWTH_RATE && data.valor_USA_ANUAL_GROWTH && data.valor_USA_GDP ) {
+          csv = '"'+ fields[0] + '"';
+          csv+= ',';
+          csv+= '"'+ fields[1]+ '"';
+          csv+= ',';
+          csv+= '"'+ fields[2]+ '"';
+          csv+= '\n';
+          csv+= '"'+ data.valor_USA_GROWTH_RATE + '"';
+          csv+= ',';
+          csv+= '"'+ data.valor_USA_ANUAL_GROWTH + '"';
+          csv+= ',';
+          csv+= '"'+ data.valor_USA_GDP + '"';
+          csv+= '\n';
+          fs.writeFile('../../../csv/all/brasil-pib.csv', csv, function(err){ if (err) throw err; });
+		  console.log("USA_GROWTH_RATE= "+data.valor_USA_GROWTH_RATE+" | "+data.valor_USA_ANUAL_GROWTH  + " | "+ data.valor_USA_GDP);
+      }
+}
 crawlerjs(crawler);
 

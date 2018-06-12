@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_IBOVESPA','valorizacao_IBOVESPA','percentual_IBOVESPA'];
@@ -17,6 +18,9 @@ crawler = {
 								data.valor_IBOVESPA = html.children('span').eq(0).text();
 								data.valorizacao_IBOVESPA = html.children('span').eq(1).text();
 								data.percentual_IBOVESPA = html.children('span').eq(3).text();
+								data.valor_IBOVESPA = 	data.valor_IBOVESPA.replace(",", "");
+								data.valorizacao_IBOVESPA = data.valorizacao_IBOVESPA.replace(/[-+,%]/g, "");
+								data.percentual_IBOVESPA = data.percentual_IBOVESPA.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

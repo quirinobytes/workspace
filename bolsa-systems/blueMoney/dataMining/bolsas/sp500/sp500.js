@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_SP500','valorizacao_SP500','percentual_SP500'];
@@ -17,6 +18,9 @@ crawler = {
 								data.valor_SP500 = html.children('span').eq(0).text();
 								data.valorizacao_SP500 = html.children('span').eq(1).text();
 								data.percentual_SP500 = html.children('span').eq(3).text();
+								data.valor_SP500 = data.valor_SP500.replace(",", "");
+								data.valorizacao_SP500 = data.valorizacao_SP500.replace(/[+,%]/g, "");
+								data.percentual_SP500 = data.percentual_SP500.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

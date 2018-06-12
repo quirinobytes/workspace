@@ -17,6 +17,9 @@ crawler = {
 								data.valor_DJI = html.children('span').eq(0).text();
 								data.valorizacao_DJI = html.children('span').eq(1).text();
 								data.percentual_DJI = html.children('span').eq(3).text();
+								data.valor_DJI = data.valor_DJI.replace(",", "");
+								data.valorizacao_DJI = data.valorizacao_DJI.replace(/[-+,%]/g, "");
+								data.percentual_DJI = data.percentual_DJI.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 			}
 		}

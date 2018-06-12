@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_NICKEL','valorizacao_NICKEL','percentual_NICKEL'];
@@ -18,6 +19,9 @@ crawler = {
 								data.valor_NICKEL = html.children('span').eq(0).text();
 								data.valorizacao_NICKEL = html.children('span').eq(1).text();
 								data.percentual_NICKEL = html.children('span').eq(3).text();
+								data.valor_NICKEL = data.valor_NICKEL.replace(",", "");
+								data.valorizacao_NICKEL = data.valorizacao_NICKEL.replace(/[+,%]/g, "");
+								data.percentual_NICKEL = data.percentual_NICKEL.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

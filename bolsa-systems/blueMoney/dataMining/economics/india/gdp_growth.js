@@ -1,7 +1,7 @@
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
-var json2csv = require('json2csv');
-fields = ['valor_INDIA_GROWTH_RATE','valor_INDIA_ANUAL_GROWTH','valor_INDIA_GDP','valor_INDIA_GDP_CONSTANT_PRICES','valor_INDIA_GROSS_NATIONAL_PRODUCT','valor_INDIA_GROSS_FIXED_CAPITAL_FORMATION','valor_INDIA_GDP_PERCAPITA','valor_INDIA_GDP_PERCAPITA_PPP','valor_INDIA_GDP_FROM_AGRICULTURE','valor_INDIA_GDP_FROM_CONSTRUCTION','valor_INDIA_GDP_FROM_MANUFACTURING','valor_INDIA_GDP_FROM_MINING','valor_INDIA_GDP_FROM_PUBLIC_ADMINISTRATION','valor_INDIA_GDP_FROM_UTILITIES'];
+var fields = ['valor_INDIA_GROWTH_RATE','valor_INDIA_ANUAL_GROWTH','valor_INDIA_GDP','valor_INDIA_GDP_CONSTANT_PRICES','valor_INDIA_GROSS_NATIONAL_PRODUCT','valor_INDIA_GROSS_FIXED_CAPITAL_FORMATION','valor_INDIA_GDP_PERCAPITA','valor_INDIA_GDP_PERCAPITA_PPP','valor_INDIA_GDP_FROM_AGRICULTURE','valor_INDIA_GDP_FROM_CONSTRUCTION','valor_INDIA_GDP_FROM_MANUFACTURING','valor_INDIA_GDP_FROM_MINING','valor_INDIA_GDP_FROM_PUBLIC_ADMINISTRATION','valor_INDIA_GDP_FROM_UTILITIES'];
+var data;
 
 
 
@@ -30,14 +30,8 @@ crawler = {
 			data.valor_INDIA_GDP_FROM_PUBLIC_ADMINISTRATION = html.children('tr').eq(12).children('td').eq(1).text();
 			data.valor_INDIA_GDP_FROM_UTILITIES = html.children('tr').eq(13).children('td').eq(1).text();
 			data.url = url;
-			console.log(data);
-			var csv = json2csv({ data: data, fields: fields });
 
-			fs.writeFile('../../../csv/all/brasil-pib.csv', csv, function(err) {
-			if (err) throw err;
-				console.log('file saved');
-
-			});
+//			fs.writeFile('../../../csv/all/brasil-pib.csv', csv, function(err) {
 			}
 		}
 	]
