@@ -102,6 +102,8 @@ $N gdp_growth.js
 cd /root/workspace/bolsa-systems/blueMoney/csv/all
 paste * -d, > ../consolidado.csv
 
+tail -1 ../consolidado.csv >> /var/www/webserver/arquivos/stockDatabase.csv
+
 DATA2=`date "+%H_%Mh-%d-%h-%Y"`
 
 #removido o comentario....

@@ -4,7 +4,6 @@ var fields = ['valor_IRON_ORE_PELLETS','maximo_IRON_ORE_PELLETS','minimo_IRON_OR
 var data;
 
 
-
 crawler = {
 	interval: 100,
 	getSample: 'http://www.infomine.com/investment/metal-prices/iron-ore-pellets/1-year/',
