@@ -16,6 +16,9 @@ crawler = {
 								data.valor_RIO_TINTO = html.children('span').eq(0).text();
 								data.valorizacao_RIO_TINTO = html.children('span').eq(1).text();
 								data.percentual_RIO_TINTO = html.children('span').eq(3).text();
+								data.valor_RIO_TINTO = data.valor_RIO_TINTO.replace(",", "");
+								data.valorizacao_RIO_TINTO = data.valorizacao_RIO_TINTO.replace(/[-+,%]/g, "");
+								data.percentual_RIO_TINTO = data.percentual_RIO_TINTO.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 								}
 					}
@@ -37,6 +40,7 @@ function gravarCSV (data) {
           csv+= '"'+ data.percentual_RIO_TINTO + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/rio-tinto.csv', csv, function(err){ if (err) throw err; });
+		  console.log("RIO_TINTO= "+data.valor_RIO_TINTO+" | "+ data.valorizacao_RIO_TINTO + " | "+ data.percentual_RIO_TINTO);
       }
 }
 crawlerjs(crawler);

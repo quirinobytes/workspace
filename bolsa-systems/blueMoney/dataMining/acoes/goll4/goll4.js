@@ -18,6 +18,9 @@ crawler = {
 								data.valor_GOLL4 = html.children('span').eq(0).text();
 								data.valorizacao_GOLL4 = html.children('span').eq(1).text();
 								data.percentual_GOLL4 = html.children('span').eq(3).text();
+								data.valor_GOLL4 = data.valor_GOLL4.replace(",", "");
+								data.valorizacao_GOLL4 = data.valorizacao_GOLL4.replace(/[-+,%]/g, "");
+								data.percentual_GOLL4 = data.percentual_GOLL4.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 							    }
 					}
@@ -54,8 +57,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/goll4.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
-		  console.log("GOLL4= "+data.valor_GOLL4);
-
+		  console.log("GOLL4= "+data.valor_GOLL4+" | "+ data.valorizacao_GOLL4 + " | "+ data.percentual_GOLL4);
       }
 }
 

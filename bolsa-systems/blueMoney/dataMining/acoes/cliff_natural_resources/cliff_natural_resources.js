@@ -16,6 +16,9 @@ crawler = {
 								data.valor_CLIFF = html.children('span').eq(0).text();
 								data.valorizacao_CLIFF = html.children('span').eq(1).text();
 								data.percentual_CLIFF = html.children('span').eq(3).text();
+	 							data.valor_CLIFF = data.valor_CLIFF.replace(",", "");
+								data.valorizacao_CLIFF = data.valorizacao_CLIFF.replace(/[-+,%]/g, "");
+								data.percentual_CLIFF = data.percentual_CLIFF.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 								}
 					}
@@ -37,6 +40,7 @@ function gravarCSV (data) {
           csv+= '"'+ data.percentual_CLIFF + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/cliff.csv', csv, function(err){ if (err) throw err; });
+		  console.log("CLIFF= "+data.valor_CLIFF+" | "+ data.valorizacao_CLIFF + " | "+ data.percentual_CLIFF);
       }
 }
 

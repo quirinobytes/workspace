@@ -19,6 +19,9 @@ crawler = {
                                 data.valor_CSNA3 = html.children('span').eq(0).text();
                                 data.valorizacao_CSNA3 = html.children('span').eq(1).text();
                                 data.percentual_CSNA3 = html.children('span').eq(3).text();
+								data.valor_CSNA3 = data.valor_CSNA3.replace(",", "");
+								data.valorizacao_CSNA3 = data.valorizacao_CSNA3.replace(/[-+,%]/g, "");
+								data.percentual_CSNA3 = data.percentual_CSNA3.replace(/[-+,%]/g, "");
                                 gravarCSV(data);
                                 }
                     }
@@ -58,7 +61,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/csna3.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
-		  console.log("CSNA3= "+data.valor_CSNA3);
+		  console.log("CSNA3= "+data.valor_CSNA3+" | "+ data.valorizacao_CSNA3 + " | "+ data.percentual_CSNA3);
       }
 }
 

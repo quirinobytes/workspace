@@ -17,6 +17,9 @@ crawler = {
 								data.valor_ANGLO = html.children('span').eq(0).text();
 								data.valorizacao_ANGLO = html.children('span').eq(1).text();
 								data.percentual_ANGLO = html.children('span').eq(3).text();
+								data.valor_ANGLO = data.valor_ANGLO.replace(",", "");
+								data.valorizacao_ANGLO = data.valorizacao_ANGLO.replace(/[-+,%]/g, "");
+								data.percentual_ANGLO = data.percentual_ANGLO.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 							    }
 					}
@@ -38,6 +41,7 @@ function gravarCSV(data) {
           csv+= '"'+ data.percentual_ANGLO + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/anglo-american.csv', csv, function(err){ if (err) throw err; });
+		  console.log("ANGLO= "+data.valor_ANGLO+" | "+ data.valorizacao_ANGLO + " | "+ data.percentual_ANGLO);
       }
 }
 crawlerjs(crawler);

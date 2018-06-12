@@ -18,10 +18,30 @@ crawler = {
 								data.valor_CMIG4 = html.children('span').eq(0).text();
 								data.valorizacao_CMIG4 = html.children('span').eq(1).text();
 								data.percentual_CMIG4 = html.children('span').eq(3).text();
+								data.valor_CMIG4 = data.valor_CMIG4.replace(",", "");
+								data.valorizacao_CMIG4 = data.valorizacao_CMIG4.replace(/[-+,%]/g, "");
+								data.percentual_CMIG4 = data.percentual_CMIG4.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 								}
 					}
 				]
+}
+
+
+
+
+function loadPrice(){
+	var options = { method: 'POST',
+    				url: url_LOADPRICE,
+					headers:  { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
+								'cache-control': 'no-cache',
+								'content-type': 'application/x-www-form-urlencoded' },
+					form: { ativo: 'CMIG4', valor: data.valor_CMIG4, token: '1234abcd' }
+    };
+	//fazendo o request(POST) para atualizar o preço.
+	req = request(options, function (error, response, body) {
+    	if(error) throw new Error(error)
+	});
 }
 
 function gravarCSV(data) {
@@ -40,22 +60,7 @@ function gravarCSV(data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/cmig4.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
-      }
+		  console.log("CMIG4= "+data.valor_CMIG4+" | "+ data.valorizacao_CMIG4 + " | "+ data.percentual_CMIG4);
+	      }
 }
-
-
-function loadPrice(){
-	var options = { method: 'POST',
-    				url: url_LOADPRICE,
-					headers:  { 'postman-token': '0c17b7e5-ee61-6514-60af-a7384edb97dc',
-								'cache-control': 'no-cache',
-								'content-type': 'application/x-www-form-urlencoded' },
-					form: { ativo: 'CMIG4', valor: data.valor_CMIG4, token: '1234abcd' }
-    };
-	//fazendo o request(POST) para atualizar o preço.
-	req = request(options, function (error, response, body) {
-    	if(error) throw new Error(error)
-	});
-}
-
 crawlerjs(crawler);

@@ -5,7 +5,6 @@ var fields = ['valor_GOAU4','valorizacao_GOAU4','percentual_GOAU4'];
 var url_LOADPRICE = 'http://localhost:3000/loadprice' ;
 
 
-
 crawler = {
 	interval: 100,
 	getSample: 'http://www.investing.com/equities/gerdau-met-pn',
@@ -19,7 +18,10 @@ crawler = {
 								data.valor_GOAU4 = html.children('span').eq(0).text();
 								data.valorizacao_GOAU4 = html.children('span').eq(1).text();
 								data.percentual_GOAU4 = html.children('span').eq(3).text();
-								gravarCSV(data);
+								data.valor_GOAU4 = data.valor_GOAU4.replace(",", "");
+								data.valorizacao_GOAU4 = data.valorizacao_GOAU4.replace(/[-+,%]/g, "");
+								data.percentual_GOAU4 = data.percentual_GOAU4.replace(/[-+,%]/g, "");
+				    	        gravarCSV(data);
 								}
 					}
 				]
@@ -56,8 +58,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/goau4.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
-		  console.log("GOAU4= "+data.valor_GOAU4);
-
+		  console.log("GOAU4= "+data.valor_GOAU4+" | "+ data.valorizacao_GOAU4 + " | "+ data.percentual_GOAU4);
       }
 }
 

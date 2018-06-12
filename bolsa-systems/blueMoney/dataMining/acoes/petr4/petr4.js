@@ -12,17 +12,20 @@ crawler = {
 	get: 'http://www.investing.com/equities/petrobras-pn',
     preview: 0,
 	extractors: [
-		{
-		selector: 'div div div div div .top',
-		callback: function (err,html,url,response) {
-			data = {};
-			data.valor_PETR4 = html.children('span').eq(0).text();
-			data.valorizacao_PETR4 = html.children('span').eq(1).text();
-			data.percentual_PETR4 = html.children('span').eq(3).text();
-			gravarCSV(data);
-			}
-		}
-	]
+					{
+					selector: 'div div div div div .top',
+					callback: function (err,html,url,response) {
+						data = {};
+						data.valor_PETR4 = html.children('span').eq(0).text();
+						data.valorizacao_PETR4 = html.children('span').eq(1).text();
+						data.percentual_PETR4 = html.children('span').eq(3).text();
+						data.valor_PETR4 = data.valor_PETR4.replace(",", "");
+						data.valorizacao_PETR4 = data.valorizacao_PETR4.replace(/[-+,%]/g, "");
+						data.percentual_PETR4 = data.percentual_PETR4.replace(/[-+,%]/g, "");
+						gravarCSV(data);
+						}
+					}	
+ 	]
 }
 
 
@@ -57,6 +60,7 @@ function gravarCSV (data) {
 		  csv+= '\n';
 		  fs.writeFile('../../../csv/all/petr4.csv', csv, function(err){ if (err) throw err; });
 		  loadPrice();
+		  console.log("PETR4= "+data.valor_PETR4+" | "+ data.valorizacao_PETR4 + " | "+ data.percentual_PETR4);
 	  }
 };
 

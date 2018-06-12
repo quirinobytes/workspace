@@ -19,6 +19,9 @@ crawler = {
 								data.valor_USIM5 = html.children('span').eq(0).text();
 								data.valorizacao_USIM5 = html.children('span').eq(1).text();
 								data.percentual_USIM5 = html.children('span').eq(3).text();
+								data.valor_USIM5 = data.valor_USIM5.replace(",", "");
+								data.valorizacao_USIM5 = data.valorizacao_USIM5.replace(/[-+,%]/g, "");
+								data.percentual_USIM5 = data.percentual_USIM5.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 								}
 					}
@@ -55,6 +58,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/usim5.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
+		  console.log("USIM5= "+data.valor_USIM5+" | "+ data.valorizacao_USIM5 + " | "+ data.percentual_USIM5);
       }
 };
 

@@ -20,6 +20,9 @@ crawler = {
 									data.valor_JBSS3 = html.children('span').eq(0).text();
 									data.valorizacao_JBSS3 = html.children('span').eq(1).text();
 									data.percentual_JBSS3 = html.children('span').eq(3).text();
+									data.valor_JBSS3 = data.valor_JBSS3.replace(",", "");
+									data.valorizacao_JBSS3 = data.valorizacao_JBSS3.replace(/[-+,%]/g, "");
+									data.percentual_JBSS3 = data.percentual_JBSS3.replace(/[-+,%]/g, "");
 									gravarCSV(data);
 									}
 					}
@@ -59,6 +62,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/jbss3.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
+		  console.log("JBSS3= "+data.valor_JBSS3+" | "+ data.valorizacao_JBSS3 + " | "+ data.percentual_JBSS3);
       }
 }
 
