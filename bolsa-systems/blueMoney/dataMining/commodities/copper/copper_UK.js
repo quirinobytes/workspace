@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_COOPER_UK','valorizacao_COOPER_UK','percentual_COOPER_UK'];
@@ -17,6 +18,9 @@ crawler = {
 								data.valor_COOPER_UK = html.children('span').eq(0).text();
 								data.valorizacao_COOPER_UK = html.children('span').eq(1).text();
 								data.percentual_COOPER_UK = html.children('span').eq(3).text();
+								data.valor_COOPER_UK = data.valor_COOPER_UK.replace(".", "");
+								data.valorizacao_COOPER_UK = data.valorizacao_COOPER_UK.replace(/[+,%]/g, "");
+								data.percentual_COOPER_UK =	data.percentual_COOPER_UK.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}
@@ -38,6 +42,7 @@ function gravarCSV (data) {
           csv+= '"'+ data.percentual_COOPER_UK + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/cooper_UK.csv', csv, function(err){ if (err) throw err; });
+		  console.log("COOPER_UK= "+data.valor_COOPER_UK+" | "+ data.valorizacao_COOPER_UK + " | "+ data.percentual_COOPER_UK);
       }
 }
 

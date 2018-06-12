@@ -41,7 +41,7 @@ function loadPrice(){
 	};
     //fazendo o request(POST) para atualizar o preço na mesa de operacoes.
     req = request(options, function (error, response, body) {
-        if(error) throw new Error(error)
+	//        if(error) throw new Error(error)
 	});
 }
 
