@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
@@ -18,6 +19,9 @@ crawler = {
 								data.valor_GGBR4 = html.children('span').eq(0).text();
 								data.valorizacao_GGBR4 = html.children('span').eq(1).text();
 								data.percentual_GGBR4 = html.children('span').eq(3).text();
+								data.valor_GGBR4 = data.valor_GGBR4.replace(",", "");
+								data.valorizacao_GGBR4 = data.valorizacao_GGBR4.replace(/[-+,%]/g, "");
+								data.percentual_GGBR4 = data.percentual_GGBR4.replace(/[-+,%]/g, "");
 								gravarCSV(data);
 								}
 					}
@@ -54,8 +58,8 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/ggbr4.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
-          console.log("GGBR4= "+data.valor_GGBR4);
-
+ 		   console.log("GGBR4= "+data.valor_GGBR4+" | "+ data.valorizacao_GGBR4 + " | "+ data.percentual_GGBR4);
+		 
       }
 }
 

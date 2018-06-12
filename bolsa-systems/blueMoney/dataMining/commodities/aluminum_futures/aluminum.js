@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_ALUMINUM','valorizacao_ALUMINUM','percentual_ALUMINUM'];
@@ -18,6 +19,9 @@ crawler = {
 								data.valor_ALUMINUM = html.children('span').eq(0).text();
 								data.valorizacao_ALUMINUM = html.children('span').eq(1).text();
 								data.percentual_ALUMINUM = html.children('span').eq(3).text();
+								data.valor_ALUMINUM = data.valor_ALUMINUM.replace(",", "");
+								data.valorizacao_ALUMINUM = data.valorizacao_ALUMINUM.replace(/[-+,%]/g, "");
+								data.percentual_ALUMINUM = data.percentual_ALUMINUM.replace(/[-+,%]/g,"");
 								gravarCSV(data);
 								}
 					}
@@ -40,6 +44,7 @@ function gravarCSV (data) {
           csv+= '"'+ data.percentual_ALUMINUM + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/aluminum.csv', csv, function(err){ if (err) throw err; });
+		  console.log("ALUMINUM= "+data.valor_ALUMINUM+" | "+ data.valorizacao_ALUMINUM + " | "+ data.percentual_ALUMINUM);
       }
 }
 

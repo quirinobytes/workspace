@@ -6,12 +6,12 @@ N=/usr/bin/node
 #MES=`date "+%m"`
 #DIA=`date "+%d"`
 #HORA=`date "+%H:%M"`
-DATA=$(date +"%T")
+DATA=$(date +%s)
 
 #rm /root/workspace/bolsa-systems/blueMoney/csv/all/* -rf
 
-echo "\"DATA\",\"RESPOSTA\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
-echo "\"$DATA\",\"1\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"DATA\",\"DECISION\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"$DATA\",\"0\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
 
 echo "\"clima da CHINA\",\"negociacao entre EUA e BRASIL\",\"abertura do EURO\",\"prisao do lula\",\"justica condena samarco\",\"descoberta de jazida de minerio na china\",\"crise em algum pais/EURO\",\"greve\",\"inflacao-USA\",\"problema/beneficio com alguma empresa concorrente (natureza externa)\",\"novo processo judicial\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
 echo "\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
@@ -103,9 +103,11 @@ cd /root/workspace/bolsa-systems/blueMoney/csv/all
 paste * -d, > ../consolidado.csv
 
 DATA2=`date "+%H_%Mh-%d-%h-%Y"`
+
 #removido o comentario....
 cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /root/workspace/bolsa-systems/blueMoney/csv/ultimo.csv
 cp /root/workspace/bolsa-systems/blueMoney/csv/consolidado.csv /var/www/webserver/arquivos/coleta-$DATA2.csv
+
 
 cd /root/workspace/bolsa-systems/blueMoney/csv/
 head -1 ultimo.csv | sed 's/",/"\n/g' > ultimo.colunas

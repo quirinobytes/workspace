@@ -19,6 +19,9 @@ crawler = {
 							data.valor_VALE5 = html.children('span').eq(0).text();
 							data.valorizacao_VALE5 = html.children('span').eq(1).text();
 							data.percentual_VALE5 = html.children('span').eq(3).text();
+							data.valor_VALE5 = data.valor_VALE5.replace(",", "");
+							data.valorizacao_VALE5 = data.valorizacao_VALE5.replace(/[-+,%]/g, "");
+							data.percentual_VALE5 = data.percentual_VALE5.replace(/[-+,%]/g, "");
 				            gravarCSV(data);
 							}
 					}
@@ -58,7 +61,7 @@ function gravarCSV (data) {
           csv+= '\n';
           fs.writeFile('../../../csv/all/vale5.csv', csv, function(err){ if (err) throw err; });
           loadPrice();
-		  console.log("VALE5= "+data.valor_VALE5);
+		  console.log("VALE5= "+data.valor_VALE5+" | "+ data.valorizacao_VALE5 + " | "+ data.percentual_VALE5);
       }
 }
 
