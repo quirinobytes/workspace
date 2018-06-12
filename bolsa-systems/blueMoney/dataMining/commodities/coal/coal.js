@@ -1,9 +1,8 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
 var fields = ['valor_COAL','maximo_COAL','minimo_COAL'];
 var data;
-
-
 
 crawler = {
 	interval: 100,
@@ -25,6 +24,9 @@ crawler = {
 						data.valor_COAL = valor[1];
 						data.maximo_COAL= high[1];
 						data.minimo_COAL = low[1];
+						data.valor_COAL = data.valor_COAL.replace(",", "");
+						data.maximo_COAL= data.maximo_COAL.replace(/[-+,%]/g, "");
+						data.minimo_COAL = data.minimo_COAL.replace(/[-+,%]/g, "");
 						gravarCSV(data);
 						}
 					}
@@ -46,6 +48,8 @@ function gravarCSV (data) {
           csv+= '"'+ data.minimo_COAL + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/coal.csv', csv, function(err){ if (err) throw err; });
+		  console.log("COAL= "+data.valor_COAL+" | "+ data.maximo_COAL + " | "+ data.minimo_COAL);
+
       }
 }
 

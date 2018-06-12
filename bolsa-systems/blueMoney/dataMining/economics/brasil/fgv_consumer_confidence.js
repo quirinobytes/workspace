@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
-var fields = ['valor_FGV_CONSUMER_CONFIDENCE','projecao_FGV_CONSUMER_CONFIDENCE','previo_FGV_CONSUMER_CONFIDENCE'];
+var fields = ['valor_FGV_CONSUMER_CONFIDENCE','previo_FGV_CONSUMER_CONFIDENCE'];
 var data;
 
 crawler = {
@@ -14,8 +15,14 @@ crawler = {
 					callback: function (err,html,url,response) {
 								data = {};
 								data.valor_FGV_CONSUMER_CONFIDENCE    = html.children('span').eq(1).children('div').text();
-								data.projecao_FGV_CONSUMER_CONFIDENCE = html.children('span').eq(2).children('div').text();
-								data.previo_FGV_CONSUMER_CONFIDENCE   = html.children('span').eq(3).children('div').text();
+								data.previo_FGV_CONSUMER_CONFIDENCE   = html.children('span').eq(2).children('div').text();
+								data.projecao_FGV_CONSUMER_CONFIDENCE = html.children('span').eq(3).children('div').text();
+								data.valor_FGV_CONSUMER_CONFIDENCE = data.valor_FGV_CONSUMER_CONFIDENCE.replace(",",".");
+								data.valor_FGV_CONSUMER_CONFIDENCE = data.valor_FGV_CONSUMER_CONFIDENCE.replace(/[-+,%]/g , ".");
+								data.previo_FGV_CONSUMER_CONFIDENCE = data.previo_FGV_CONSUMER_CONFIDENCE.replace(",", ".");
+								data.previo_FGV_CONSUMER_CONFIDENCE = data.previo_FGV_CONSUMER_CONFIDENCE.replace(/[-+,%]/g, "");
+								data.projecao_FGV_CONSUMER_CONFIDENCE = data.projecao_FGV_CONSUMER_CONFIDENCE.replace(",", ".");
+								data.projecao_FGV_CONSUMER_CONFIDENCE = data.projecao_FGV_CONSUMER_CONFIDENCE.replace(/[-,+%]/g, "");
 								gravarCSV(data);
 								}
 					}
@@ -23,20 +30,17 @@ crawler = {
 }
 
 function gravarCSV(data) {
-      if (data.valor_FGV_CONSUMER_CONFIDENCE && data.projecao_FGV_CONSUMER_CONFIDENCE && data.previo_FGV_CONSUMER_CONFIDENCE ) {
+      if (data.valor_FGV_CONSUMER_CONFIDENCE && data.previo_FGV_CONSUMER_CONFIDENCE ) {
           csv = '"'+ fields[0] + '"';
           csv+= ',';
           csv+= '"'+ fields[1]+ '"';
-          csv+= ',';
-          csv+= '"'+ fields[2]+ '"';
           csv+= '\n';
           csv+= '"'+ data.valor_FGV_CONSUMER_CONFIDENCE + '"';
-          csv+= ',';
-          csv+= '"'+ data.projecao_FGV_CONSUMER_CONFIDENCE + '"';
           csv+= ',';
           csv+= '"'+ data.previo_FGV_CONSUMER_CONFIDENCE + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/fgv-consumer-confidence.csv', csv, function(err){ if (err) throw err; });
+		  console.log("FGV_CONSUMER_CONFIDENCE= "+data.valor_FGV_CONSUMER_CONFIDENCE+" | "+ data.previo_FGV_CONSUMER_CONFIDENCE );
       }
 }
 

@@ -1,6 +1,5 @@
 var crawlerjs = require('crawler-js');
 var fs = require('fs');
-var json2csv = require('json2csv');
 var fields = ['valor_IRON_FE62','valorizacao_IRON_FE62','percentual_IRON_FE62'];
 var data;
 
@@ -18,6 +17,9 @@ crawler = {
 									data.valor_IRON_FE62 = html.children('span').eq(0).text();
 									data.valorizacao_IRON_FE62 = html.children('span').eq(1).text();
 									data.percentual_IRON_FE62 = html.children('span').eq(3).text();
+									data.valor_IRON_FE62 = data.valor_IRON_FE62.replace(",", "");
+									data.valorizacao_IRON_FE62 = data.valorizacao_IRON_FE62.replace(/[-+,%]/g, "");
+									data.percentual_IRON_FE62 = data.percentual_IRON_FE62.replace(/[-+,%]/g, "");
 									gravarCSV(data);
 									}
 					}
@@ -39,6 +41,7 @@ function gravarCSV (data) {
           csv+= '"'+ data.percentual_IRON_FE62 + '"';
           csv+= '\n';
           fs.writeFile('../../../csv/all/iron-fe62.csv', csv, function(err){ if (err) throw err; });
+		  console.log("IRON_FE62= "+data.valor_IRON_FE62+" | "+ data.valorizacao_IRON_FE62 + " | "+ data.percentual_IRON_FE62);
       }
 }
 
