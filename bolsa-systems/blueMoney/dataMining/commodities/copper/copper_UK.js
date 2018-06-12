@@ -18,7 +18,7 @@ crawler = {
 								data.valor_COOPER_UK = html.children('span').eq(0).text();
 								data.valorizacao_COOPER_UK = html.children('span').eq(1).text();
 								data.percentual_COOPER_UK = html.children('span').eq(3).text();
-								data.valor_COOPER_UK = data.valor_COOPER_UK.replace(".", "");
+								data.valor_COOPER_UK = data.valor_COOPER_UK.replace(",", "");
 								data.valorizacao_COOPER_UK = data.valorizacao_COOPER_UK.replace(/[+,%]/g, "");
 								data.percentual_COOPER_UK =	data.percentual_COOPER_UK.replace(/[+,%]/g, "");
 								gravarCSV(data);

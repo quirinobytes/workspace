@@ -19,7 +19,7 @@ crawler = {
                                 data.valorizacao_COOPER_US = html.children('span').eq(1).text();
                                 data.percentual_COOPER_US = html.children('span').eq(3).text();
 								data.percentual_COOPER_US = html.children('span').eq(3).text();
-								data.valor_COOPER_US = data.valor_COOPER_US.replace(".", "");
+								data.valor_COOPER_US = data.valor_COOPER_US.replace(".,", "");
 								data.valorizacao_COOPER_US = data.valorizacao_COOPER_US.replace(/[+,%]/g, "");
 								data.percentual_COOPER_US =	data.percentual_COOPER_US.replace(/[+,%]/g, "");
 								gravarCSV(data);
