@@ -1,19 +1,15 @@
 #!/bin/bash
+source $HOME/colors.sh
 
+
+#Binário Node.JS 
 N=/usr/bin/node
-
-#ANO=`date "+%Y"`
-#MES=`date "+%m"`
-#DIA=`date "+%d"`
-#HORA=`date "+%H:%M"`
 DATA=$(date +%s)
 
-#rm /root/workspace/bolsa-systems/blueMoney/csv/all/* -rf
+echo "\"DATE\",\"DECISION\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
+echo "\"$DATE\",\"0\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
 
-echo "\"DATA\",\"DECISION\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
-echo "\"$DATA\",\"0\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/0.csv
-
-echo "\"clima da CHINA\",\"negociacao entre EUA e BRASIL\",\"abertura do EURO\",\"prisao do lula\",\"justica condena samarco\",\"descoberta de jazida de minerio na china\",\"crise em algum pais/EURO\",\"greve\",\"inflacao-USA\",\"problema/beneficio com alguma empresa concorrente (natureza externa)\",\"novo processo judicial\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
+echo "\"clima\",\"negociacaoEUAxBRASIL\",\"EURO\",\"Prisao do lula\",\"Justica condena Samarco\",\"Descoberta de jazida\",\"crise em algum pais/EURO\",\"greve\",\"inflacao-USA\",\"problema/beneficio com alguma empresa concorrente (natureza externa)\",\"novo processo judicial\"" > /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
 echo "\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"" >> /root/workspace/bolsa-systems/blueMoney/csv/all/zzz_qualitativos.csv
 
 
@@ -131,7 +127,7 @@ send_bluemoney.js "`cat ultimo.txt | tr '"' '\0' `"
 cd - 
 
 
-echo FINALIZADO TRUTA
+echo -en "\n$green FINALIZADO:$yellow o arquivo stockDatabase.csv contém $alert $(wc -l /var/www/webserver/arquivos/stockDatabase.csv)$normal linhas.\n"
 
 
 
