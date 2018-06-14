@@ -17,8 +17,8 @@ crawler = {
 								data.valorizacao_RIO_TINTO = html.children('span').eq(1).text();
 								data.percentual_RIO_TINTO = html.children('span').eq(3).text();
 								data.valor_RIO_TINTO = data.valor_RIO_TINTO.replace(",", "");
-								data.valorizacao_RIO_TINTO = data.valorizacao_RIO_TINTO.replace(/[-+,%]/g, "");
-								data.percentual_RIO_TINTO = data.percentual_RIO_TINTO.replace(/[-+,%]/g, "");
+								data.valorizacao_RIO_TINTO = data.valorizacao_RIO_TINTO.replace(/[+,%]/g, "");
+								data.percentual_RIO_TINTO = data.percentual_RIO_TINTO.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

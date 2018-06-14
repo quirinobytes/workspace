@@ -25,8 +25,8 @@ crawler = {
 						data.maximo_COAL= high[1];
 						data.minimo_COAL = low[1];
 						data.valor_COAL = data.valor_COAL.replace(",", "");
-						data.maximo_COAL= data.maximo_COAL.replace(/[-+,%]/g, "");
-						data.minimo_COAL = data.minimo_COAL.replace(/[-+,%]/g, "");
+						data.maximo_COAL= data.maximo_COAL.replace(/[+,%]/g, "");
+						data.minimo_COAL = data.minimo_COAL.replace(/[+,%]/g, "");
 						gravarCSV(data);
 						}
 					}

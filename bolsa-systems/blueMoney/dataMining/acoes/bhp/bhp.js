@@ -19,8 +19,8 @@ crawler = {
 					data.valorizacao_BHP = html.children('span').eq(1).text();
 					data.percentual_BHP = html.children('span').eq(3).text();
 					data.valor_VALE5 = data.valor_VALE5.replace(",", "");
-					data.valorizacao_VALE5 = data.valorizacao_VALE5.replace(/[-+,%]/g, "");
-					data.percentual_VALE5 = data.percentual_VALE5.replace(/[-+,%]/g, "");
+					data.valorizacao_VALE5 = data.valorizacao_VALE5.replace(/[+,%]/g, "");
+					data.percentual_VALE5 = data.percentual_VALE5.replace(/[+,%]/g, "");
 		            gravarCSV(data);			
 					}
 				}

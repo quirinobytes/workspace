@@ -20,8 +20,8 @@ crawler = {
 						data.valorizacao_PETR4 = html.children('span').eq(1).text();
 						data.percentual_PETR4 = html.children('span').eq(3).text();
 						data.valor_PETR4 = data.valor_PETR4.replace(",", "");
-						data.valorizacao_PETR4 = data.valorizacao_PETR4.replace(/[-+,%]/g, "");
-						data.percentual_PETR4 = data.percentual_PETR4.replace(/[-+,%]/g, "");
+						data.valorizacao_PETR4 = data.valorizacao_PETR4.replace(/[+,%]/g, "");
+						data.percentual_PETR4 = data.percentual_PETR4.replace(/[+,%]/g, "");
 						gravarCSV(data);
 						}
 					}	

@@ -18,8 +18,8 @@ crawler = {
 									data.valorizacao_IRON_FE62 = html.children('span').eq(1).text();
 									data.percentual_IRON_FE62 = html.children('span').eq(3).text();
 									data.valor_IRON_FE62 = data.valor_IRON_FE62.replace(",", "");
-									data.valorizacao_IRON_FE62 = data.valorizacao_IRON_FE62.replace(/[-+,%]/g, "");
-									data.percentual_IRON_FE62 = data.percentual_IRON_FE62.replace(/[-+,%]/g, "");
+									data.valorizacao_IRON_FE62 = data.valorizacao_IRON_FE62.replace(/[+,%]/g, "");
+									data.percentual_IRON_FE62 = data.percentual_IRON_FE62.replace(/[+,%]/g, "");
 									gravarCSV(data);
 									}
 					}

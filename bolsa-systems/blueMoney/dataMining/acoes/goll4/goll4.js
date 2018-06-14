@@ -19,8 +19,8 @@ crawler = {
 								data.valorizacao_GOLL4 = html.children('span').eq(1).text();
 								data.percentual_GOLL4 = html.children('span').eq(3).text();
 								data.valor_GOLL4 = data.valor_GOLL4.replace(",", "");
-								data.valorizacao_GOLL4 = data.valorizacao_GOLL4.replace(/[-+,%]/g, "");
-								data.percentual_GOLL4 = data.percentual_GOLL4.replace(/[-+,%]/g, "");
+								data.valorizacao_GOLL4 = data.valorizacao_GOLL4.replace(/[+,%]/g, "");
+								data.percentual_GOLL4 = data.percentual_GOLL4.replace(/[+,%]/g, "");
 								gravarCSV(data);
 							    }
 					}

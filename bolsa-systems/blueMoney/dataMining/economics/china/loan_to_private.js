@@ -107,7 +107,7 @@ crawler = {
 					 data.valor_LOANS_TO_BANKS_2020 = html.children('tr').eq(12).children('td').eq(6).text();
 
 					data.valor_INTEREST_RATE_LAST = data.valor_INTEREST_RATE_LAST.replace(",", "");
-					data.valor_INTEREST_RATE_LAST = data.valor_INTEREST_RATE_LAST.replace(/[-+,%]/g, "");
+					data.valor_INTEREST_RATE_LAST = data.valor_INTEREST_RATE_LAST.replace(/[+,%]/g, "");
 					console.log("	executouaqui:");
 					gravarCSV(data);
 					}

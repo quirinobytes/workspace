@@ -21,8 +21,8 @@ crawler = {
 									data.valorizacao_JBSS3 = html.children('span').eq(1).text();
 									data.percentual_JBSS3 = html.children('span').eq(3).text();
 									data.valor_JBSS3 = data.valor_JBSS3.replace(",", "");
-									data.valorizacao_JBSS3 = data.valorizacao_JBSS3.replace(/[-+,%]/g, "");
-									data.percentual_JBSS3 = data.percentual_JBSS3.replace(/[-+,%]/g, "");
+									data.valorizacao_JBSS3 = data.valorizacao_JBSS3.replace(/[+,%]/g, "");
+									data.percentual_JBSS3 = data.percentual_JBSS3.replace(/[+,%]/g, "");
 									gravarCSV(data);
 									}
 					}

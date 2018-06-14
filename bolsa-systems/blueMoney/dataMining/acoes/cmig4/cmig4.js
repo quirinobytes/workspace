@@ -19,8 +19,8 @@ crawler = {
 								data.valorizacao_CMIG4 = html.children('span').eq(1).text();
 								data.percentual_CMIG4 = html.children('span').eq(3).text();
 								data.valor_CMIG4 = data.valor_CMIG4.replace(",", "");
-								data.valorizacao_CMIG4 = data.valorizacao_CMIG4.replace(/[-+,%]/g, "");
-								data.percentual_CMIG4 = data.percentual_CMIG4.replace(/[-+,%]/g, "");
+								data.valorizacao_CMIG4 = data.valorizacao_CMIG4.replace(/[+,%]/g, "");
+								data.percentual_CMIG4 = data.percentual_CMIG4.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

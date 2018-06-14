@@ -20,8 +20,8 @@ crawler = {
 								data.valorizacao_GGBR4 = html.children('span').eq(1).text();
 								data.percentual_GGBR4 = html.children('span').eq(3).text();
 								data.valor_GGBR4 = data.valor_GGBR4.replace(",", "");
-								data.valorizacao_GGBR4 = data.valorizacao_GGBR4.replace(/[-+,%]/g, "");
-								data.percentual_GGBR4 = data.percentual_GGBR4.replace(/[-+,%]/g, "");
+								data.valorizacao_GGBR4 = data.valorizacao_GGBR4.replace(/[+,%]/g, "");
+								data.percentual_GGBR4 = data.percentual_GGBR4.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

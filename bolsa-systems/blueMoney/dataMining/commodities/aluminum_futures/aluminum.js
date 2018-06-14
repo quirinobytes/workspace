@@ -20,8 +20,8 @@ crawler = {
 								data.valorizacao_ALUMINUM = html.children('span').eq(1).text();
 								data.percentual_ALUMINUM = html.children('span').eq(3).text();
 								data.valor_ALUMINUM = data.valor_ALUMINUM.replace(",", "");
-								data.valorizacao_ALUMINUM = data.valorizacao_ALUMINUM.replace(/[-+,%]/g, "");
-								data.percentual_ALUMINUM = data.percentual_ALUMINUM.replace(/[-+,%]/g,"");
+								data.valorizacao_ALUMINUM = data.valorizacao_ALUMINUM.replace(/[+,%]/g, "");
+								data.percentual_ALUMINUM = data.percentual_ALUMINUM.replace(/[+,%]/g,"");
 								gravarCSV(data);
 								}
 					}

@@ -18,8 +18,8 @@ crawler = {
 								data.valorizacao_ANGLO = html.children('span').eq(1).text();
 								data.percentual_ANGLO = html.children('span').eq(3).text();
 								data.valor_ANGLO = data.valor_ANGLO.replace(",", "");
-								data.valorizacao_ANGLO = data.valorizacao_ANGLO.replace(/[-+,%]/g, "");
-								data.percentual_ANGLO = data.percentual_ANGLO.replace(/[-+,%]/g, "");
+								data.valorizacao_ANGLO = data.valorizacao_ANGLO.replace(/[+,%]/g, "");
+								data.percentual_ANGLO = data.percentual_ANGLO.replace(/[+,%]/g, "");
 								gravarCSV(data);
 							    }
 					}

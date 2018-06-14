@@ -11,6 +11,7 @@ var REQUESTS=500;
 var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/datafiles/cotacoes-c.json';
 var urlserver = 'http://superati.com.br:8080/comprar' ;
 var urlserver = 'http://superati.com.br:3000/comprar' ;
+var urlserver = 'http://localhost:3000/comprar' ;
 
 //fs.exists(filename, function(exists) {
 // if (exists) {

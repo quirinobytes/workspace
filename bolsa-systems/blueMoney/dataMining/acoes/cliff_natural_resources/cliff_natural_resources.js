@@ -17,8 +17,8 @@ crawler = {
 								data.valorizacao_CLIFF = html.children('span').eq(1).text();
 								data.percentual_CLIFF = html.children('span').eq(3).text();
 	 							data.valor_CLIFF = data.valor_CLIFF.replace(",", "");
-								data.valorizacao_CLIFF = data.valorizacao_CLIFF.replace(/[-+,%]/g, "");
-								data.percentual_CLIFF = data.percentual_CLIFF.replace(/[-+,%]/g, "");
+								data.valorizacao_CLIFF = data.valorizacao_CLIFF.replace(/[+,%]/g, "");
+								data.percentual_CLIFF = data.percentual_CLIFF.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

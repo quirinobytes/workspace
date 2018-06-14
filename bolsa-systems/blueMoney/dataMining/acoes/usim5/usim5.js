@@ -20,8 +20,8 @@ crawler = {
 								data.valorizacao_USIM5 = html.children('span').eq(1).text();
 								data.percentual_USIM5 = html.children('span').eq(3).text();
 								data.valor_USIM5 = data.valor_USIM5.replace(",", "");
-								data.valorizacao_USIM5 = data.valorizacao_USIM5.replace(/[-+,%]/g, "");
-								data.percentual_USIM5 = data.percentual_USIM5.replace(/[-+,%]/g, "");
+								data.valorizacao_USIM5 = data.valorizacao_USIM5.replace(/[+,%]/g, "");
+								data.percentual_USIM5 = data.percentual_USIM5.replace(/[+,%]/g, "");
 								gravarCSV(data);
 								}
 					}

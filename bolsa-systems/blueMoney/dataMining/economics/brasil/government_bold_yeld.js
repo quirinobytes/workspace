@@ -20,8 +20,8 @@ crawler = {
 						data.maximo_BRASIL_GROWTH = html.children('tr').eq(0).children('td').eq(3).text();
 						data.minimo_BRASIL_GROWTH = html.children('tr').eq(0).children('td').eq(4).text();
 						data.valor_BRASIL_GROWTH = data.valor_BRASIL_GROWTH.replace(",", "");
-						data.valorizacao_BRASIL_GROWTH = data.valorizacao_BRASIL_GROWTH.replace(/[-+,%]/g, "");
-						data.percentual_BRASIL_GROWTH = data.percentual_BRASIL_GROWTH.replace(/[-+,%]/g, "");
+						data.valorizacao_BRASIL_GROWTH = data.valorizacao_BRASIL_GROWTH.replace(/[+,%]/g, "");
+						data.percentual_BRASIL_GROWTH = data.percentual_BRASIL_GROWTH.replace(/[+,%]/g, "");
 						gravarCSV(data);
 						}
 					}

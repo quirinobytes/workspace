@@ -20,8 +20,8 @@ crawler = {
                                 data.valorizacao_CSNA3 = html.children('span').eq(1).text();
                                 data.percentual_CSNA3 = html.children('span').eq(3).text();
 								data.valor_CSNA3 = data.valor_CSNA3.replace(",", "");
-								data.valorizacao_CSNA3 = data.valorizacao_CSNA3.replace(/[-+,%]/g, "");
-								data.percentual_CSNA3 = data.percentual_CSNA3.replace(/[-+,%]/g, "");
+								data.valorizacao_CSNA3 = data.valorizacao_CSNA3.replace(/[+,%]/g, "");
+								data.percentual_CSNA3 = data.percentual_CSNA3.replace(/[+,%]/g, "");
                                 gravarCSV(data);
                                 }
                     }

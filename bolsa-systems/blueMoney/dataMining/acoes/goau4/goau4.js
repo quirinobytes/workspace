@@ -19,8 +19,8 @@ crawler = {
 								data.valorizacao_GOAU4 = html.children('span').eq(1).text();
 								data.percentual_GOAU4 = html.children('span').eq(3).text();
 								data.valor_GOAU4 = data.valor_GOAU4.replace(",", "");
-								data.valorizacao_GOAU4 = data.valorizacao_GOAU4.replace(/[-+,%]/g, "");
-								data.percentual_GOAU4 = data.percentual_GOAU4.replace(/[-+,%]/g, "");
+								data.valorizacao_GOAU4 = data.valorizacao_GOAU4.replace(/[+,%]/g, "");
+								data.percentual_GOAU4 = data.percentual_GOAU4.replace(/[+,%]/g, "");
 				    	        gravarCSV(data);
 								}
 					}
