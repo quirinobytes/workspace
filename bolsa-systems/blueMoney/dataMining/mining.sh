@@ -127,7 +127,7 @@ send_bluemoney.js "`cat ultimo.txt | tr '"' '\0' `"
 cd - 
 
 
-echo -en "\n$green FINALIZADO:$yellow o arquivo stockDatabase.csv contém $alert $(wc -l /var/www/webserver/arquivos/stockDatabase.csv)$normal linhas.\n"
+echo -en "\n$green FINALIZADO:$yellow o arquivo stockDatabase.csv contém $alert $(wc -l /var/www/webserver/arquivos/stockDatabase.csv 2>&1 > /dev/null) $normal linhas.\n"
 
 
 

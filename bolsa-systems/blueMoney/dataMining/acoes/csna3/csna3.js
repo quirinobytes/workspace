@@ -3,7 +3,7 @@ var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
 fields = ['valor_CSNA3','valorizacao_CSNA3','percentual_CSNA3'];
-var url_LOADPRICE = 'http://localhost:3000/loadprice' ;
+var url_LOADPRICE = 'http://localhost:80/loadprice' ;
 var data;
 
 crawler = {

@@ -1,10 +1,7 @@
-// MODULO DE CONFIGURACAO DO BANCO DE DADOS.
-//
+// CONFIGURACAO DO BANCO DE DADOS.
 
 var mongoose = require('mongoose');
-var strDBConnect = 'mongodb://dev1/API';
-
-
+var strDBConnect = 'mongodb://localhost/API';
 
 
 mongoose.connect(strDBConnect, function (err,res ){

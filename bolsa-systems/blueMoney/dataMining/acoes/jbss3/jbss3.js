@@ -3,7 +3,7 @@ var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
 var fields = ['valor_JBSS3','valorizacao_JBSS3','percentual_JBSS3'];
-var url_LOADPRICE = 'http://localhost:3000/loadprice' ;
+var url_LOADPRICE = 'http://localhost:80/loadprice' ;
 var data;
 
 

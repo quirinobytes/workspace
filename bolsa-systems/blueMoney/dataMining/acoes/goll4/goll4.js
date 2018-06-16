@@ -2,7 +2,7 @@ var crawlerjs = require('crawler-js');
 var request = require('request');
 var fs = require('fs');
 var fields = ['valor_GOLL4','valorizacao_GOLL4','percentual_GOLL4'];
-var url_LOADPRICE = 'http://localhost:3000/loadprice' ;
+var url_LOADPRICE = 'http://localhost:80/loadprice' ;
 var data;
 
 crawler = {
