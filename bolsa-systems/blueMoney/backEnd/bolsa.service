@@ -5,7 +5,7 @@ Description= Bolsa Server
 
 [Service]
 #ExecStart=/usr/local/bin/node /opt/nodeserver/server.js
-ExecStart=/root/workspace/bolsa-systems/blueMoney/backEnd/bolsa.js
+ExecStart=/root/workspace/bolsa-systems/blueMoney/backEnd/bolsa.js 2>&1
 
 # Required on some systems
 WorkingDirectory=/root/workspace/bolsa-systems/blueMoney/backEnd/

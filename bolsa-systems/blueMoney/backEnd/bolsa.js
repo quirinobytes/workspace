@@ -5,7 +5,6 @@ var app = require('./config/app_config');
 var db = require('./config/db_config.js');
 var product = require('./models/product');
 var productController = require('./controllers/productController');
-//var os = require("os");
 const { spawn } = require('child_process');
 var fs = require("fs");
 var saldo=1500;
