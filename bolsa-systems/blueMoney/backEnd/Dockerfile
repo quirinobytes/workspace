@@ -23,7 +23,7 @@ RUN ln -s /usr/src/app/node_modules /root/workspace/bolsa-systems/blueMoney/data
 # Bundle app source
 COPY . .
 
-EXPOSE 3000
+EXPOSE 80
 CMD [ "npm", "start" ]
 
 
