@@ -11,8 +11,10 @@ var saldo=1500;
 //testar para remover
 var path = require('path');
 
-// ### CONFIG ###
+
+// ### DEBUG ###
 var debug=false;
+
 if (process.argv[2] == '-v')
 	var cfg_mostrapainel=1;
 else
