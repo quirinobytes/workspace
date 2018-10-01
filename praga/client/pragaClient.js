@@ -26,13 +26,13 @@
      })
 
 	socket.on("message", (data) => {
-		console.log("#: " + data.message + ": " + data.hostname )
+		// console.log("#: " + data.message + ": " + data.hostname )
 		 socket.emit("repete", { message: 'repete' } );
 		 socket.emit("message", { message: 'repete' } );
      })
 
 	socket.on("repete", (data) => {
-			console.log("#: " + data.message + ": " + data )
+		//	console.log("#: " + data.message + ": " + data )
 		 socket.emit("repete", { message: 'instalado' } );
      })
 
