@@ -9,7 +9,7 @@ content= {};
 var debug=false;
 var REQUESTS=500;
 var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/comprador/datafiles/cotacoes-c.json';
-var urlserver = 'http://192.168.15.15/comprar' ;
+var urlserver = 'http://192.168.15.3/comprar' ;
 
 //fs.exists(filename, function(exists) {
 // if (exists) {

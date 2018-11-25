@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
+RUN mkdir /root/workspace/bolsa-systems/blueMoney/backEnd/robos/comprador/datafiles/ -p
 COPY datafiles/cotacoes-c.json /root/workspace/bolsa-systems/blueMoney/backEnd/robos/comprador/datafiles/cotacoes-c.json
 COPY forever.sh /usr/bin/forever.sh
 RUN npm install -g
