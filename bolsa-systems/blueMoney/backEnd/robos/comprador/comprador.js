@@ -6,7 +6,7 @@ var fs = require('fs');
 content= {};
 
 // ### CONFIG ###
-var debug=false;
+var debug=false
 var REQUESTS=500;
 var filename = '/root/workspace/bolsa-systems/blueMoney/backEnd/robos/comprador/datafiles/cotacoes-c.json';
 var urlserver = 'http://192.168.15.3/comprar' ;
@@ -49,14 +49,15 @@ else	array_valores['CSNA3'] = 10;
 
 // -d para executar no modo daemon
 if (process.argv[2] == '-d')
-//	while (true) 
-	for (c=0;c<REQUESTS;c++){
+//	while (true)
+	for (c=0;c<REQUESTS;){
 
 		getUrl();
 		stop = new Date().getTime();
     	while(new Date().getTime() < stop + 1) {
 		}
-}
+	}
+
 else
 	getUrl();
 
