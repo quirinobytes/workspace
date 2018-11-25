@@ -139,7 +139,7 @@ td {
 						 //
 						 $http({
 								 method: 'POST',
-								 url: './vender',
+								 url: './../vender',
 								 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 								 data: 'id_corretora=13&id_cliente=27&ativo=' + papel.montadora.nome + '&quantidade=' + papel.quantidade + '&valor=' + papel.valor + '&token=1234abcd'
 						 }).success(function (response) { 
