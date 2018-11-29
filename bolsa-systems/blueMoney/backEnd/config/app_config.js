@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var port = 8080;
+var port = 80;
 
 var app = module.exports = express();
 
