@@ -6,12 +6,12 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "chance": "^1.0.4",
-    "colors": "^1.1.2",
-    "express": "^4.14.0",
+    "colors": "^1.3.2",
+    "crawler-js": "^2.0.1",
+    "express": "^4.16.4",
     "mongoose": "^4.6.3",
     "react": "16.4.0",
-    "request": "^2.76.0",
-	"crawler-js": "^2.0.1"
+    "request": "^2.76.0"
   },
   "devDependencies": {},
   "scripts": {
