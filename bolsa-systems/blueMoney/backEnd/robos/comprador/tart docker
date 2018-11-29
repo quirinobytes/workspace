@@ -1,0 +1,17 @@
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: inactive (dead) since Wed 2018-11-28 23:34:26 -02; 18ms ago
+     Docs: https://docs.docker.com
+  Process: 27508 ExecStart=/usr/bin/dockerd -H fd:// (code=exited, status=0/SUCCESS)
+ Main PID: 27508 (code=exited, status=0/SUCCESS)
+
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25Z" level=info msg="shim reaped" id=d6620b29bb15b991d233f4aff6b78d5f20b08f4d5adbfb4b0df1af76e3117047
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.489046526Z" level=info msg="ignoring event" module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.548516649Z" level=info msg="stopping healthcheck following graceful shutdown" module=libcontainerd
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.548967500Z" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=plugins.moby
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.549188388Z" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=moby
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.552019956Z" level=info msg="pickfirstBalancer: HandleSubConnStateChange: 0xc420317110, TRANSIENT_FAILURE" module=grpc
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.552235036Z" level=info msg="pickfirstBalancer: HandleSubConnStateChange: 0xc420317110, CONNECTING" module=grpc
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.552644940Z" level=info msg="pickfirstBalancer: HandleSubConnStateChange: 0xc4201861a0, TRANSIENT_FAILURE" module=grpc
+Nov 28 23:34:25 ubuntu-s-1vcpu-1gb-sfo2-01 dockerd[27508]: time="2018-11-29T01:34:25.552819795Z" level=info msg="pickfirstBalancer: HandleSubConnStateChange: 0xc4201861a0, CONNECTING" module=grpc
+Nov 28 23:34:26 ubuntu-s-1vcpu-1gb-sfo2-01 systemd[1]: Stopped Docker Application Container Engine.
